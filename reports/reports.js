@@ -1,6 +1,12 @@
 /* 每日報告清單：每天新增一筆（日期、額度圖、成果圖、一句話摘要）。頁面會自動依日期由新到舊排序。 */
 window.JIO_REPORTS = [
   {
+    date: "2026-11-16",
+    quota: "reports/2026-11-16_quota.jpg",
+    daily: "reports/2026-11-16_daily.jpg",
+    note: { zh: "11/13 之後：網站定位改為作品集、首頁四格漫畫拆小圖瘦身、成員介紹加入三語打招呼語音、連載漫畫新增「JIO 時事四格」第 1 話。四位員工額度都充足：Kaz、Tidal 0%，Rudy 9%，Idn 10%。", en: "Since 11/13: the site is now positioned as a portfolio, the home-page 4-panel comic was split into smaller images, member profiles got greeting voices in three languages, and the comic shelf added episode 1 of 'JIO News 4-Panel'. All four staff have plenty of quota: Kaz and Tidal 0%, Rudy 9%, Idn 10%.", hi: "11/13 के बाद: साइट अब पोर्टफ़ोलियो के रूप में है, होम पेज की 4-पैनल कॉमिक छोटी तस्वीरों में बँटी, सदस्य परिचय में तीन भाषाओं में अभिवादन आवाज़ें जुड़ीं, और कॉमिक शेल्फ़ में 'JIO न्यूज़ 4-पैनल' का पहला एपिसोड आया। चारों कर्मचारियों के पास भरपूर कोटा है: Kaz और Tidal 0%, Rudy 9%, Idn 10%।" }
+  },
+  {
     date: "2026-11-13",
     quota: "reports/2026-11-13_quota.jpg",
     daily: "reports/2026-11-13_daily.jpg",
