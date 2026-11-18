@@ -36,6 +36,7 @@
 | `jio-qa-patch-*`、`jio-r2-patch-*` | 早期的修補樣式（手機面板位置等，用 id 選擇器加 `!important`，優先權很高） |
 | `jio-mod18-*` | 作品集：YouTube、連載漫畫書架與閱讀器、接力作品、網頁作品（遊戲、3D、小工具）、員工海報 |
 | `jio-m19-voice-*` | 成員介紹頁的打招呼語音：音檔放 `works/voice/<成員>_<語言>.mp3`，有檔案才出現按鈕；台詞在模組的 `LINES`，檔名與規格見 `works/voice/README.md` |
+| `jio-m20-news-*` | 首頁「最新動態」公布欄（統計數字下方），資料在 `news.js` |
 | `jio-slim-*` | 手機瘦身：導覽列單排、浮動鈕合成一顆、首頁「讓 Rudy 帶你逛」按鈕 |
 
 其他檔案：
@@ -51,6 +52,9 @@
 - `*_sheet.jpg`：四位員工定裝照（茶水間頭像也用它）；`logo.jpg`：logo 和分享預覽圖；`icon-64.png`、`icon-180.png`：分頁小圖示
 
 ## 常見工作怎麼做
+
+### 加一則最新動態（每次更新網站都要做）
+在 `news.js` 的 `window.JIO_NEWS` 最前面加一筆 `{d:'YYYY-MM-DD', href:'點了去哪', zh, en, hi}`。首頁公布欄會依日期由新到舊排，預設顯示 6 則，3 天內的標 NEW。
 
 ### 加一集 YouTube 影片
 在 `jio-mod18-script` 裡找 `var EPS=[…]`，在最前面加一筆 `{k:'ep4',id:'影片ID'}`（新的在前）。

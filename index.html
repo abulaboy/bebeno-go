@@ -11177,5 +11177,56 @@ function init(){build();probe()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else setTimeout(init,0);
 })();
 </script>
+<style id="jio-m20-news-style">
+.jn-board{margin:6px 0 30px;background:#a8743f;background-image:radial-gradient(#8a5a2b 1px,transparent 1.5px),radial-gradient(#c08a52 1px,transparent 1.5px);background-size:14px 14px,22px 22px;background-position:0 0,7px 9px;border:10px solid var(--brown);border-radius:14px;padding:16px 16px 12px;box-shadow:inset 0 0 18px #0005,0 6px 16px #3b1d0b44}
+.jn-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.jn-head h2{margin:0;color:var(--cream);text-shadow:0 2px 3px #0007}
+.jn-head h2::after{display:none}
+.jn-list{list-style:none;padding:0;margin:0;display:grid;gap:9px}
+.jn-item{position:relative;background:var(--paper);border-radius:4px;padding:10px 14px 10px 34px;box-shadow:0 3px 6px #0004;display:flex;align-items:baseline;gap:12px}
+.jn-item:nth-child(odd){transform:rotate(-.35deg)}.jn-item:nth-child(even){transform:rotate(.35deg)}
+.jn-item::before{content:"";position:absolute;left:12px;top:15px;width:11px;height:11px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#ff9a8a,#c0392b);box-shadow:0 2px 2px #0006}
+.jn-t{flex:1;min-width:0}
+.jn-t a{color:var(--brown);text-decoration:none;font-weight:600}
+.jn-t a:hover{text-decoration:underline;color:var(--saffron)}
+.jn-d{flex-shrink:0;font-size:.85rem;color:#8a6a48;font-variant-numeric:tabular-nums;white-space:nowrap}
+.jn-item[hidden]{display:none}
+.jn-new{display:inline-block;margin-left:6px;font-size:.7rem;font-weight:700;color:#fff;background:var(--saffron);border-radius:4px;padding:0 5px;vertical-align:middle}
+.jn-more{display:block;margin:12px auto 0;background:var(--cream);color:var(--brown);border:2px solid var(--gold);border-radius:999px;padding:5px 18px;font:inherit;font-size:.9rem;cursor:pointer}
+@media(max-width:600px){.jn-board{border-width:7px;padding:12px 10px 10px}.jn-item{flex-direction:column;gap:2px;padding:9px 12px 9px 30px}.jn-item::before{left:10px;top:14px}}
+</style>
+<script id="jio-m20-news-script">
+(function(){
+  var I={zh:{title:'最新動態',more:'看更多',less:'收起'},en:{title:'Latest Updates',more:'Show more',less:'Show less'},hi:{title:'ताज़ा अपडेट',more:'और देखें',less:'कम देखें'}};
+  var SHOW=6, open=false;
+  function lang(){var l=document.documentElement.getAttribute('data-lang');return I[l]?l:'zh';}
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function render(){
+    var box=document.getElementById('jn-board'); if(!box||!window.JIO_NEWS) return;
+    var L=lang(), T=I[L];
+    var list=window.JIO_NEWS.map(function(n,i){return {n:n,i:i};}).sort(function(a,b){return a.n.d<b.n.d?1:a.n.d>b.n.d?-1:a.i-b.i;});
+    var now=Date.now();
+    var html='<div class="jn-head"><h2>'+T.title+'</h2></div><ul class="jn-list">';
+    list.forEach(function(o,k){
+      var n=o.n, txt=esc(n[L]||n.zh), isNew=(now-new Date(n.d+'T00:00:00+08:00').getTime())<3*864e5;
+      var t=n.href?'<a href="'+esc(n.href)+'">'+txt+'</a>':txt;
+      html+='<li class="jn-item"'+(k>=SHOW&&!open?' hidden':'')+'><span class="jn-t">'+t+(isNew?'<span class="jn-new">NEW</span>':'')+'</span><span class="jn-d">'+n.d.replace(/-/g,'.')+'</span></li>';
+    });
+    html+='</ul>';
+    if(list.length>SHOW) html+='<button type="button" class="jn-more">'+(open?T.less:T.more)+'</button>';
+    box.innerHTML=html;
+    var b=box.querySelector('.jn-more'); if(b) b.addEventListener('click',function(){open=!open;render();});
+  }
+  function mount(){
+    var home=document.getElementById('home'); if(!home||document.getElementById('jn-board')) return;
+    var box=document.createElement('section'); box.id='jn-board'; box.className='jn-board'; box.setAttribute('aria-label','最新動態');
+    var stats=home.querySelector('.stats');
+    if(stats&&stats.parentNode===home) stats.insertAdjacentElement('afterend',box); else home.appendChild(box);
+    var sc=document.createElement('script'); sc.src='news.js?v='+Date.now().toString().slice(0,-5); sc.onload=render; document.head.appendChild(sc);
+    new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['data-lang']});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',mount); else mount();
+})();
+</script>
 </body>
 </html>
