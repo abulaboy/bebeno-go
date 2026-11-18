@@ -56,8 +56,8 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 <div class="lead">
 <b>一句話總結：</b>文字類工具（生圖、Canvas、研究、引導式學習）都能直接交件，品質可以用；影音類工具（影片、音樂、語音摘要）這一輪全部沒做出成品，Flow 能上傳素材也知道價錢，但卡在核准按鈕。
 <div class="stats">
-<div class="stat ok"><b>4</b>可直接派工</div>
-<div class="stat part"><b>2</b>部分可用</div>
+<div class="stat ok"><b>5</b>可直接派工</div>
+<div class="stat part"><b>1</b>部分可用</div>
 <div class="stat no"><b>4</b>這輪沒做出來</div>
 </div>
 </div>
@@ -69,7 +69,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 <tr><td>Canvas</td><td>Idn</td><td><span class="tag ok">成功</span></td><td>做出可玩的「認識 JIO 員工小測驗」，實測 10 題跑完、沒有錯誤。</td></tr>
 <tr><td>任務模式研究</td><td>Tidal</td><td><span class="tag ok">成功</span></td><td>自己搜尋、讀原文，交出 6 則附來源的新聞＋3 組四格分鏡。</td></tr>
 <tr><td>引導式學習</td><td>Tidal</td><td><span class="tag ok">成功</span></td><td>注音雙胞胎教學＋10 題題庫，注音與答案逐題核對都正確。</td></tr>
-<tr><td>Gem 說明文字</td><td>Idn</td><td><span class="tag part">部分</span></td><td>規則寫得好，但四位員工的外型是自己編的，要照定裝照改。</td></tr>
+<tr><td>Gem 說明文字</td><td>Idn</td><td><span class="tag ok">已補完</span></td><td>員工外型原本是自己編的，老闆已照定裝照改正（Tidal 是年長者、Kaz 戴傳統氈帽）。</td></tr>
 <tr><td>Flow</td><td>老闆操作</td><td><span class="tag part">部分</span></td><td>能上傳定裝照當素材，一段 8 秒影片 8 點；核准按鈕沒按成功，逾時取消、未扣點。</td></tr>
 <tr><td>建立影片（Veo）</td><td>Kaz</td><td><span class="tag no">沒做出</span></td><td>對話模式送出後整則消失；任務模式回報「沒有掛載影片工具」。</td></tr>
 <tr><td>創作音樂</td><td>Rudy、Tidal</td><td><span class="tag no">沒做出</span></td><td>Rudy 卡住沒回應；Tidal 第一次因提到頻道名稱被拒，第二次額度已滿。</td></tr>
@@ -124,7 +124,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 <h3>⑤ Gem 說明文字：「JIO 漫畫編輯部」</h3>
 <div class="meta">Idn｜約 550 字</div>
 四大規則（固定人設、魔球世界觀、對白框留白另列台詞、命名與存放）寫得清楚，可以直接貼進 Gem。
-<ul><li>問題：員工沒看過定裝照，外型描述（眼鏡、髮型、衣服顏色）是自己想的，跟定裝照不一樣。建 Gem 前要照定裝照改，或直接把定裝照上傳成 Gem 的參考圖。</li></ul>
+<ul><li>員工沒看過定裝照，原本的外型描述是自己想的（例如把四人都寫成年輕人）。老闆已照定裝照逐一改正：Rudy 濃密落腮鬍、深藍背心；Kaz 白色刺繡氈帽、八字鬍；Idn 捲髮、圓眼鏡、深綠立領外套；Tidal 年長、光頭、白色翹八字鬍、紫色襯衫。</li><li>小測驗的頭像也改成直接用定裝照，不再用程式畫的卡通臉。</li></ul>
 </div>
 
 <div class="card">
@@ -132,7 +132,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 <div class="meta">老闆在員工帳號操作｜每月約 1,050 點</div>
 <ul><li>四張定裝照上傳成功，系統會先跳一次「圖像使用權」確認。</li>
 <li>Flow 內建對話代理，用講的就能排影片；預設模型 Omni 1.2 Flash，<b>8 秒 360p 一段 8 點</b>，1,050 點大約 130 段。</li>
-<li>生成前要按「核准」，老闆從遠端點擊沒有成功，兩次都逾時取消（沒有扣點）。這一步建議先由人工按，或之後研究穩定的點法。</li></ul>
+<li>生成前要按「核准」，老闆從遠端點擊沒有成功，兩次都逾時取消（沒有扣點）。後來找到原因是畫面縮放讓點擊位置偏掉，改成一般寬度並收合左側欄後，對話面板與核准按鈕就點得到，正在重試。</li><li>Flow 另有「角色」功能：把人物建成角色後可重複使用，專門解決多鏡頭長相不一致，適合四位員工。</li></ul>
 </div>
 
 <div class="card">
@@ -154,7 +154,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 <tr><td>引導式學習</td><td>教材、題庫、學新工具</td><td>指定對象與程度（例如小一、康軒首冊）；要互動就讓它一問一答，不要叫它一次示範完。</td></tr>
 <tr><td>Gem</td><td>固定角色、畫風、規則的長期工作</td><td>把定裝照當參考圖上傳，說明文字只寫照片看得到的特徵。</td></tr>
 <tr><td>建立影片</td><td>8 秒短鏡頭、動態漫畫</td><td>用 Argon、對話模式；長片拆成 8 秒一段；送出後確認訊息還在。</td></tr>
-<tr><td>Flow</td><td>多鏡頭要同一張臉的劇情片</td><td>先上傳定裝照當素材；一段 8 點；核准按鈕由人工按。</td></tr>
+<tr><td>Flow</td><td>多鏡頭要同一張臉的劇情片、20 秒內的質感短片</td><td>先把定裝照建成「角色」；一段 8 秒 8 點；分 3 段生成再剪接。連戲要自己顧：道具（帽子、安全帽）每段都要寫進提示詞、行進方向要一致、配樂最後統一配，不要用各段自帶的。光線寫清楚來源與色溫（例如清晨冷藍走到日出暖金），質感最好。</td></tr>
 <tr><td>創作音樂</td><td>片頭曲、背景音樂</td><td>不要寫任何品牌、頻道或公司名稱，只描述風格、樂器、長度。</td></tr>
 <tr><td>存檔</td><td>所有成品</td><td>一律放 jio company 對應子資料夾，沒有就建一個；跳出「允許建立檔案」要按允許，不然會卡住。</td></tr>
 </table></div>

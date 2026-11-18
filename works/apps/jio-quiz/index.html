@@ -495,7 +495,7 @@
 
 <script>
     /**
-     * 角色設定資料：JIO 公司四位年輕印度男生員工
+     * 角色設定資料：JIO 公司四位員工（長相照定裝照）
      */
     const CHARACTERS = {
         Rudy: {
@@ -706,9 +706,29 @@
     window.addEventListener('resize', resizeCanvases);
 
     /**
-     * 使用 Canvas 繪製四位年輕印度男生員工插畫頭像與配件
+     * 員工頭像：直接用定裝照（網站根目錄的 *_sheet.jpg 第一格）裁成圓形，長相與定裝照一致
      */
+    const JIO_FACE = {};
+    ['Rudy','Kaz','Idn','Tidal'].forEach(function(n){ const im=new Image(); im.src='../../../'+n.toLowerCase()+'_sheet.jpg'; JIO_FACE[n]=im; });
     function drawIndianGuyAvatar(ctx, charId, cx, cy, scale, tick) {
+        const im = JIO_FACE[charId];
+        if (!im || !im.complete || !im.naturalWidth) { return drawIndianGuyAvatarOld(ctx, charId, cx, cy, scale, tick); }
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.scale(scale, scale);
+        ctx.translate(0, Math.sin(tick * 0.06 + charId.charCodeAt(0)) * 3);
+        const isTeal = (charId === 'Rudy' || charId === 'Idn');
+        ctx.beginPath(); ctx.arc(0, 0, 52, 0, Math.PI * 2);
+        ctx.fillStyle = isTeal ? '#ccfbf1' : '#ffedd5'; ctx.fill();
+        ctx.lineWidth = 3.5; ctx.strokeStyle = isTeal ? '#14b8a6' : '#f97316'; ctx.stroke();
+        ctx.save(); ctx.beginPath(); ctx.arc(0, 0, 50, 0, Math.PI * 2); ctx.clip();
+        const cw = im.naturalWidth / 5, ch = Math.min(cw * 1.05, im.naturalHeight);
+        ctx.drawImage(im, 0, 0, cw, ch, -50, -50, 100, 100 * ch / cw);
+        ctx.restore();
+        ctx.restore();
+    }
+
+    function drawIndianGuyAvatarOld(ctx, charId, cx, cy, scale, tick) {
         ctx.save();
         ctx.translate(cx, cy);
         ctx.scale(scale, scale);
