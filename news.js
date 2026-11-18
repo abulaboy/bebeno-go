@@ -3,9 +3,9 @@
    畫面會自動依日期由新到舊排，同一天照這裡的先後。 */
 window.JIO_NEWS = [
   {d:'2026-11-18', href:'works/stories/',
-   zh:'新增小故事「JIO 辦公室奇譚」：AI 自動烤餅機大暴走、深夜機房的幽靈 Commit',
-   en:'New short stories "JIO Office Tales": the runaway AI naan maker and a phantom commit',
-   hi:'नई लघु कहानियाँ "JIO ऑफ़िस किस्से": बेकाबू AI नान मशीन और भूतिया कमिट'},
+   zh:'新增小故事「JIO 辦公室奇譚」3 篇：AI 自動烤餅機大暴走、深夜機房的幽靈 Commit、JIO 公司的一天',
+   en:'New short stories "JIO Office Tales": the runaway AI naan maker, a phantom commit and a day at JIO',
+   hi:'नई लघु कहानियाँ "JIO ऑफ़िस किस्से": बेकाबू AI नान मशीन, भूतिया कमिट और JIO का एक दिन'},
   {d:'2026-11-18', href:'works/apps/swing/',
    zh:'網頁作品新增「秋千｜小一國語快樂複習」：注音朗讀、田字格描寫、造句與小測驗',
    en:'New web work: "Swing" Grade 1 Mandarin review with read-aloud, tracing and a quiz',
