@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>認識 JIO 員工小測驗 | JIO Studio</title>
+    <style>
+        :root {
+            --teal: #14b8a6;
+            --teal-dark: #0d9488;
+            --teal-light: #f0fdfa;
+            --orange: #f97316;
+            --orange-dark: #ea580c;
+            --orange-light: #fff7ed;
+            --bg: #ffffff;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: #f8fafc;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft JhengHei", "PingFang TC", sans-serif;
+            color: var(--text-main);
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 遊戲主容器：手機優先設計 */
+        #game-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            background-color: var(--bg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 背景特效 Canvas */
+        #bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* 頂部導覽與進度區 */
+        .header {
+            position: relative;
+            z-index: 2;
+            padding: 16px 20px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-badge {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            color: var(--teal-dark);
+            background: var(--teal-light);
+            padding: 5px 12px;
+            border-radius: 999px;
+            border: 1.5px solid var(--teal);
+        }
+
+        .progress-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--orange);
+            display: none;
+        }
+
+        /* 進度條 */
+        .progress-bar-wrap {
+            position: relative;
+            z-index: 2;
+            width: calc(100% - 40px);
+            height: 10px;
+            background: #f1f5f9;
+            margin: 6px 20px 12px;
+            border-radius: 999px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--teal), var(--orange));
+            border-radius: 999px;
+            transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* 主視覺 Canvas 角色與互動插畫舞台 */
+        .canvas-stage {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 230px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        #stage-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* 內容面板區 */
+        .content-area {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            padding: 8px 22px 28px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            flex: 1;
+            animation: fadeIn 0.32s ease-out;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 首頁樣式 */
+        .title-main {
+            font-size: 26px;
+            font-weight: 900;
+            text-align: center;
+            color: var(--text-main);
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+
+        .title-highlight {
+            color: var(--teal-dark);
+            border-bottom: 4px solid var(--orange);
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: var(--text-sub);
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .char-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .char-mini-card {
+            background: #f8fafc;
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .char-mini-card:hover {
+            border-color: var(--teal);
+            transform: translateY(-2px);
+        }
+
+        .char-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .char-info h4 {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .char-info p {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-top: 2px;
+        }
+
+        /* 題目與大按鈕樣式 */
+        .question-box {
+            background: var(--teal-light);
+            border-left: 5px solid var(--teal);
+            padding: 14px 16px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.45;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .option-btn {
+            width: 100%;
+            background: #ffffff;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 15px 16px;
+            text-align: left;
+            font-size: 15.5px;
+            font-weight: 600;
+            color: var(--text-main);
+            line-height: 1.45;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.18s ease;
+            box-shadow: 0 3px 0 var(--border);
+        }
+
+        .option-btn:hover {
+            border-color: var(--teal);
+            background: var(--teal-light);
+        }
+
+        .option-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 var(--teal);
+            border-color: var(--teal);
+            background: #ccfbf1;
+        }
+
+        .option-badge {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--orange-light);
+            color: var(--orange-dark);
+            font-weight: 800;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 1.5px solid #fed7aa;
+        }
+
+        /* 主行動大按鈕 */
+        .cta-btn {
+            width: 100%;
+            background: var(--orange);
+            color: #ffffff;
+            border: none;
+            border-radius: 16px;
+            padding: 17px 20px;
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 5px 0 var(--orange-dark);
+            transition: all 0.15s ease;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .cta-btn:hover {
+            background: #fb923c;
+        }
+
+        .cta-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 var(--orange-dark);
+        }
+
+        /* 結果頁面樣式 */
+        .result-tag {
+            align-self: center;
+            background: var(--orange-light);
+            color: var(--orange-dark);
+            font-size: 13px;
+            font-weight: 800;
+            padding: 4px 14px;
+            border-radius: 999px;
+            border: 1.5px solid var(--orange);
+            margin-bottom: 8px;
+        }
+
+        .result-name {
+            font-size: 28px;
+            font-weight: 900;
+            text-align: center;
+            color: var(--teal-dark);
+            margin-bottom: 4px;
+        }
+
+        .result-role {
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            color: var(--orange);
+            margin-bottom: 14px;
+        }
+
+        .result-desc-card {
+            background: #f8fafc;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            font-size: 15px;
+            line-height: 1.65;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+
+        .stats-box {
+            margin-bottom: 20px;
+        }
+
+        .stat-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            width: 52px;
+            color: var(--text-sub);
+        }
+
+        .stat-track {
+            flex: 1;
+            height: 10px;
+            background: #f1f5f9;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .stat-fill {
+            height: 100%;
+            background: var(--teal);
+            border-radius: 999px;
+            transition: width 0.6s ease-out;
+        }
+
+        .stat-fill.top {
+            background: var(--orange);
+        }
+
+        .stat-val {
+            width: 36px;
+            text-align: right;
+            color: var(--text-main);
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-wrapper">
+    <!-- 背景動態粒子與彩帶 Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- 頂部品牌與題號 -->
+    <header class="header">
+        <div class="brand-badge">JIO STUDIO 職場測驗</div>
+        <div id="progress-text" class="progress-text">Q1 / 10</div>
+    </header>
+
+    <!-- 進度條 -->
+    <div id="progress-bar-wrap" class="progress-bar-wrap">
+        <div id="progress-bar-fill" class="progress-bar-fill"></div>
+    </div>
+
+    <!-- 主視覺插畫 Canvas (繪製四位員工與題目情境互動) -->
+    <div class="canvas-stage">
+        <canvas id="stage-canvas"></canvas>
+    </div>
+
+    <!-- 互動內容區 -->
+    <main class="content-area">
+        <!-- 1. 開始畫面 -->
+        <section id="screen-start" class="screen active">
+            <h1 class="title-main">你在 JIO 裡最像<br><span class="title-highlight">哪位靈魂夥伴？</span></h1>
+            <p class="subtitle">透過 10 個真實又爆笑的日常開發情境，<br>測出你在團隊中的隱藏超能力！</p>
+
+            <div class="char-grid">
+                <div class="char-mini-card" onclick="previewChar('Rudy')">
+                    <span class="char-dot" style="background: var(--teal);"></span>
+                    <div class="char-info">
+                        <h4>Rudy</h4>
+                        <p>拆任務・審查小主管</p>
+                    </div>
+                </div>
+                <div class="char-mini-card" onclick="previewChar('Kaz')">
+                    <span class="char-dot" style="background: var(--orange);"></span>
+                    <div class="char-info">
+                        <h4>Kaz</h4>
+                        <p>話少・漫畫系工程師</p>
+                    </div>
+                </div>
+                <div class="char-mini-card" onclick="previewChar('Idn')">
+                    <span class="char-dot" style="background: var(--teal);"></span>
+                    <div class="char-info">
+                        <h4>Idn</h4>
+                        <p>寫程式與技術文章</p>
+                    </div>
+                </div>
+                <div class="char-mini-card" onclick="previewChar('Tidal')">
+                    <span class="char-dot" style="background: var(--orange);"></span>
+                    <div class="char-info">
+                        <h4>Tidal</h4>
+                        <p>鷹眼找錯・測試專家</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="cta-btn" onclick="startQuiz()">
+                <span>開始測驗 GO！</span>
+            </button>
+        </section>
+
+        <!-- 2. 測驗進行畫面 -->
+        <section id="screen-quiz" class="screen">
+            <div class="question-box">
+                <p id="question-text" class="question-text">載入題目中...</p>
+            </div>
+            <div id="options-list" class="options-list"></div>
+        </section>
+
+        <!-- 3. 測驗結果畫面 -->
+        <section id="screen-result" class="screen">
+            <span class="result-tag">你的 JIO 職場分身是</span>
+            <h2 id="result-name" class="result-name">Rudy</h2>
+            <p id="result-role" class="result-role">節奏控場小主管</p>
+
+            <div id="result-desc" class="result-desc-card"></div>
+
+            <div id="stats-box" class="stats-box"></div>
+
+            <button class="cta-btn" onclick="restartQuiz()">
+                <span>再玩一次</span>
+            </button>
+        </section>
+    </main>
+</div>
+
+<script>
+    /**
+     * 角色設定資料：JIO 公司四位年輕印度男生員工
+     */
+    const CHARACTERS = {
+        Rudy: {
+            id: 'Rudy',
+            name: 'Rudy',
+            role: '小主管｜任務拆解 ＆ 嚴謹審查王',
+            tagline: '「別慌，我們先把問題拆成三張小卡！」',
+            desc: '你是團隊裡的定海神針！遇到再亂的專案，你都能瞬間把大目標拆成清楚的小任務，排好優先順序。Code Review 時眼神超犀利，什麼潛在架構風險都逃不過你的法眼，是大家最依賴的可靠小主管。',
+            accent: '#14b8a6'
+        },
+        Kaz: {
+            id: 'Kaz',
+            name: 'Kaz',
+            role: '工程師｜省話一哥 ＆ 靈魂漫畫家',
+            tagline: '「（默默推眼鏡，甩出一張四格漫畫與滿分 PR）」',
+            desc: '你平時話不多，開會總是安靜角落生物，但一出手就是乾淨俐落的程式碼！腦袋裡裝滿天馬行空的畫面，喜歡在筆記本或白板角落畫四格漫畫吐槽日常，用超強的視覺與直覺默默拯救專案。',
+            accent: '#f97316'
+        },
+        Idn: {
+            id: 'Idn',
+            name: 'Idn',
+            role: '工程師｜全能開發 ＆ 技術專欄作家',
+            tagline: '「這個踩坑過程太精彩了，我先寫成一篇技術筆記！」',
+            desc: '你不只會寫出優雅的程式，還超擅長把複雜的技術觀念轉化成好讀的文章！熱愛研究新工具與整理知識庫，只要有你在，團隊永遠不會缺少清楚的開發文件，是技術力與表達力兼具的知識傳教士。',
+            accent: '#14b8a6'
+        },
+        Tidal: {
+            id: 'Tidal',
+            name: 'Tidal',
+            role: '測試員｜Bug 終結者 ＆ 邊界條件獵人',
+            tagline: '「如果我在這裡狂點 50 下又斷網，系統會怎樣呢？」',
+            desc: '你擁有老鷹般的銳利直覺！當大家覺得功能完美收工時，你總能用各種意想不到的神操作抓出隱藏的深水 Bug。你對品質有著近乎完美主義的堅持，是守護產品平安上線的終極守門員。',
+            accent: '#f97316'
+        }
+    };
+
+    /**
+     * 10 題台灣職場情境題庫
+     */
+    const QUESTIONS = [
+        {
+            q: '1. 專案準備上線前夕突然冒出一個神秘大 Bug，你的第一個反應是？',
+            options: [
+                { text: '立刻開一張緊急票，把排查步驟拆給大家並控管修復時程', role: 'Rudy' },
+                { text: '一句話不說，默默戴上耳機打開編輯器，半小時後丟出修復 PR', role: 'Kaz' },
+                { text: '邊查 Log 邊開共編文件，把觸發原因跟解法同步寫成踩坑紀錄', role: 'Idn' },
+                { text: '眼睛發亮！馬上嘗試十種極端操作，看看能不能複製出更多連動 Bug', role: 'Tidal' }
+            ]
+        },
+        {
+            q: '2. 早上進辦公室（或打開遠端軟體）的第一件事，你通常會做什麼？',
+            options: [
+                { text: '掃描看板上的任務進度，確認今天有哪些 PR 需要我 Review', role: 'Rudy' },
+                { text: '先喝口熱奶茶，在速寫本上畫個今日心情塗鴉，直接進入寫 Code 模式', role: 'Kaz' },
+                { text: '瀏覽技術社群跟部落格，順便把昨天寫好的功能補上清楚的註解與文章', role: 'Idn' },
+                { text: '打開測試環境，把昨天剛部署的新功能從頭到尾「暴力點擊」巡邏一遍', role: 'Tidal' }
+            ]
+        },
+        {
+            q: '3. 當客戶或老闆提出一個「聽起來超模糊」的新需求時，你會怎麼做？',
+            options: [
+                { text: '馬上列出一二三點確認清單，把抽象願景拆成可執行的驗收條件', role: 'Rudy' },
+                { text: '在紙上快速畫出幾格分鏡草圖，用畫面確認「你是不是想要這樣？」', role: 'Kaz' },
+                { text: '先查好相關技術方案，寫一份條理分明的比較指南讓大家討論', role: 'Idn' },
+                { text: '立刻舉手發問：「那如果使用者沒填資料又按上一頁，畫面要怎麼防呆？」', role: 'Tidal' }
+            ]
+        },
+        {
+            q: '4. 團隊開會討論卡關、氣氛陷入沉默時，你通常是哪一種角色？',
+            options: [
+                { text: '跳出來收斂議題：「好，我們先決定 A，B 拆到下一階段處理！」', role: 'Rudy' },
+                { text: '安靜聽完後，默默指著螢幕某一行：「改這裡就好。」一秒破案', role: 'Kaz' },
+                { text: '打開白板或筆記軟體，幫大家把剛剛發散的點整理成結構圖', role: 'Idn' },
+                { text: '提出沒人想到的盲點：「等等，這個做法在舊手機上會不會破版？」', role: 'Tidal' }
+            ]
+        },
+        {
+            q: '5. 看到別人的程式碼或作品時，你最容易注意到哪個部分？',
+            options: [
+                { text: '架構有沒有符合規範、邏輯好不好維護、命名夠不夠清楚', role: 'Rudy' },
+                { text: '畫面互動順不順眼、能不能用更精簡帥氣的寫法達成效果', role: 'Kaz' },
+                { text: 'README 寫得完不完整、有沒有值得學習並寫成分享文的巧思', role: 'Idn' },
+                { text: '輸入框能不能塞奇怪的符號、快速連點兩下按鈕會不會壞掉', role: 'Tidal' }
+            ]
+        },
+        {
+            q: '6. 下班或週末放假時，你最享受哪種充電方式？',
+            options: [
+                { text: '把房間或下週計畫整理得井井有條，看著打勾清單超有成就感', role: 'Rudy' },
+                { text: '沉浸在動漫、插畫創作或獨立遊戲裡，享受不被打擾的個人宇宙', role: 'Kaz' },
+                { text: '逛書店、寫部落格專欄，或是動手做一個有趣的 Side Project 分享上網', role: 'Idn' },
+                { text: '玩解謎遊戲、找碴遊戲，或是研究各種日常用品的奇葩隱藏用法', role: 'Tidal' }
+            ]
+        },
+        {
+            q: '7. 如果要把你的工作桌面拍下來，上面最可能出現什麼？',
+            options: [
+                { text: '排得超整齊的雙螢幕、待辦事項便利貼，還有時程進度表', role: 'Rudy' },
+                { text: '繪圖板、寫滿草稿的方格筆記本、公仔，還有降噪耳機', role: 'Kaz' },
+                { text: '開著程式碼與 Markdown 寫作視窗的筆電，旁邊放著幾本技術書', role: 'Idn' },
+                { text: '三四支不同尺寸的測試手機、平板，還有一份密密麻麻的測試清單', role: 'Tidal' }
+            ]
+        },
+        {
+            q: '8. 當你歷經千辛萬苦終於完成一個大專案，你最有成就感的瞬間是？',
+            options: [
+                { text: '看到所有任務卡片全部移到 Done，每一關都在預期時間內完美交付', role: 'Rudy' },
+                { text: '看著自己親手打造的功能流暢運作，心裡默默比個讚然後深藏功與名', role: 'Kaz' },
+                { text: '把這次專案的技術突破寫成文章發表，收到滿滿的收藏與轉發', role: 'Idn' },
+                { text: '上線後零客訴、零崩潰，所有極端狀況都被我提前攔截下來', role: 'Tidal' }
+            ]
+        },
+        {
+            q: '9. 朋友找你幫忙挑一款新手機或新 App，你的反應通常是？',
+            options: [
+                { text: '先問清楚他的預算跟核心需求，直接幫他篩選出最合理的兩款', role: 'Rudy' },
+                { text: '直接傳一張自己畫的重點圖或超短評語：「買這台，顏值跟效能最頂」', role: 'Kaz' },
+                { text: '傳給他一篇自己整理好的詳細評測分析，優缺點一目了然', role: 'Idn' },
+                { text: '提醒他這台在哪個特定角度拍照會反光、哪個版本更新後有小災情', role: 'Tidal' }
+            ]
+        },
+        {
+            q: '10. 在 JIO 團隊聚餐吃下午茶時，你通常是哪一種存在？',
+            options: [
+                { text: '幫忙統計大家的甜度冰塊、確認餐點有沒有漏送的可靠主揪', role: 'Rudy' },
+                { text: '安靜吃著點心，偶爾冷不防冒出一句神吐槽讓全場笑翻', role: 'Kaz' },
+                { text: '邊吃邊跟大家聊最近看到的酷東西，把氣氛帶得熱絡又有收穫', role: 'Idn' },
+                { text: '第一個發現店家少給一包醬料，或是嚐出今天奶茶比例跟上次不一樣的人', role: 'Tidal' }
+            ]
+        }
+    ];
+
+    // 遊戲狀態管理
+    let currentQ = 0;
+    let scores = { Rudy: 0, Kaz: 0, Idn: 0, Tidal: 0 };
+    let stageMode = 'all';
+    let focusChar = 'Rudy';
+    let animTick = 0;
+    let particles = [];
+
+    const stageCanvas = document.getElementById('stage-canvas');
+    const stageCtx = stageCanvas.getContext('2d');
+    const bgCanvas = document.getElementById('bg-canvas');
+    const bgCtx = bgCanvas.getContext('2d');
+
+    /**
+     * Web Audio 輕快音效合成器（不依賴外部音檔）
+     */
+    let audioCtx = null;
+    function playTone(type) {
+        try {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const now = audioCtx.currentTime;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'click') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(520, now);
+                osc.frequency.exponentialRampToValueAtTime(780, now + 0.08);
+                gain.gain.setValueAtTime(0.12, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+                osc.start(now);
+                osc.stop(now + 0.09);
+            } else if (type === 'win') {
+                const notes = [523.25, 659.25, 783.99, 1046.5];
+                notes.forEach((freq, idx) => {
+                    const o = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    o.connect(g);
+                    g.connect(audioCtx.destination);
+                    o.type = 'triangle';
+                    o.frequency.setValueAtTime(freq, now + idx * 0.09);
+                    g.gain.setValueAtTime(0.14, now + idx * 0.09);
+                    g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.09 + 0.25);
+                    o.start(now + idx * 0.09);
+                    o.stop(now + idx * 0.09 + 0.25);
+                });
+            }
+        } catch (e) {
+            // 忽略瀏覽器自動播放限制
+        }
+    }
+
+    /**
+     * 調整 Canvas 解析度以支援高 DPI 手機螢幕
+     */
+    function resizeCanvases() {
+        const dpr = window.devicePixelRatio || 1;
+        const stageRect = stageCanvas.getBoundingClientRect();
+        stageCanvas.width = stageRect.width * dpr;
+        stageCanvas.height = stageRect.height * dpr;
+        stageCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        const wrapRect = document.getElementById('game-wrapper').getBoundingClientRect();
+        bgCanvas.width = wrapRect.width * dpr;
+        bgCanvas.height = wrapRect.height * dpr;
+        bgCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    window.addEventListener('resize', resizeCanvases);
+
+    /**
+     * 使用 Canvas 繪製四位年輕印度男生員工插畫頭像與配件
+     */
+    function drawIndianGuyAvatar(ctx, charId, cx, cy, scale, tick) {
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.scale(scale, scale);
+
+        const bob = Math.sin(tick * 0.06 + (charId.charCodeAt(0))) * 3;
+        ctx.translate(0, bob);
+
+        // 背景光圈
+        const isTeal = (charId === 'Rudy' || charId === 'Idn');
+        ctx.beginPath();
+        ctx.arc(0, 0, 52, 0, Math.PI * 2);
+        ctx.fillStyle = isTeal ? '#ccfbf1' : '#ffedd5';
+        ctx.fill();
+        ctx.lineWidth = 3.5;
+        ctx.strokeStyle = isTeal ? '#14b8a6' : '#f97316';
+        ctx.stroke();
+
+        // 身體與衣服
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(0, 0, 50, 0, Math.PI * 2);
+        ctx.clip();
+
+        ctx.beginPath();
+        ctx.ellipse(0, 48, 36, 26, 0, 0, Math.PI * 2);
+        if (charId === 'Rudy') ctx.fillStyle = '#0f766e';
+        if (charId === 'Kaz') ctx.fillStyle = '#ea580c';
+        if (charId === 'Idn') ctx.fillStyle = '#14b8a6';
+        if (charId === 'Tidal') ctx.fillStyle = '#1e293b';
+        ctx.fill();
+
+        // 領口細節
+        ctx.beginPath();
+        ctx.moveTo(-10, 24);
+        ctx.lineTo(0, 36);
+        ctx.lineTo(10, 24);
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+        ctx.restore();
+
+        // 脖子與健康暖棕膚色 (年輕印度男生膚色)
+        const skinColor = '#c68652';
+        const skinShadow = '#b07240';
+
+        ctx.fillStyle = skinShadow;
+        ctx.fillRect(-8, 12, 16, 16);
+
+        // 耳朵
+        ctx.fillStyle = skinColor;
+        ctx.beginPath();
+        ctx.arc(-23, -2, 6, 0, Math.PI * 2);
+        ctx.arc(23, -2, 6, 0, Math.PI * 2);
+        ctx.fill();
+
+        // 臉型
+        ctx.beginPath();
+        ctx.roundRect(-22, -26, 44, 44, 18);
+        ctx.fillStyle = skinColor;
+        ctx.fill();
+
+        // 濃密黑髮造型（四位各有特色）
+        ctx.fillStyle = '#18181b';
+        if (charId === 'Rudy') {
+            ctx.beginPath();
+            ctx.arc(0, -18, 24, Math.PI, 0);
+            ctx.lineTo(24, -8);
+            ctx.quadraticCurveTo(10, -22, -22, -12);
+            ctx.closePath();
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(24, 24, 27, 0.35)';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.arc(0, -2, 19, 0.25 * Math.PI, 0.75 * Math.PI);
+            ctx.stroke();
+        } else if (charId === 'Kaz') {
+            const curls = [[-16, -24, 11], [-4, -28, 13], [10, -26, 12], [20, -18, 9], [-22, -16, 9]];
+            curls.forEach(([x, y, r]) => {
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        } else if (charId === 'Idn') {
+            ctx.beginPath();
+            ctx.arc(-10, -20, 16, Math.PI * 0.8, Math.PI * 2.1);
+            ctx.arc(10, -20, 16, Math.PI * 0.9, Math.PI * 2.2);
+            ctx.fill();
+        } else if (charId === 'Tidal') {
+            ctx.beginPath();
+            ctx.moveTo(-23, -12);
+            ctx.lineTo(-18, -32);
+            ctx.lineTo(-8, -26);
+            ctx.lineTo(0, -35);
+            ctx.lineTo(9, -26);
+            ctx.lineTo(19, -31);
+            ctx.lineTo(23, -12);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        // 濃眉
+        ctx.strokeStyle = '#18181b';
+        ctx.lineWidth = 2.8;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(-14, -10);
+        ctx.lineTo(-5, -9);
+        ctx.moveTo(5, -9);
+        ctx.lineTo(14, -10);
+        ctx.stroke();
+
+        // 眼睛
+        ctx.fillStyle = '#18181b';
+        if (charId === 'Kaz') {
+            ctx.fillRect(-13, -5, 7, 3);
+            ctx.fillRect(6, -5, 7, 3);
+        } else {
+            ctx.beginPath();
+            ctx.arc(-9.5, -4, 3, 0, Math.PI * 2);
+            ctx.arc(9.5, -4, 3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(-10.5, -5, 1, 0, Math.PI * 2);
+            ctx.arc(8.5, -5, 1, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // 眼鏡配件 (Rudy 與 Idn)
+        if (charId === 'Rudy' || charId === 'Idn') {
+            ctx.strokeStyle = charId === 'Rudy' ? '#0f172a' : '#f97316';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(-16, -9, 13, 10);
+            ctx.strokeRect(3, -9, 13, 10);
+            ctx.beginPath();
+            ctx.moveTo(-3, -4);
+            ctx.lineTo(3, -4);
+            ctx.stroke();
+        }
+
+        // 嘴巴表情
+        ctx.strokeStyle = '#451a03';
+        ctx.lineWidth = 2.2;
+        ctx.beginPath();
+        if (charId === 'Kaz') {
+            ctx.moveTo(-4, 8);
+            ctx.lineTo(5, 7);
+        } else {
+            ctx.arc(0, 5, 6, 0.15 * Math.PI, 0.85 * Math.PI);
+        }
+        ctx.stroke();
+
+        // 角色專屬小圖示徽章
+        ctx.save();
+        ctx.translate(34, 28);
+        ctx.beginPath();
+        ctx.arc(0, 0, 16, 0, Math.PI * 2);
+        ctx.fillStyle = '#ffffff';
+        ctx.fill();
+        ctx.lineWidth = 2.5;
+        ctx.strokeStyle = isTeal ? '#14b8a6' : '#f97316';
+        ctx.stroke();
+
+        ctx.font = '14px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const iconMap = { Rudy: '📋', Kaz: '🎨', Idn: '✍️', Tidal: '🔍' };
+        ctx.fillText(iconMap[charId], 0, 1);
+        ctx.restore();
+
+        // 角色名稱標籤
+        ctx.fillStyle = '#1e293b';
+        ctx.font = '800 13px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(charId, 0, 68);
+
+        ctx.restore();
+    }
+
+    /**
+     * 主舞台與背景特效動畫迴圈
+     */
+    function renderLoop() {
+        animTick++;
+
+        const stageRect = stageCanvas.getBoundingClientRect();
+        const sw = stageRect.width;
+        const sh = stageRect.height;
+        stageCtx.clearRect(0, 0, sw, sh);
+
+        // 繪製背景裝飾幾何線條
+        stageCtx.save();
+        stageCtx.strokeStyle = '#f1f5f9';
+        stageCtx.lineWidth = 2;
+        stageCtx.beginPath();
+        stageCtx.arc(sw / 2, sh / 2, 95, 0, Math.PI * 2);
+        stageCtx.stroke();
+        stageCtx.restore();
+
+        if (stageMode === 'all') {
+            const spacing = Math.min(sw / 4.3, 96);
+            const startX = sw / 2 - spacing * 1.5;
+            const roles = ['Rudy', 'Kaz', 'Idn', 'Tidal'];
+            roles.forEach((r, idx) => {
+                const isSelected = (focusChar === r);
+                const sc = isSelected ? 0.78 : 0.68;
+                drawIndianGuyAvatar(stageCtx, r, startX + idx * spacing, sh / 2 - 6, sc, animTick);
+            });
+        } else if (stageMode === 'quiz') {
+            const roles = ['Rudy', 'Kaz', 'Idn', 'Tidal'];
+            const activeRole = roles[currentQ % 4];
+            const spacing = Math.min(sw / 4.4, 92);
+            const startX = sw / 2 - spacing * 1.5;
+            roles.forEach((r, idx) => {
+                const sc = (r === activeRole) ? 0.76 : 0.62;
+                drawIndianGuyAvatar(stageCtx, r, startX + idx * spacing, sh / 2 - 4, sc, animTick);
+            });
+        } else if (stageMode === 'result') {
+            drawIndianGuyAvatar(stageCtx, focusChar, sw / 2, sh / 2 - 14, 1.18, animTick);
+
+            const tagline = CHARACTERS[focusChar].tagline;
+            stageCtx.save();
+            stageCtx.font = '700 12.5px sans-serif';
+            const textW = Math.min(stageCtx.measureText(tagline).width + 24, sw - 30);
+            const boxX = (sw - textW) / 2;
+            const boxY = sh - 34;
+
+            stageCtx.fillStyle = '#1e293b';
+            stageCtx.beginPath();
+            stageCtx.roundRect(boxX, boxY, textW, 28, 14);
+            stageCtx.fill();
+
+            stageCtx.fillStyle = '#ffffff';
+            stageCtx.textAlign = 'center';
+            stageCtx.textBaseline = 'middle';
+            stageCtx.fillText(tagline, sw / 2, boxY + 14);
+            stageCtx.restore();
+        }
+
+        // 繪製慶祝粒子特效 (bgCanvas)
+        const bgRect = bgCanvas.getBoundingClientRect();
+        bgCtx.clearRect(0, 0, bgRect.width, bgRect.height);
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.18;
+            p.alpha -= 0.012;
+            p.rot += p.vrot;
+
+            if (p.alpha <= 0) {
+                particles.splice(i, 1);
+                continue;
+            }
+
+            bgCtx.save();
+            bgCtx.globalAlpha = Math.max(0, p.alpha);
+            bgCtx.translate(p.x, p.y);
+            bgCtx.rotate(p.rot);
+            bgCtx.fillStyle = p.color;
+            bgCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+            bgCtx.restore();
+        }
+
+        requestAnimationFrame(renderLoop);
+    }
+
+    function spawnParticles(count) {
+        const bgRect = bgCanvas.getBoundingClientRect();
+        const colors = ['#14b8a6', '#f97316', '#2dd4bf', '#fb923c', '#0d9488'];
+        for (let i = 0; i < count; i++) {
+            particles.push({
+                x: bgRect.width / 2 + (Math.random() - 0.5) * 80,
+                y: 180,
+                vx: (Math.random() - 0.5) * 9,
+                vy: -Math.random() * 7 - 2,
+                size: Math.random() * 8 + 6,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                alpha: 1,
+                rot: Math.random() * Math.PI,
+                vrot: (Math.random() - 0.5) * 0.2
+            });
+        }
+    }
+
+    function previewChar(charId) {
+        playTone('click');
+        focusChar = charId;
+        spawnParticles(12);
+    }
+
+    function showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+        document.getElementById(screenId).classList.add('active');
+    }
+
+    function startQuiz() {
+        playTone('click');
+        currentQ = 0;
+        scores = { Rudy: 0, Kaz: 0, Idn: 0, Tidal: 0 };
+        stageMode = 'quiz';
+
+        document.getElementById('progress-text').style.display = 'block';
+        document.getElementById('progress-bar-wrap').style.display = 'block';
+
+        showScreen('screen-quiz');
+        renderQuestion();
+    }
+
+    function renderQuestion() {
+        const qData = QUESTIONS[currentQ];
+        document.getElementById('progress-text').textContent = `Q${currentQ + 1} / ${QUESTIONS.length}`;
+        const pct = ((currentQ) / QUESTIONS.length) * 100;
+        document.getElementById('progress-bar-fill').style.width = `${pct}%`;
+
+        document.getElementById('question-text').textContent = qData.q;
+
+        const shuffled = [...qData.options].sort(() => Math.random() - 0.5);
+        const labels = ['A', 'B', 'C', 'D'];
+        const listEl = document.getElementById('options-list');
+        listEl.innerHTML = '';
+
+        shuffled.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerHTML = `
+                <span class="option-badge">${labels[idx]}</span>
+                <span>${opt.text}</span>
+            `;
+            btn.onclick = () => selectAnswer(opt.role);
+            listEl.appendChild(btn);
+        });
+    }
+
+    function selectAnswer(role) {
+        playTone('click');
+        scores[role] += 1;
+        focusChar = role;
+        spawnParticles(10);
+
+        currentQ++;
+        if (currentQ < QUESTIONS.length) {
+            renderQuestion();
+        } else {
+            document.getElementById('progress-bar-fill').style.width = '100%';
+            showResult();
+        }
+    }
+
+    function showResult() {
+        playTone('win');
+        stageMode = 'result';
+        spawnParticles(55);
+
+        document.getElementById('progress-text').style.display = 'none';
+        document.getElementById('progress-bar-wrap').style.display = 'none';
+
+        let topRole = 'Rudy';
+        let maxScore = -1;
+        Object.keys(scores).forEach(r => {
+            if (scores[r] > maxScore) {
+                maxScore = scores[r];
+                topRole = r;
+            }
+        });
+
+        focusChar = topRole;
+        const charInfo = CHARACTERS[topRole];
+
+        document.getElementById('result-name').textContent = charInfo.name;
+        document.getElementById('result-role').textContent = charInfo.role;
+        document.getElementById('result-desc').textContent = charInfo.desc;
+
+        const statsBox = document.getElementById('stats-box');
+        statsBox.innerHTML = '';
+        Object.keys(CHARACTERS).forEach(r => {
+            const pct = Math.round((scores[r] / QUESTIONS.length) * 100);
+            const isTop = (r === topRole);
+            const row = document.createElement('div');
+            row.className = 'stat-row';
+            row.innerHTML = `
+                <span class="stat-label">${r}</span>
+                <div class="stat-track">
+                    <div class="stat-fill ${isTop ? 'top' : ''}" style="width: ${pct}%"></div>
+                </div>
+                <span class="stat-val">${pct}%</span>
+            `;
+            statsBox.appendChild(row);
+        });
+
+        showScreen('screen-result');
+    }
+
+    function restartQuiz() {
+        playTone('click');
+        stageMode = 'all';
+        showScreen('screen-start');
+    }
+
+    window.onload = function () {
+        resizeCanvases();
+        renderLoop();
+    };
+</script>
+
+</body>
+</html>

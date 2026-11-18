@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="JIO 公司四位員工實測 Gemini 各大工具：生圖、Canvas、研究、引導式學習、Gem、影片、音樂、語音摘要、Flow 的成果、可行性與使用指引。">
+<title>測試 Gemini 各大工具成果｜JIO Studio</title>
+<link rel="icon" href="icon-64.png">
+<style>
+:root{--bg:#f6f8f8;--card:#fff;--ink:#14201f;--muted:#5b6b69;--line:#dfe7e6;--teal:#0f766e;--teal2:#14b8a6;--orange:#ea580c;--ok:#15803d;--part:#b45309;--no:#b91c1c}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.75}
+a{color:var(--teal)}
+header{background:linear-gradient(135deg,#0f766e,#115e59);color:#fff;padding:40px 20px 32px}
+header .in,main{max-width:960px;margin:0 auto}
+header a{color:#ccfbf1;font-size:14px;text-decoration:none}
+h1{margin:10px 0 6px;font-size:clamp(26px,5vw,38px);line-height:1.3}
+header p{margin:0;opacity:.9}
+main{padding:24px 20px 60px}
+h2{font-size:22px;margin:40px 0 12px;padding-left:12px;border-left:5px solid var(--orange)}
+h3{font-size:18px;margin:0 0 6px}
+.lead{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+.stat b{display:block;font-size:30px}
+.stat.ok b{color:var(--ok)}.stat.part b{color:var(--part)}.stat.no b{color:var(--no)}
+.tw{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:15px;min-width:640px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#eef5f4;font-weight:700}
+tr:last-child td{border-bottom:0}
+.tag{display:inline-block;padding:1px 10px;border-radius:999px;font-size:13px;font-weight:700;white-space:nowrap}
+.tag.ok{background:#dcfce7;color:var(--ok)}.tag.part{background:#fef3c7;color:var(--part)}.tag.no{background:#fee2e2;color:var(--no)}
+.cards{display:grid;gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card .meta{color:var(--muted);font-size:14px;margin-bottom:8px}
+.card ul{margin:6px 0 0;padding-left:20px}
+.card img{width:100%;border-radius:10px;border:1px solid var(--line);margin-top:10px}
+.btn{display:inline-block;margin-top:10px;padding:8px 16px;border-radius:999px;background:var(--orange);color:#fff;text-decoration:none;font-weight:700}
+.news li{margin-bottom:4px}
+.guide td:first-child{white-space:nowrap;font-weight:700}
+.idea{border-left:5px solid var(--teal2)}
+.idea .prompt{background:#f1f5f4;border-radius:8px;padding:10px 12px;font-size:14px;margin-top:8px;white-space:pre-wrap}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
+@media(max-width:600px){.stats{grid-template-columns:1fr 1fr 1fr}.stat b{font-size:24px}h2{font-size:20px}}
+</style>
+</head>
+<body>
+<header><div class="in">
+<a href="./">← 回 JIO Studio 首頁</a>
+<h1>測試 Gemini 各大工具成果</h1>
+<p>2026 年 11 月 18 日｜四位員工＋老闆，一次實測 Gemini 的 10 種工具，看哪些今天就能派工、哪些還不行。</p>
+</div></header>
+<main>
+
+<div class="lead">
+<b>一句話總結：</b>文字類工具（生圖、Canvas、研究、引導式學習）都能直接交件，品質可以用；影音類工具（影片、音樂、語音摘要）這一輪全部沒做出成品，Flow 能上傳素材也知道價錢，但卡在核准按鈕。
+<div class="stats">
+<div class="stat ok"><b>4</b>可直接派工</div>
+<div class="stat part"><b>2</b>部分可用</div>
+<div class="stat no"><b>4</b>這輪沒做出來</div>
+</div>
+</div>
+
+<h2>總表</h2>
+<div class="tw"><table>
+<tr><th>工具</th><th>誰測</th><th>結果</th><th>重點</th></tr>
+<tr><td>建立圖像（Nano Banana）</td><td>Kaz</td><td><span class="tag ok">成功</span></td><td>一次就畫出魔球主角的完整角色設定圖，版面完全照指令。</td></tr>
+<tr><td>Canvas</td><td>Idn</td><td><span class="tag ok">成功</span></td><td>做出可玩的「認識 JIO 員工小測驗」，實測 10 題跑完、沒有錯誤。</td></tr>
+<tr><td>任務模式研究</td><td>Tidal</td><td><span class="tag ok">成功</span></td><td>自己搜尋、讀原文，交出 6 則附來源的新聞＋3 組四格分鏡。</td></tr>
+<tr><td>引導式學習</td><td>Tidal</td><td><span class="tag ok">成功</span></td><td>注音雙胞胎教學＋10 題題庫，注音與答案逐題核對都正確。</td></tr>
+<tr><td>Gem 說明文字</td><td>Idn</td><td><span class="tag part">部分</span></td><td>規則寫得好，但四位員工的外型是自己編的，要照定裝照改。</td></tr>
+<tr><td>Flow</td><td>老闆操作</td><td><span class="tag part">部分</span></td><td>能上傳定裝照當素材，一段 8 秒影片 8 點；核准按鈕沒按成功，逾時取消、未扣點。</td></tr>
+<tr><td>建立影片（Veo）</td><td>Kaz</td><td><span class="tag no">沒做出</span></td><td>對話模式送出後整則消失；任務模式回報「沒有掛載影片工具」。</td></tr>
+<tr><td>創作音樂</td><td>Rudy、Tidal</td><td><span class="tag no">沒做出</span></td><td>Rudy 卡住沒回應；Tidal 第一次因提到頻道名稱被拒，第二次額度已滿。</td></tr>
+<tr><td>語音摘要</td><td>Tidal</td><td><span class="tag no">沒做出</span></td><td>員工回報這個帳號沒有轉語音的功能。</td></tr>
+<tr><td>Deep Research</td><td>Tidal</td><td><span class="tag no">無法使用</span></td><td>選單裡是停用狀態，改用任務模式代替，效果接近。</td></tr>
+</table></div>
+
+<h2>各項成果</h2>
+<div class="cards">
+
+<div class="card">
+<h3>① 建立圖像：魔球主角角色設定圖</h3>
+<div class="meta">Kaz｜Hydrogen 對話模式｜約 1 分鐘</div>
+三視圖、四種表情、打工制服版、深夜覺醒版一張到位，白底、沒有亂碼文字。
+<ul><li>可以直接當《時薪三千的唯一魔球》後續話數的角色參考。</li>
+<li>這次是照文字描述畫的，還沒跟已發表話數的主角長相逐一比對。</li></ul>
+<img src="works/gemini-test/kaz_charsheet.jpg" alt="魔球主角角色設定圖：三視圖、四種表情、打工版與覺醒版" loading="lazy">
+</div>
+
+<div class="card">
+<h3>② Canvas：認識 JIO 員工小測驗</h3>
+<div class="meta">Idn｜Hydrogen＋Canvas｜單檔 HTML 約 40 KB</div>
+10 題情境選擇題，答完顯示「你最像哪位 JIO 員工」和四人比例條，手機版排版正常。
+<ul><li>Canvas 的程式碼放在獨立視窗裡，要用「匯出 → 下載程式碼」才拿得到完整檔案；請員工改貼在對話裡反而失敗。</li></ul>
+<a class="btn" href="works/apps/jio-quiz/">玩玩看</a>
+</div>
+
+<div class="card">
+<h3>③ 任務模式研究：時事四格第 2 期選題</h3>
+<div class="meta">Tidal｜Hydrogen＋任務｜Deep Research 停用，改用任務模式</div>
+自己跑了十幾次搜尋、讀了 6 篇原文，每則都有日期與來源，查不到的地方會標「尚未確認」。挑出的 3 組分鏡：大同晶圓電鍋、Xbox「遊戲流感」、小米機背 Vibe-Code。
+<ul class="news">
+<li><a href="https://finance.technews.tw/2026/11/18/golden-pin-design-award/" target="_blank" rel="noopener">大同「晶圓電鍋」獲金點設計獎</a>（TechNews）</li>
+<li><a href="https://www.engadget.com/2319013/xiaomi-18-pro-vibe-coded-apps-launch-hands-on/" target="_blank" rel="noopener">小米 18 Pro 機背小螢幕可 Vibe-Code 小程式</a>（Engadget）</li>
+<li><a href="https://news.xbox.com/en-us/2026/11/17/how-to-get-ready-for-november-19/" target="_blank" rel="noopener">Xbox 11/19 備戰指南</a>（Xbox Wire）</li>
+<li><a href="https://earthsky.org/space/voyager-1-1-light-day-from-earth-november-17-18-2026/" target="_blank" rel="noopener">航海家一號抵達 1 光日</a>（EarthSky）</li>
+<li><a href="https://globalnews.ca/news/12154499/fiona-the-hippo-eats-hat-cincinnati-zoo/" target="_blank" rel="noopener">河馬 Fiona 誤吞毛線帽</a>（Global News）</li>
+<li><a href="https://www.sciencedaily.com/releases/2026/11/261112230447.htm" target="_blank" rel="noopener">冥王星外新冰封天體</a>（ScienceDaily）</li>
+</ul>
+<ul><li>來源由 Tidal 讀取原文確認；做成四格前，時事那一句仍要再點開核對一次。</li></ul>
+</div>
+
+<div class="card">
+<h3>④ 引導式學習：注音雙胞胎 ㄅ／ㄆ、ㄉ／ㄊ、ㄋ／ㄌ</h3>
+<div class="meta">Tidal｜引導式學習</div>
+先講原理（送氣、鼻音、邊音），中間用小問題確認，最後交出給家長的 5 步驟（衛生紙吹吹樂、摸鼻子小偵探…）和 10 題含溫柔提示語的題庫。
+<ul><li>10 題注音拼寫與答案都正確；有 1 個簡體字已修正。</li>
+<li>這次要求它一次示範完，真正一問一答的家教感還沒測到。</li></ul>
+</div>
+
+<div class="card">
+<h3>⑤ Gem 說明文字：「JIO 漫畫編輯部」</h3>
+<div class="meta">Idn｜約 550 字</div>
+四大規則（固定人設、魔球世界觀、對白框留白另列台詞、命名與存放）寫得清楚，可以直接貼進 Gem。
+<ul><li>問題：員工沒看過定裝照，外型描述（眼鏡、髮型、衣服顏色）是自己想的，跟定裝照不一樣。建 Gem 前要照定裝照改，或直接把定裝照上傳成 Gem 的參考圖。</li></ul>
+</div>
+
+<div class="card">
+<h3>⑥ Flow：四人多鏡頭一致</h3>
+<div class="meta">老闆在員工帳號操作｜每月約 1,050 點</div>
+<ul><li>四張定裝照上傳成功，系統會先跳一次「圖像使用權」確認。</li>
+<li>Flow 內建對話代理，用講的就能排影片；預設模型 Omni 1.2 Flash，<b>8 秒 360p 一段 8 點</b>，1,050 點大約 130 段。</li>
+<li>生成前要按「核准」，老闆從遠端點擊沒有成功，兩次都逾時取消（沒有扣點）。這一步建議先由人工按，或之後研究穩定的點法。</li></ul>
+</div>
+
+<div class="card">
+<h3>⑦ 影片、音樂、語音摘要：這輪沒做出成品</h3>
+<ul>
+<li><b>影片：</b>對話模式加「建立影片」送出後，那則訊息直接消失；改用任務模式，員工回報任務模式沒有影片工具。今天稍早的接力有做出影片，所以工具本身能用，這次失敗的原因尚未確認。</li>
+<li><b>音樂：</b>提到品牌或頻道名稱會被拒；音樂另外有每日額度，用完要等重置。</li>
+<li><b>語音摘要：</b>員工帳號這次做不出來，要再確認是不是只有 Deep Research 報告或 NotebookLM 才有。</li>
+</ul>
+</div>
+</div>
+
+<h2>Gemini 工具使用指引</h2>
+<div class="tw guide"><table>
+<tr><th>工具</th><th>什麼時候用</th><th>怎麼下指令比較順</th></tr>
+<tr><td>建立圖像</td><td>漫畫頁、角色設定、海報、縮圖</td><td>用對話模式；寫清楚版面與畫風；對白框留白、台詞另列，避免亂碼字。</td></tr>
+<tr><td>Canvas</td><td>單檔網頁、小遊戲、小工具</td><td>列出玩法、配色、手機優先；交件後用「匯出 → 下載程式碼」取檔。</td></tr>
+<tr><td>任務模式</td><td>查資料、比較研究、多步驟整理</td><td>「任務：」開頭條列；要求每個數字附來源與日期，查不到寫「尚未確認」。</td></tr>
+<tr><td>引導式學習</td><td>教材、題庫、學新工具</td><td>指定對象與程度（例如小一、康軒首冊）；要互動就讓它一問一答，不要叫它一次示範完。</td></tr>
+<tr><td>Gem</td><td>固定角色、畫風、規則的長期工作</td><td>把定裝照當參考圖上傳，說明文字只寫照片看得到的特徵。</td></tr>
+<tr><td>建立影片</td><td>8 秒短鏡頭、動態漫畫</td><td>用 Argon、對話模式；長片拆成 8 秒一段；送出後確認訊息還在。</td></tr>
+<tr><td>Flow</td><td>多鏡頭要同一張臉的劇情片</td><td>先上傳定裝照當素材；一段 8 點；核准按鈕由人工按。</td></tr>
+<tr><td>創作音樂</td><td>片頭曲、背景音樂</td><td>不要寫任何品牌、頻道或公司名稱，只描述風格、樂器、長度。</td></tr>
+<tr><td>存檔</td><td>所有成品</td><td>一律放 jio company 對應子資料夾，沒有就建一個；跳出「允許建立檔案」要按允許，不然會卡住。</td></tr>
+</table></div>
+
+<h2>依現有作品發想的下一步點子</h2>
+<div class="cards">
+<div class="card idea"><h3>魔球動態漫畫預告片</h3>用 Kaz 的角色設定圖當參考，把魔球第 8 話的 4 個關鍵格做成 8 秒動態漫畫，再接成 30 秒預告。
+<div class="prompt">任務：依魔球第 8 話第 1 頁的 4 格，各做一支 8 秒、16:9 的黑白網點動態漫畫，角色照「角色設定」資料夾的設定圖，不要寫實風，存進 jio company／影片。</div></div>
+<div class="card idea"><h3>注音大冒險「雙胞胎關」</h3>把引導式學習的 10 題題庫，用 Canvas 做成注音大冒險的新關卡，答錯時顯示溫柔提示。
+<div class="prompt">任務：用 Canvas 把「小一教材／20261118_注音雙胞胎_題庫」做成闖關網頁，10 題、答錯顯示提示語、全部答對放彩帶，手機優先。</div></div>
+<div class="card idea"><h3>時事四格第 2 期</h3>直接用 Tidal 挑好的 3 則新聞，請 Kaz 畫晶圓電鍋那一則。
+<div class="prompt">畫一張四格漫畫：四位 JIO 員工照定裝照長相，題材是大同晶圓電鍋獲獎，分鏡照「文件／20261118_時事四格第2期_選題研究」的精選 1，對白框留白、台詞另列。</div></div>
+<div class="card idea"><h3>JIO 片頭曲（不提名字版）</h3>重新測音樂：只描述風格，不寫任何頻道或公司名稱，避開這次的拒絕原因。
+<div class="prompt">創作一首 15 秒原創純音樂：熱血運動感，電吉他加鼓，中段加西塔琴與塔布拉鼓，結尾一個有力的重音。</div></div>
+<div class="card idea"><h3>JIO 漫畫編輯部 Gem</h3>照定裝照修正 Idn 寫的說明，建成 Gem，之後畫漫畫都從這個 Gem 開始，維持人物一致。
+<div class="prompt">任務：看定裝照（rudy、kaz、idn、tidal），把「文件／20261118_JIO漫畫編輯部_Gem說明」的外型描述全部改成照片看得到的特徵，其他規則不動。</div></div>
+<div class="card idea"><h3>小測驗加員工語音</h3>網站已有四人三語打招呼音檔，小測驗結果頁可以直接播放對應員工的語音。
+<div class="prompt">任務：修改 works/apps/jio-quiz 的結果頁，顯示結果後播放 works/voice/&lt;員工&gt;_zh.mp3，加一個重聽按鈕，交回完整 HTML。</div></div>
+</div>
+
+</main>
+<footer>JIO Studio｜測試日期 2026-11-18｜工具名稱與額度以當天畫面為準，之後可能變動。</footer>
+</body>
+</html>
