@@ -2,6 +2,14 @@
    每次網站有更新就在最前面加一筆：d 日期（YYYY-MM-DD）、三語標題、href 點了要去的地方（可省略）。
    畫面會自動依日期由新到舊排，同一天照這裡的先後。 */
 window.JIO_NEWS = [
+  {d:'2026-11-18', href:'works/stories/',
+   zh:'新增小故事「JIO 辦公室奇譚」：AI 自動烤餅機大暴走、深夜機房的幽靈 Commit',
+   en:'New short stories "JIO Office Tales": the runaway AI naan maker and a phantom commit',
+   hi:'नई लघु कहानियाँ "JIO ऑफ़िस किस्से": बेकाबू AI नान मशीन और भूतिया कमिट'},
+  {d:'2026-11-18', href:'works/apps/swing/',
+   zh:'網頁作品新增「秋千｜小一國語快樂複習」：注音朗讀、田字格描寫、造句與小測驗',
+   en:'New web work: "Swing" Grade 1 Mandarin review with read-aloud, tracing and a quiz',
+   hi:'नया वेब काम: कक्षा 1 मंदारिन रिव्यू "झूला" — ऑडियो, लेखन अभ्यास और क्विज़'},
   {d:'2026-11-18', href:'#works',
    zh:'《時薪三千的唯一魔球》第 8 話完結：捕手手套裡的秘密（共 16 頁）',
    en:'"The Three-Thousand-an-Hour Magic Pitch" episode 8 complete (16 pages)',

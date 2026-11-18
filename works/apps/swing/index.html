@@ -1,0 +1,2122 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="sticker">
+  <title>秋千｜小一國語快樂複習</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..900;1,9..40,400..900&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Sticker style surfaces & ink */
+      --background: #fef7ff;
+      --surface-container-low: #ffffff;
+      --surface-container: #f8eef8;
+      --surface-container-high: #f2e8f2;
+
+      --on-surface: #2e1a28;
+      --on-surface-variant: #604868;
+
+      --outline: #907898;
+      --outline-variant: #dcc8e0;
+
+      /* Sticker style accents */
+      --primary: #c2207f;
+      --on-primary: #ffffff;
+      --primary-container: #f080c0;
+      --on-primary-container: #2e1a28;
+      --secondary: #7c52aa;
+      --on-secondary: #ffffff;
+      --tertiary: #0096cc;
+      --error: #c53030;
+      --on-error: #ffffff;
+
+      /* Data series */
+      --data-1: #c2207f;
+      --data-2: #7c52aa;
+      --data-3: #0096cc;
+      --data-4: #d96a00;
+      --data-context: #c8b8d0;
+
+      /* Shared semantic & focus tokens */
+      --positive: #15803d;
+      --positive-bg: #dcfce7;
+      --warning: #b45309;
+      --warning-bg: #fef3c7;
+      --error-bg: #fee2e2;
+      --focus: #c2207f;
+
+      /* Fonts (Non-Latin primary first) */
+      --font-headline: 'Noto Sans TC', 'DM Sans', sans-serif;
+      --font-body: 'Noto Sans TC', 'DM Sans', sans-serif;
+      --font-label: 'Noto Sans TC', 'DM Sans', sans-serif;
+
+      /* Shape */
+      --rounded: 1rem;
+      --rounded-lg: 2rem;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --shadow-pink: 0 4px 16px rgb(224 64 160 / 0.2);
+      --shadow-pink-deep: 0 10px 28px rgb(224 64 160 / 0.32);
+      --shadow-grape: 0 4px 16px rgb(124 82 170 / 0.2);
+      --shadow-grape-deep: 0 10px 28px rgb(124 82 170 / 0.32);
+      --shadow-sky: 0 4px 16px rgb(0 150 204 / 0.2);
+      --pop-scale: scale(1.03);
+      --lift: translateY(-4px);
+      --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+      /* Type scale (large & kid-friendly) */
+      --display-size: clamp(2.5rem, 1.8rem + 3vw, 4rem);
+      --headline-size: clamp(1.75rem, 1.35rem + 1.5vw, 2.35rem);
+      --subhead-size: clamp(1.35rem, 1.15rem + 0.7vw, 1.65rem);
+      --body-size: clamp(1.2rem, 1.08rem + 0.4vw, 1.4rem);
+      --label-size: clamp(0.95rem, 0.88rem + 0.25vw, 1.08rem);
+      --lesson-size: clamp(1.7rem, 1.35rem + 1.3vw, 2.25rem);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      scroll-behavior: smooth;
+    }
+    header { position: static !important; }
+    button, input, select, textarea { font-family: inherit; }
+
+    :focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: var(--space-lg);
+      max-width: 1080px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Typography helpers */
+    .display {
+      font-family: var(--font-headline);
+      font-weight: 900;
+      font-size: var(--display-size);
+      line-height: 1.12;
+      margin: 0 0 var(--space-md) 0;
+      color: var(--on-surface);
+    }
+    .display em, h2 em {
+      font-style: normal;
+      color: var(--primary);
+    }
+
+    .section-heading {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: var(--headline-size);
+      line-height: 1.2;
+      margin: 0 0 var(--space-sm) 0;
+      color: var(--on-surface);
+    }
+
+    .section-lede {
+      font-size: var(--body-size);
+      color: var(--on-surface-variant);
+      margin: 0 0 var(--space-lg) 0;
+      max-width: 65ch;
+    }
+
+    .label-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      font-size: var(--label-size);
+      font-weight: 700;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      margin-bottom: var(--space-md);
+    }
+
+    .tag-grape {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      border: 2px solid var(--secondary);
+      color: var(--secondary);
+      background-color: var(--surface-container-low);
+      font-size: var(--label-size);
+      font-weight: 700;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+    }
+
+    /* Cards */
+    .card {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow-pink);
+      padding: var(--space-xl);
+      transition: transform var(--dur-short) var(--ease-bounce), box-shadow var(--dur-short) var(--ease-out);
+    }
+    .card-sky { box-shadow: var(--shadow-sky); }
+    .card-grape { box-shadow: var(--shadow-grape); }
+
+    .hero-panel {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--shadow-pink);
+      padding: var(--space-xl);
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: center;
+    }
+
+    /* Buttons (extra large for Grade 1) */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      min-height: 56px;
+      padding: var(--space-sm) var(--space-xl);
+      border-radius: var(--rounded-full);
+      border: 2px solid transparent;
+      font-size: var(--body-size);
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform var(--dur-short) var(--ease-bounce),
+                  box-shadow var(--dur-short) var(--ease-out),
+                  background-color var(--dur-micro) var(--ease-out);
+    }
+    .btn:hover { transform: var(--pop-scale); }
+    .btn:active { transform: scale(0.97); }
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      box-shadow: var(--shadow-pink);
+    }
+    .btn-primary:hover:not(:disabled) { box-shadow: var(--shadow-pink-deep); }
+
+    .btn-secondary {
+      background-color: var(--secondary);
+      color: var(--on-secondary);
+      box-shadow: var(--shadow-grape);
+    }
+    .btn-secondary:hover:not(:disabled) { box-shadow: var(--shadow-grape-deep); }
+
+    .btn-soft {
+      background-color: var(--surface-container);
+      color: var(--on-surface);
+      border-color: var(--outline);
+    }
+    .btn-soft:hover:not(:disabled) { background-color: var(--surface-container-high); }
+
+    .btn-quiet {
+      background-color: transparent;
+      color: var(--primary);
+      padding: var(--space-sm) var(--space-md);
+    }
+    .btn-quiet:hover:not(:disabled) { background-color: var(--surface-container); }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: center;
+    }
+
+    /* Progress & Star Tracker Bar */
+    .tracker-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      background-color: var(--surface-container);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+
+    .progress-track {
+      flex: 1 1 220px;
+      height: 18px;
+      background-color: var(--surface-container-high);
+      border-radius: var(--rounded-full);
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--tertiary);
+      border-radius: var(--rounded-full);
+      transition: width var(--dur-long) var(--ease-out);
+    }
+
+    /* Quick Jump Pills */
+    .jump-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+    .jump-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      min-height: 52px;
+      padding: var(--space-sm) var(--space-lg);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      border: 2px solid var(--outline-variant);
+      border-radius: var(--rounded-full);
+      font-weight: 700;
+      font-size: var(--label-size);
+      text-decoration: none;
+      box-shadow: var(--shadow-grape);
+      transition: transform var(--dur-short) var(--ease-bounce), background-color var(--dur-micro) var(--ease-out);
+    }
+    .jump-pill:hover {
+      transform: var(--pop-scale);
+      background-color: var(--surface-container);
+    }
+
+    /* Hero Swing Stage */
+    .swing-stage {
+      background-color: var(--surface-container);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    .swing-svg-wrap {
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .swing-rope-group {
+      transform-origin: 160px 26px;
+      transition: transform var(--dur-long) var(--ease-out);
+    }
+
+    /* Taiwanese Bopomofo (Zhuyin) Typography Component */
+    .zy-unit {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.1em;
+      margin: 0.06em 0.08em;
+      vertical-align: middle;
+      line-height: 1.15;
+    }
+    .zy-char {
+      font-weight: 700;
+    }
+    .zy-ruby {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.36em;
+      font-weight: 700;
+      color: var(--on-surface-variant);
+      line-height: 1.05;
+      min-width: 1.4em;
+      user-select: none;
+    }
+    .zy-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .zy-tone {
+      margin-left: 0.05em;
+      font-weight: 900;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .zy-tone-neutral {
+      font-size: 0.9em;
+      line-height: 0.65;
+      color: var(--primary);
+      margin-bottom: 0.12em;
+    }
+    .hide-zhuyin .zy-ruby {
+      display: none;
+    }
+
+    /* Section 1: Lesson Text */
+    .lesson-lines {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .lesson-line-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      width: 100%;
+      text-align: left;
+      background-color: var(--surface-container);
+      border: 2px solid transparent;
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      font-size: var(--lesson-size);
+      color: var(--on-surface);
+      cursor: pointer;
+      transition: transform var(--dur-short) var(--ease-bounce),
+                  background-color var(--dur-micro) var(--ease-out),
+                  box-shadow var(--dur-short) var(--ease-out);
+    }
+    .lesson-line-btn:hover {
+      transform: var(--lift);
+      background-color: var(--surface-container-high);
+      box-shadow: var(--shadow-pink);
+    }
+    .lesson-line-btn.is-speaking {
+      background-color: var(--primary-container);
+      box-shadow: var(--shadow-pink-deep);
+    }
+    .line-speaker-badge {
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+      border-radius: var(--rounded-full);
+      background-color: var(--surface-container-low);
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-pink);
+    }
+
+    /* Section 2: Character Explorer + Writing Pad */
+    .char-selector-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(96px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+    .char-chip {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 92px;
+      padding: var(--space-sm);
+      border-radius: var(--rounded);
+      border: 2px solid var(--outline-variant);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      font-size: 2rem;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: var(--shadow-sky);
+      transition: transform var(--dur-short) var(--ease-bounce), background-color var(--dur-micro) var(--ease-out);
+    }
+    .char-chip:hover { transform: var(--pop-scale); }
+    .char-chip.is-active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-pink-deep);
+    }
+    .char-chip-sub {
+      font-size: 0.85rem;
+      font-weight: 700;
+      opacity: 0.9;
+      margin-top: 2px;
+    }
+    .char-done-dot {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 22px;
+      height: 22px;
+      border-radius: var(--rounded-full);
+      background-color: var(--positive);
+      color: var(--on-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .char-studio {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .char-spotlight-box {
+      display: flex;
+      align-items: center;
+      gap: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+    .char-huge {
+      width: 128px;
+      height: 128px;
+      border-radius: var(--rounded);
+      background-color: var(--surface-container);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      font-weight: 900;
+      color: var(--on-surface);
+      flex-shrink: 0;
+    }
+    .char-meta-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+    .char-words-box {
+      background-color: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+
+    /* Writing Canvas */
+    .pad-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-md);
+      background-color: var(--surface-container);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+    }
+    .tian-grid {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      background-color: var(--surface-container-low);
+      border: 3px solid var(--outline);
+      border-radius: var(--rounded);
+      overflow: hidden;
+      touch-action: none;
+    }
+    .tian-grid::before {
+      content: '';
+      position: absolute;
+      inset: 50% 0 auto 0;
+      border-top: 2px dashed var(--outline-variant);
+      pointer-events: none;
+    }
+    .tian-grid::after {
+      content: '';
+      position: absolute;
+      inset: 0 auto 0 50%;
+      border-left: 2px dashed var(--outline-variant);
+      pointer-events: none;
+    }
+    .tian-watermark {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10.5rem;
+      font-weight: 900;
+      color: var(--surface-container-high);
+      pointer-events: none;
+      user-select: none;
+      line-height: 1;
+    }
+    .tian-canvas {
+      position: relative;
+      z-index: 2;
+      width: 260px;
+      height: 260px;
+      display: block;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    /* Section 3: Vocabulary Grid */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .vocab-card {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow-pink);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-md);
+      transition: transform var(--dur-short) var(--ease-bounce);
+    }
+    .vocab-card:nth-child(3n+2) { box-shadow: var(--shadow-sky); }
+    .vocab-card:nth-child(3n+3) { box-shadow: var(--shadow-grape); }
+    .vocab-card:hover { transform: var(--lift); }
+
+    .vocab-word {
+      font-size: clamp(1.75rem, 1.4rem + 1vw, 2.2rem);
+      font-weight: 900;
+      color: var(--on-surface);
+      margin-bottom: var(--space-xs);
+    }
+    .vocab-desc {
+      margin: 0;
+      color: var(--on-surface-variant);
+      font-size: var(--body-size);
+    }
+    .vocab-example {
+      background-color: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      font-size: var(--label-size);
+      color: var(--on-surface);
+      font-weight: 500;
+    }
+
+    /* Section 4: Sentence Practice */
+    .sentence-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+    }
+    .puzzle-tray {
+      min-height: 92px;
+      background-color: var(--surface-container);
+      border: 3px dashed var(--outline);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: center;
+      margin: var(--space-md) 0;
+    }
+    .word-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin: var(--space-md) 0 var(--space-lg) 0;
+    }
+    .word-tile {
+      min-height: 58px;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--rounded-full);
+      border: 2px solid var(--secondary);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      font-size: var(--subhead-size);
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow-grape);
+      transition: transform var(--dur-short) var(--ease-bounce), background-color var(--dur-micro) var(--ease-out);
+    }
+    .word-tile:hover { transform: var(--pop-scale); }
+    .word-tile.in-tray {
+      background-color: var(--primary-container);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-pink);
+    }
+
+    .builder-slots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-lg);
+    }
+    .slot-group {
+      background-color: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+    .slot-title {
+      font-weight: 800;
+      color: var(--secondary);
+      margin: 0 0 var(--space-sm) 0;
+      font-size: var(--label-size);
+    }
+    .slot-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+    .slot-pill {
+      min-height: 48px;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      border: 2px solid var(--outline-variant);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      font-size: var(--label-size);
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform var(--dur-short) var(--ease-bounce), background-color var(--dur-micro) var(--ease-out);
+    }
+    .slot-pill:hover { transform: var(--pop-scale); }
+    .slot-pill.is-selected {
+      background-color: var(--secondary);
+      color: var(--on-secondary);
+      border-color: var(--secondary);
+    }
+
+    .sentence-preview-box {
+      background-color: var(--surface-container-low);
+      border: 3px solid var(--primary-container);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      font-size: var(--subhead-size);
+      font-weight: 800;
+      margin-bottom: var(--space-md);
+    }
+
+    .field-label {
+      display: block;
+      font-weight: 700;
+      color: var(--on-surface);
+      margin-bottom: var(--space-sm);
+      font-size: var(--label-size);
+    }
+    .pill-input {
+      width: 100%;
+      min-height: 56px;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--rounded-full);
+      border: 2px solid var(--outline);
+      background-color: var(--surface-container);
+      color: var(--on-surface);
+      font-size: var(--body-size);
+    }
+    .pill-input:focus {
+      border-color: var(--primary);
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Section 5: Quiz */
+    .quiz-card {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      box-shadow: var(--shadow-pink);
+      padding: var(--space-xl);
+    }
+    .quiz-options {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-md);
+      margin: var(--space-lg) 0;
+    }
+    .quiz-option-btn {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      width: 100%;
+      min-height: 68px;
+      padding: var(--space-md) var(--space-xl);
+      border-radius: var(--rounded-full);
+      border: 2px solid var(--outline);
+      background-color: var(--surface-container);
+      color: var(--on-surface);
+      font-size: var(--subhead-size);
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      transition: transform var(--dur-short) var(--ease-bounce), background-color var(--dur-micro) var(--ease-out);
+    }
+    .quiz-option-btn:hover:not(:disabled) {
+      transform: var(--pop-scale);
+      background-color: var(--surface-container-high);
+    }
+    .quiz-option-btn.is-correct {
+      background-color: var(--positive-bg);
+      border-color: var(--positive);
+      color: var(--on-surface);
+    }
+    .quiz-option-btn.is-wrong {
+      background-color: var(--error-bg);
+      border-color: var(--error);
+      color: var(--on-surface);
+    }
+    .option-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--rounded-full);
+      background-color: var(--secondary);
+      color: var(--on-secondary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--label-size);
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .feedback-banner {
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      font-weight: 700;
+      margin-top: var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    .feedback-ok {
+      background-color: var(--positive-bg);
+      color: var(--positive);
+    }
+    .feedback-try {
+      background-color: var(--warning-bg);
+      color: var(--warning);
+    }
+
+    /* Parent / Teacher Collapsible Section */
+    details.parent-note {
+      background-color: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      color: var(--on-surface-variant);
+    }
+    details.parent-note summary {
+      cursor: pointer;
+      font-weight: 800;
+      color: var(--secondary);
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .textarea-box {
+      width: 100%;
+      min-height: 120px;
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border: 2px solid var(--outline);
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+      font-size: var(--label-size);
+      line-height: 1.6;
+      resize: vertical;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 780px) {
+      .hero-panel {
+        grid-template-columns: 1fr;
+      }
+      .char-studio {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-xl);
+      }
+      .card, .hero-panel, .quiz-card {
+        padding: var(--space-lg);
+      }
+      .lesson-line-btn {
+        padding: var(--space-md);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-grid" id="app-root">
+    <!-- Hero Header -->
+    <header class="hero-panel">
+      <div>
+        <span class="label-pill">
+          <i data-lucide="sparkles" aria-hidden="true"></i>
+          國小一年級 國語快樂複習
+        </span>
+        <h1 class="display">一起來複習<em>秋千</em>！</h1>
+        <p class="section-lede">
+          跟著注音大聲唸課文、動動手指寫生字、玩拼句子遊戲，再挑戰五題快樂小測驗，收集閃亮星星！
+        </p>
+
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" id="btn-read-all" onclick="readFullLesson()">
+            <i data-lucide="volume-2" aria-hidden="true"></i>
+            唸整課給我聽
+          </button>
+          <button type="button" class="btn btn-soft" id="btn-toggle-zhuyin" onclick="toggleZhuyin()">
+            <i data-lucide="eye" aria-hidden="true"></i>
+            <span id="zhuyin-btn-label">隱藏注音挑戰</span>
+          </button>
+        </div>
+
+        <nav class="jump-nav" aria-label="單元快速移動">
+          <a class="jump-pill" href="#sec-lesson"><i data-lucide="book-open" aria-hidden="true"></i>讀課文</a>
+          <a class="jump-pill" href="#sec-chars"><i data-lucide="pencil" aria-hidden="true"></i>學生字</a>
+          <a class="jump-pill" href="#sec-vocab"><i data-lucide="layers" aria-hidden="true"></i>看詞語</a>
+          <a class="jump-pill" href="#sec-sentence"><i data-lucide="puzzle" aria-hidden="true"></i>練造句</a>
+          <a class="jump-pill" href="#sec-quiz"><i data-lucide="award" aria-hidden="true"></i>小測驗</a>
+        </nav>
+
+        <div class="tracker-bar" aria-live="polite">
+          <div style="display: flex; align-items: center; gap: var(--space-sm); font-weight: 800;">
+            <i data-lucide="star" style="color: var(--primary);" aria-hidden="true"></i>
+            <span>複習進度：<strong id="progress-text">0 / 13</strong> 顆星星</span>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Swing Illustration -->
+      <div class="swing-stage">
+        <div class="swing-svg-wrap">
+          <svg viewBox="0 0 320 240" width="100%" height="100%" aria-hidden="true">
+            <!-- Ground hill -->
+            <path d="M 10 218 Q 160 190 310 218 L 310 236 L 10 236 Z" fill="var(--surface-container-high)"></path>
+            <!-- Soft clouds -->
+            <circle cx="62" cy="54" r="18" fill="var(--surface-container-low)"></circle>
+            <circle cx="82" cy="50" r="22" fill="var(--surface-container-low)"></circle>
+            <circle cx="102" cy="56" r="16" fill="var(--surface-container-low)"></circle>
+            <circle cx="238" cy="48" r="16" fill="var(--surface-container-low)"></circle>
+            <circle cx="256" cy="44" r="20" fill="var(--surface-container-low)"></circle>
+            <!-- Swing Frame -->
+            <line x1="56" y1="214" x2="88" y2="26" stroke="var(--secondary)" stroke-width="10" stroke-linecap="round"></line>
+            <line x1="264" y1="214" x2="232" y2="26" stroke="var(--secondary)" stroke-width="10" stroke-linecap="round"></line>
+            <line x1="74" y1="26" x2="246" y2="26" stroke="var(--secondary)" stroke-width="12" stroke-linecap="round"></line>
+            <!-- Animated Swing Seat -->
+            <g class="swing-rope-group" id="swing-rope-group">
+              <line x1="132" y1="26" x2="124" y2="152" stroke="var(--tertiary)" stroke-width="5" stroke-linecap="round"></line>
+              <line x1="188" y1="26" x2="196" y2="152" stroke="var(--tertiary)" stroke-width="5" stroke-linecap="round"></line>
+              <rect x="112" y="150" width="96" height="18" rx="9" fill="var(--primary)"></rect>
+              <!-- Friendly happy character -->
+              <circle cx="160" cy="112" r="20" fill="var(--primary-container)"></circle>
+              <circle cx="153" cy="110" r="3" fill="var(--on-surface)"></circle>
+              <circle cx="167" cy="110" r="3" fill="var(--on-surface)"></circle>
+              <path d="M 152 118 Q 160 126 168 118" stroke="var(--on-surface)" stroke-width="3" stroke-linecap="round" fill="none"></path>
+              <rect x="142" y="132" width="36" height="22" rx="10" fill="var(--secondary)"></rect>
+            </g>
+          </svg>
+        </div>
+        <button type="button" class="btn btn-secondary" onclick="pushSwing()">
+          <i data-lucide="wind" aria-hidden="true"></i>
+          推秋千一下！
+        </button>
+      </div>
+    </header>
+
+    <!-- Section 1: Lesson Reading -->
+    <section id="sec-lesson" class="card">
+      <span class="label-pill">第一關：課文朗讀</span>
+      <h2 class="section-heading">大聲唸出<em>秋千</em>的課文</h2>
+      <p class="section-lede">點一點每一行句子，就可以聽讀音！想要自己練習認字，可以按上面的「隱藏注音挑戰」。</p>
+
+      <div id="lesson-container" class="lesson-lines"></div>
+      <p id="speech-status" class="section-lede" style="margin-top: var(--space-md); margin-bottom: 0;" aria-live="polite"></p>
+    </section>
+
+    <!-- Section 2: Character Learning & Writing -->
+    <section id="sec-chars" class="card card-sky">
+      <span class="label-pill">第二關：生字認識與描寫</span>
+      <h2 class="section-heading">點一個<em>生字</em>來寫寫看</h2>
+      <p class="section-lede">認識部首、筆畫數和造詞，再用手指或滑鼠在田字格裡描寫一次吧！</p>
+
+      <div class="char-selector-grid" id="char-selector-grid"></div>
+
+      <div class="char-studio">
+        <div>
+          <div class="char-spotlight-box">
+            <div class="char-huge" id="char-huge-display">秋</div>
+            <div>
+              <div id="char-ruby-display" style="font-size: 2.2rem; margin-bottom: var(--space-xs);"></div>
+              <div class="char-meta-list">
+                <span class="tag-grape" id="char-radical-tag">部首：禾</span>
+                <span class="tag-grape" id="char-strokes-tag">筆畫：9 畫</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="char-words-box">
+            <div style="font-weight: 800; margin-bottom: var(--space-xs);">造詞好朋友：</div>
+            <div id="char-words-display" style="font-size: var(--subhead-size); font-weight: 700; color: var(--primary);"></div>
+            <p id="char-tip-display" style="margin: var(--space-sm) 0 0 0; color: var(--on-surface-variant);"></p>
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" onclick="speakCurrentChar()">
+              <i data-lucide="volume-2" aria-hidden="true"></i>
+              聽生字和造詞
+            </button>
+            <button type="button" class="btn btn-secondary" id="btn-mark-char" onclick="markCharDone()">
+              <i data-lucide="check-circle" aria-hidden="true"></i>
+              我學會了！
+            </button>
+          </div>
+        </div>
+
+        <div class="pad-wrapper">
+          <div style="font-weight: 800; color: var(--on-surface);">田字格寫寫看</div>
+          <div class="tian-grid">
+            <div class="tian-watermark" id="tian-watermark" aria-hidden="true">秋</div>
+            <canvas id="writing-canvas" class="tian-canvas" width="260" height="260" aria-label="生字描寫畫板"></canvas>
+          </div>
+          <button type="button" class="btn btn-soft" onclick="clearCanvas()">
+            <i data-lucide="eraser" aria-hidden="true"></i>
+            擦掉重寫
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Vocabulary -->
+    <section id="sec-vocab">
+      <span class="label-pill">第三關：詞語寶庫</span>
+      <h2 class="section-heading">認識課文裡的<em>詞語</em></h2>
+      <p class="section-lede">每個詞語都有注音、簡單的意思和例句，點按鈕就可以唸給你聽。</p>
+      <div class="vocab-grid" id="vocab-grid"></div>
+    </section>
+
+    <!-- Section 4: Sentence Practice -->
+    <section id="sec-sentence" class="card card-grape">
+      <span class="label-pill">第四關：造句小達人</span>
+      <h2 class="section-heading">動手拼出<em>完整句子</em></h2>
+      <p class="section-lede">先玩「點一點拼句子」，再用下面的魔法造句機做出屬於你的句子！</p>
+
+      <div class="sentence-layout">
+        <!-- Part A: Tap-to-build puzzle -->
+        <div>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-md);">
+            <h3 style="margin: 0; font-size: var(--subhead-size);" id="puzzle-title">題目 1：用「一下……，一下……」拼句子</h3>
+            <button type="button" class="btn btn-soft" onclick="nextPuzzle()">
+              <i data-lucide="refresh-cw" aria-hidden="true"></i>
+              換下一題
+            </button>
+          </div>
+
+          <div class="puzzle-tray" id="puzzle-tray" aria-label="句子組合區"></div>
+          <div class="word-bank" id="word-bank" aria-label="詞語積木區"></div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" onclick="checkPuzzle()">
+              <i data-lucide="check" aria-hidden="true"></i>
+              檢查句子
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="speakPuzzle()">
+              <i data-lucide="volume-2" aria-hidden="true"></i>
+              唸唸看
+            </button>
+            <button type="button" class="btn btn-quiet" onclick="resetCurrentPuzzle()">
+              重新排列
+            </button>
+          </div>
+          <div id="puzzle-feedback" aria-live="polite"></div>
+        </div>
+
+        <!-- Part B: Guided Creative Sentence Builder -->
+        <div style="background-color: var(--surface-container-low); padding: var(--space-lg); border-radius: var(--rounded); border: 2px solid var(--outline-variant);">
+          <h3 style="margin: 0 0 var(--space-sm) 0; font-size: var(--subhead-size);">魔法造句機：誰在哪裡做什麼？</h3>
+          <p style="margin: 0 0 var(--space-md) 0; color: var(--on-surface-variant);">點選喜歡的小積木，組出自己的新句子！</p>
+
+          <div class="builder-slots" id="builder-slots"></div>
+
+          <div class="sentence-preview-box" id="builder-preview" aria-live="polite"></div>
+
+          <div style="margin-bottom: var(--space-md);">
+            <label for="custom-sentence-input" class="field-label">也可以自己寫寫看或補充一句話：</label>
+            <input type="text" id="custom-sentence-input" class="pill-input" oninput="onCustomSentenceInput(this.value)">
+          </div>
+
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" onclick="speakBuilderSentence()">
+              <i data-lucide="volume-2" aria-hidden="true"></i>
+              聽聽我的造句
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Simple Multiple-Choice Quiz -->
+    <section id="sec-quiz" class="quiz-card">
+      <span class="label-pill">第五關：快樂小測驗</span>
+      <h2 class="section-heading">挑戰五題<em>選擇題</em></h2>
+      <p class="section-lede">選選看哪一個答案最正確？答對就會得到一顆亮晶晶的星星！</p>
+
+      <div id="quiz-area"></div>
+    </section>
+
+    <!-- Parent & Teacher Notes / Custom Lesson -->
+    <details class="parent-note">
+      <summary>
+        <i data-lucide="settings" aria-hidden="true"></i>
+        給家長與老師的說明（可自訂課文內容或重設紀錄）
+      </summary>
+      <div style="margin-top: var(--space-md); display: grid; gap: var(--space-md);">
+        <p style="margin: 0;">
+          說明：由於來源檔案中的課本圖片僅含版面標記、未附帶可讀取的文字轉錄，本網頁採用臺灣國小一年級「秋千」標準教學架構與常見低年級生字詞語（如「秋、千、高、低、飛、雲、笑、風」）編寫而成。如果學校課本（如康軒、翰林、南一）的課文文字不同，您可以在下方貼上實際課文每一行，按下套用即可取代第一關的朗讀句子。
+        </p>
+        <div>
+          <label for="custom-lesson-textarea" class="field-label">自訂第一關課文（一行一句，留空並套用可恢復預設）：</label>
+          <textarea id="custom-lesson-textarea" class="textarea-box"></textarea>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn btn-secondary" onclick="applyCustomLesson()">套用自訂課文</button>
+          <button type="button" class="btn btn-soft" onclick="resetAllProgress(this)">清除全部學習紀錄</button>
+        </div>
+        <p id="parent-msg" style="margin: 0; font-weight: 700; color: var(--primary);" aria-live="polite"></p>
+      </div>
+    </details>
+  </main>
+
+  <api-shim></api-shim>
+  <script>
+    // Structured lesson data with accurate Taiwan MOE Bopomofo (zhuyin)
+    const DEFAULT_LESSON_LINES = [
+      {
+        text: `公園裡，盪秋千，`,
+        tokens: [
+          [`公`, `ㄍㄨㄥ`, ``], [`園`, `ㄩㄢ`, `ˊ`], [`裡`, `ㄌㄧ`, `ˇ`], [`，`, ``, ``],
+          [`盪`, `ㄉㄤ`, `ˋ`], [`秋`, `ㄑㄧㄡ`, ``], [`千`, `ㄑㄧㄢ`, ``], [`，`, ``, ``]
+        ]
+      },
+      {
+        text: `你推我，我推你。`,
+        tokens: [
+          [`你`, `ㄋㄧ`, `ˇ`], [`推`, `ㄊㄨㄟ`, ``], [`我`, `ㄨㄛ`, `ˇ`], [`，`, ``, ``],
+          [`我`, `ㄨㄛ`, `ˇ`], [`推`, `ㄊㄨㄟ`, ``], [`你`, `ㄋㄧ`, `ˇ`], [`。`, ``, ``]
+        ]
+      },
+      {
+        text: `一下高，一下低，`,
+        tokens: [
+          [`一`, `ㄧ`, ``], [`下`, `ㄒㄧㄚ`, `ˋ`], [`高`, `ㄍㄠ`, ``], [`，`, ``, ``],
+          [`一`, `ㄧ`, ``], [`下`, `ㄒㄧㄚ`, `ˋ`], [`低`, `ㄉㄧ`, ``], [`，`, ``, ``]
+        ]
+      },
+      {
+        text: `好像小鳥飛上天，伸手摸到白雲邊。`,
+        tokens: [
+          [`好`, `ㄏㄠ`, `ˇ`], [`像`, `ㄒㄧㄤ`, `ˋ`], [`小`, `ㄒㄧㄠ`, `ˇ`], [`鳥`, `ㄋㄧㄠ`, `ˇ`],
+          [`飛`, `ㄈㄟ`, ``], [`上`, `ㄕㄤ`, `ˋ`], [`天`, `ㄊㄧㄢ`, ``], [`，`, ``, ``],
+          [`伸`, `ㄕㄣ`, ``], [`手`, `ㄕㄡ`, `ˇ`], [`摸`, `ㄇㄛ`, ``], [`到`, `ㄉㄠ`, `ˋ`],
+          [`白`, `ㄅㄞ`, `ˊ`], [`雲`, `ㄩㄣ`, `ˊ`], [`邊`, `ㄅㄧㄢ`, ``], [`。`, ``, ``]
+        ]
+      },
+      {
+        text: `微風吹，笑哈哈，盪秋千，真快樂！`,
+        tokens: [
+          [`微`, `ㄨㄟ`, `ˊ`], [`風`, `ㄈㄥ`, ``], [`吹`, `ㄔㄨㄟ`, ``], [`，`, ``, ``],
+          [`笑`, `ㄒㄧㄠ`, `ˋ`], [`哈`, `ㄏㄚ`, ``], [`哈`, `ㄏㄚ`, ``], [`，`, ``, ``],
+          [`盪`, `ㄉㄤ`, `ˋ`], [`秋`, `ㄑㄧㄡ`, ``], [`千`, `ㄑㄧㄢ`, ``], [`，`, ``, ``],
+          [`真`, `ㄓㄣ`, ``], [`快`, `ㄎㄨㄞ`, `ˋ`], [`樂`, `ㄌㄜ`, `ˋ`], [`！`, ``, ``]
+        ]
+      }
+    ];
+
+    const CHAR_DATA = [
+      {
+        char: `秋`, zy: `ㄑㄧㄡ`, tone: ``, displayZy: `ㄑㄧㄡ`,
+        radical: `禾`, strokes: 9,
+        words: [`秋千`, `秋天`, `秋風`],
+        tip: `左邊是「禾」，右邊是「火」，合起來就是「秋」喔！`
+      },
+      {
+        char: `千`, zy: `ㄑㄧㄢ`, tone: ``, displayZy: `ㄑㄧㄢ`,
+        radical: `十`, strokes: 3,
+        words: [`秋千`, `千萬`, `一千`],
+        tip: `先一撇、再一橫、最後一豎，三畫就寫好「千」！`
+      },
+      {
+        char: `高`, zy: `ㄍㄠ`, tone: ``, displayZy: `ㄍㄠ`,
+        radical: `高`, strokes: 10,
+        words: [`高高`, `高山`, `高興`],
+        tip: `看起來像一座高高的小樓房，上面還有尖尖的屋頂。`
+      },
+      {
+        char: `低`, zy: `ㄉㄧ`, tone: ``, displayZy: `ㄉㄧ`,
+        radical: `人`, strokes: 7,
+        words: [`低低`, `高低`, `低頭`],
+        tip: `左邊是人字旁「亻」，跟「高」剛好相反！`
+      },
+      {
+        char: `飛`, zy: `ㄈㄟ`, tone: ``, displayZy: `ㄈㄟ`,
+        radical: `飛`, strokes: 9,
+        words: [`飛上天`, `飛機`, `飛翔`],
+        tip: `像小鳥張開兩隻翅膀，準備飛向藍藍的天空。`
+      },
+      {
+        char: `雲`, zy: `ㄩㄣ`, tone: `ˊ`, displayZy: `ㄩㄣˊ`,
+        radical: `雨`, strokes: 12,
+        words: [`白雲`, `烏雲`, `雲朵`],
+        tip: `上面有「雨」字頭，軟綿綿的白雲住在天空中。`
+      },
+      {
+        char: `笑`, zy: `ㄒㄧㄠ`, tone: `ˋ`, displayZy: `ㄒㄧㄠˋ`,
+        radical: `竹`, strokes: 10,
+        words: [`笑哈哈`, `微笑`, `大笑`],
+        tip: `上面有兩個彎彎的「竹」字頭，就像開心時彎彎的眼睛。`
+      },
+      {
+        char: `風`, zy: `ㄈㄥ`, tone: ``, displayZy: `ㄈㄥ`,
+        radical: `風`, strokes: 9,
+        words: [`微風`, `大風`, `吹風`],
+        tip: `外面像一個大框框包起來，微風輕輕吹過好涼快！`
+      }
+    ];
+
+    const VOCAB_DATA = [
+      {
+        tokens: [[`秋`, `ㄑㄧㄡ`, ``], [`千`, `ㄑㄧㄢ`, ``]],
+        plain: `秋千`,
+        desc: `公園裡用繩子吊起來、可以坐著晃動高低的遊戲器材。`,
+        example: `我和好朋友在公園裡一起盪秋千。`
+      },
+      {
+        tokens: [[`一`, `ㄧ`, ``], [`下`, `ㄒㄧㄚ`, `ˋ`]],
+        plain: `一下`,
+        desc: `表示時間很短，常常兩個一起用：「一下……，一下……」。`,
+        example: `小青蛙一下跳上石頭，一下跳進水裡。`
+      },
+      {
+        tokens: [[`白`, `ㄅㄞ`, `ˊ`], [`雲`, `ㄩㄣ`, `ˊ`]],
+        plain: `白雲`,
+        desc: `天空中白白軟軟、像棉花糖一樣飄浮的雲朵。`,
+        example: `抬起頭，就能看見天上的白雲慢慢飄過。`
+      },
+      {
+        tokens: [[`微`, `ㄨㄟ`, `ˊ`], [`風`, `ㄈㄥ`, ``]],
+        plain: `微風`,
+        desc: `輕輕吹過來、讓人覺得舒服涼爽的小風。`,
+        example: `春天時，微風吹在臉上好舒服。`
+      },
+      {
+        tokens: [[`伸`, `ㄕㄣ`, ``], [`手`, `ㄕㄡ`, `ˇ`]],
+        plain: `伸手`,
+        desc: `把手臂往前或往上伸長，想要拿取或摸到東西。`,
+        example: `秋千盪得好高，好像伸手就能摸到雲。`
+      },
+      {
+        tokens: [[`笑`, `ㄒㄧㄠ`, `ˋ`], [`哈`, `ㄏㄚ`, ``], [`哈`, `ㄏㄚ`, ``]],
+        plain: `笑哈哈`,
+        desc: `心情非常開心，忍不住大聲笑出來的樣子。`,
+        example: `大家一起玩遊戲，開心到笑哈哈。`
+      }
+    ];
+
+    const PUZZLE_DATA = [
+      {
+        title: `題目 1：用「一下……，一下……」拼句子`,
+        answer: [`秋千`, `一下`, `飛得高，`, `一下`, `盪得低。`],
+        tiles: [
+          { id: `p1-1`, text: `一下`, tokens: [[`一`, `ㄧ`, ``], [`下`, `ㄒㄧㄚ`, `ˋ`]] },
+          { id: `p1-2`, text: `盪得低。`, tokens: [[`盪`, `ㄉㄤ`, `ˋ`], [`得`, `ㄉㄜ`, `˙`], [`低`, `ㄉㄧ`, ``], [`。`, ``, ``]] },
+          { id: `p1-3`, text: `秋千`, tokens: [[`秋`, `ㄑㄧㄡ`, ``], [`千`, `ㄑㄧㄢ`, ``]] },
+          { id: `p1-4`, text: `飛得高，`, tokens: [[`飛`, `ㄈㄟ`, ``], [`得`, `ㄉㄜ`, `˙`], [`高`, `ㄍㄠ`, ``], [`，`, ``, ``]] },
+          { id: `p1-5`, text: `一下`, tokens: [[`一`, `ㄧ`, ``], [`下`, `ㄒㄧㄚ`, `ˋ`]] }
+        ]
+      },
+      {
+        title: `題目 2：用「好像……一樣……」拼句子`,
+        answer: [`我`, `好像`, `小鳥`, `一樣`, `飛上天。`],
+        tiles: [
+          { id: `p2-1`, text: `飛上天。`, tokens: [[`飛`, `ㄈㄟ`, ``], [`上`, `ㄕㄤ`, `ˋ`], [`天`, `ㄊㄧㄢ`, ``], [`。`, ``, ``]] },
+          { id: `p2-2`, text: `小鳥`, tokens: [[`小`, `ㄒㄧㄠ`, `ˇ`], [`鳥`, `ㄋㄧㄠ`, `ˇ`]] },
+          { id: `p2-3`, text: `我`, tokens: [[`我`, `ㄨㄛ`, `ˇ`]] },
+          { id: `p2-4`, text: `一樣`, tokens: [[`一`, `ㄧ`, ``], [`樣`, `ㄧㄤ`, `ˋ`]] },
+          { id: `p2-5`, text: `好像`, tokens: [[`好`, `ㄏㄠ`, `ˇ`], [`像`, `ㄒㄧㄤ`, `ˋ`]] }
+        ]
+      },
+      {
+        title: `題目 3：用「……在……裡……」拼句子`,
+        answer: [`我們`, `在`, `公園裡`, `開心地`, `盪秋千。`],
+        tiles: [
+          { id: `p3-1`, text: `公園裡`, tokens: [[`公`, `ㄍㄨㄥ`, ``], [`園`, `ㄩㄢ`, `ˊ`], [`裡`, `ㄌㄧ`, `ˇ`]] },
+          { id: `p3-2`, text: `盪秋千。`, tokens: [[`盪`, `ㄉㄤ`, `ˋ`], [`秋`, `ㄑㄧㄡ`, ``], [`千`, `ㄑㄧㄢ`, ``], [`。`, ``, ``]] },
+          { id: `p3-3`, text: `我們`, tokens: [[`我`, `ㄨㄛ`, `ˇ`], [`們`, `ㄇㄣ`, `˙`]] },
+          { id: `p3-4`, text: `開心地`, tokens: [[`開`, `ㄎㄞ`, ``], [`心`, `ㄒㄧㄣ`, ``], [`地`, `ㄉㄜ`, `˙`]] },
+          { id: `p3-5`, text: `在`, tokens: [[`在`, `ㄗㄞ`, `ˋ`]] }
+        ]
+      }
+    ];
+
+    const BUILDER_SLOTS = [
+      { key: `who`, label: `誰`, options: [`我`, `妹妹`, `小朋友`, `好朋友`] },
+      { key: `where`, label: `在哪裡`, options: [`在公園裡`, `在學校操場`, `在大樹下`] },
+      { key: `action`, label: `做什麼`, options: [`盪秋千`, `玩遊戲`, `吹泡泡`, `看白雲`] },
+      { key: `feeling`, label: `覺得怎麼樣`, options: [`真快樂！`, `好開心！`, `笑哈哈！`] }
+    ];
+
+    const QUIZ_DATA = [
+      {
+        tokens: [
+          [`課`, `ㄎㄜ`, `ˋ`], [`文`, `ㄨㄣ`, `ˊ`], [`裡`, `ㄌㄧ`, `ˇ`], [`，`, ``, ``],
+          [`小`, `ㄒㄧㄠ`, `ˇ`], [`朋`, `ㄆㄥ`, `ˊ`], [`友`, `ㄧㄡ`, `ˇ`],
+          [`在`, `ㄗㄞ`, `ˋ`], [`哪`, `ㄋㄚ`, `ˇ`], [`裡`, `ㄌㄧ`, `ˇ`],
+          [`盪`, `ㄉㄤ`, `ˋ`], [`秋`, `ㄑㄧㄡ`, ``], [`千`, `ㄑㄧㄢ`, ``], [`？`, ``, ``]
+        ],
+        plain: `課文裡，小朋友在哪裡盪秋千？`,
+        options: [
+          { text: `公園裡`, tokens: [[`公`, `ㄍㄨㄥ`, ``], [`園`, `ㄩㄢ`, `ˊ`], [`裡`, `ㄌㄧ`, `ˇ`]] },
+          { text: `教室裡`, tokens: [[`教`, `ㄐㄧㄠ`, `ˋ`], [`室`, `ㄕ`, `ˋ`], [`裡`, `ㄌㄧ`, `ˇ`]] },
+          { text: `廚房裡`, tokens: [[`廚`, `ㄔㄨ`, `ˊ`], [`房`, `ㄈㄤ`, `ˊ`], [`裡`, `ㄌㄧ`, `ˇ`]] }
+        ],
+        correctIdx: 0,
+        explain: `答對了！課文第一句就是「公園裡，盪秋千」！`
+      },
+      {
+        tokens: [
+          [`盪`, `ㄉㄤ`, `ˋ`], [`秋`, `ㄑㄧㄡ`, ``], [`千`, `ㄑㄧㄢ`, ``], [`時`, `ㄕ`, `ˊ`], [`，`, ``, ``],
+          [`秋`, `ㄑㄧㄡ`, ``], [`千`, `ㄑㄧㄢ`, ``], [`怎`, `ㄗㄣ`, `ˇ`], [`麼`, `ㄇㄜ`, `˙`], [`動`, `ㄉㄨㄥ`, `ˋ`], [`？`, ``, ``]
+        ],
+        plain: `盪秋千時，秋千怎麼動？`,
+        options: [
+          { text: `一直都不動`, tokens: [[`一`, `ㄧ`, ``], [`直`, `ㄓ`, `ˊ`], [`都`, `ㄉㄡ`, ``], [`不`, `ㄅㄨ`, `ˋ`], [`動`, `ㄉㄨㄥ`, `ˋ`]] },
+          { text: `一下高，一下低`, tokens: [[`一`, `ㄧ`, ``], [`下`, `ㄒㄧㄚ`, `ˋ`], [`高`, `ㄍㄠ`, ``], [`，`, ``, ``], [`一`, `ㄧ`, ``], [`下`, `ㄒㄧㄚ`, `ˋ`], [`低`, `ㄉㄧ`, ``]] },
+          { text: `只會轉圈圈`, tokens: [[`只`, `ㄓ`, `ˇ`], [`會`, `ㄏㄨㄟ`, `ˋ`], [`轉`, `ㄓㄨㄢ`, `ˇ`], [`圈`, `ㄑㄩㄢ`, ``], [`圈`, `ㄑㄩㄢ`, ``]] }
+        ],
+        correctIdx: 1,
+        explain: `好棒！秋千會「一下高，一下低」擺動！`
+      },
+      {
+        tokens: [
+          [`「`, ``, ``], [`白`, `ㄅㄞ`, `ˊ`], [`雲`, `ㄩㄣ`, `ˊ`], [`」`, ``, ``],
+          [`的`, `ㄉㄜ`, `˙`], [`「`, ``, ``], [`雲`, `ㄩㄣ`, `ˊ`], [`」`, ``, ``], [`，`, ``, ``],
+          [`正`, `ㄓㄥ`, `ˋ`], [`確`, `ㄑㄩㄝ`, `ˋ`], [`注`, `ㄓㄨ`, `ˋ`], [`音`, `ㄧㄣ`, ``],
+          [`是`, `ㄕ`, `ˋ`], [`哪`, `ㄋㄚ`, `ˇ`], [`一`, `ㄧ`, ``], [`個`, `ㄍㄜ`, `˙`], [`？`, ``, ``]
+        ],
+        plain: `「白雲」的「雲」，正確注音是哪一個？`,
+        options: [
+          { text: `ㄩㄣˊ`, tokens: null },
+          { text: `ㄧㄣˊ`, tokens: null },
+          { text: `ㄩㄥˊ`, tokens: null }
+        ],
+        correctIdx: 0,
+        explain: `沒錯！「雲」的注音是「ㄩㄣˊ」二聲！`
+      },
+      {
+        tokens: [
+          [`「`, ``, ``], [`秋`, `ㄑㄧㄡ`, ``], [`」`, ``, ``],
+          [`這`, `ㄓㄜ`, `ˋ`], [`個`, `ㄍㄜ`, `˙`], [`字`, `ㄗ`, `ˋ`],
+          [`一`, `ㄧ`, ``], [`共`, `ㄍㄨㄥ`, `ˋ`], [`有`, `ㄧㄡ`, `ˇ`], [`幾`, `ㄐㄧ`, `ˇ`], [`畫`, `ㄏㄨㄚ`, `ˋ`], [`？`, ``, ``]
+        ],
+        plain: `「秋」這個字一共有幾畫？`,
+        options: [
+          { text: `5 畫`, tokens: null },
+          { text: `9 畫`, tokens: null },
+          { text: `12 畫`, tokens: null }
+        ],
+        correctIdx: 1,
+        explain: `答對囉！左邊「禾」5 畫加上右邊「火」4 畫，一共是 9 畫！`
+      },
+      {
+        tokens: [
+          [`下`, `ㄒㄧㄚ`, `ˋ`], [`面`, `ㄇㄧㄢ`, `ˋ`], [`哪`, `ㄋㄚ`, `ˇ`], [`一`, `ㄧ`, ``], [`句`, `ㄐㄩ`, `ˋ`],
+          [`用`, `ㄩㄥ`, `ˋ`], [`對`, `ㄉㄨㄟ`, `ˋ`], [`了`, `ㄌㄜ`, `˙`],
+          [`「`, ``, ``], [`一`, `ㄧ`, ``], [`下`, `ㄒㄧㄚ`, `ˋ`], [`…`, ``, ``], [`一`, `ㄧ`, ``], [`下`, `ㄒㄧㄚ`, `ˋ`], [`」`, ``, ``], [`？`, ``, ``]
+        ],
+        plain: `下面哪一句用對了「一下……，一下……」？`,
+        options: [
+          {
+            text: `小青蛙一下跳上石頭，一下跳進水裡。`,
+            tokens: [
+              [`小`, `ㄒㄧㄠ`, `ˇ`], [`青`, `ㄑㄧㄥ`, ``], [`蛙`, `ㄨㄚ`, ``],
+              [`一`, `ㄧ`, ``], [`下`, `ㄒㄧㄚ`, `ˋ`], [`跳`, `ㄊㄧㄠ`, `ˋ`], [`上`, `ㄕㄤ`, `ˋ`], [`石`, `ㄕ`, `ˊ`], [`頭`, `ㄊㄡ`, `˙`], [`，`, ``, ``],
+              [`一`, `ㄧ`, ``], [`下`, `ㄒㄧㄚ`, `ˋ`], [`跳`, `ㄊㄧㄠ`, `ˋ`], [`進`, `ㄐㄧㄣ`, `ˋ`], [`水`, `ㄕㄨㄟ`, `ˇ`], [`裡`, `ㄌㄧ`, `ˇ`], [`。`, ``, ``]
+            ]
+          },
+          {
+            text: `今天一下是星期一。`,
+            tokens: [
+              [`今`, `ㄐㄧㄣ`, ``], [`天`, `ㄊㄧㄢ`, ``], [`一`, `ㄧ`, ``], [`下`, `ㄒㄧㄚ`, `ˋ`],
+              [`是`, `ㄕ`, `ˋ`], [`星`, `ㄒㄧㄥ`, ``], [`期`, `ㄑㄧ`, `ˊ`], [`一`, `ㄧ`, ``], [`。`, ``, ``]
+            ]
+          },
+          {
+            text: `桌子上一下有兩顆蘋果。`,
+            tokens: [
+              [`桌`, `ㄓㄨㄛ`, ``], [`子`, `ㄗ`, `˙`], [`上`, `ㄕㄤ`, `ˋ`],
+              [`一`, `ㄧ`, ``], [`下`, `ㄒㄧㄚ`, `ˋ`], [`有`, `ㄧㄡ`, `ˇ`],
+              [`兩`, `ㄌㄧㄤ`, `ˇ`], [`顆`, `ㄎㄜ`, ``], [`蘋`, `ㄆㄧㄥ`, `ˊ`], [`果`, `ㄍㄨㄛ`, `ˇ`], [`。`, ``, ``]
+            ]
+          }
+        ],
+        correctIdx: 0,
+        explain: `太厲害了！小青蛙交替跳上石頭和跳進水裡，用「一下……，一下……」剛剛好！`
+      }
+    ];
+
+    // App State (persisted via notebookAppApi)
+    let appState = {
+      showZhuyin: true,
+      activeCharIdx: 0,
+      practicedChars: [],
+      puzzleIdx: 0,
+      builderSelection: {
+        who: `我`,
+        where: `在公園裡`,
+        action: `盪秋千`,
+        feeling: `真快樂！`
+      },
+      customSentence: ``,
+      quizIdx: 0,
+      quizCorrectMap: {},
+      customLessonLines: []
+    };
+
+    let trayTileIds = [];
+    let currentQuizSelected = null;
+    let isDrawing = false;
+    let swingAngleStep = 0;
+
+    // Helper: Build Taiwanese Bopomofo HTML for token array
+    function renderRubyTokens(tokens) {
+      if (!tokens || !Array.isArray(tokens)) return ``;
+      return tokens.map(function (item) {
+        const ch = item[0];
+        const zy = item[1];
+        const tone = item[2];
+        if (!zy) {
+          return `<span class="zy-unit"><span class="zy-char">${escapeHtml(ch)}</span></span>`;
+        }
+        const chars = zy.split(``);
+        let colHtml = ``;
+        if (tone === `˙`) {
+          colHtml += `<span class="zy-tone-neutral">˙</span>`;
+        }
+        chars.forEach(function (z) {
+          colHtml += `<span>${escapeHtml(z)}</span>`;
+        });
+        const toneHtml = (tone && tone !== `˙`)
+          ? `<span class="zy-tone">${escapeHtml(tone)}</span>`
+          : ``;
+        return `<span class="zy-unit"><span class="zy-char">${escapeHtml(ch)}</span><span class="zy-ruby" aria-hidden="true"><span class="zy-col">${colHtml}</span>${toneHtml}</span></span>`;
+      }).join(``);
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, `&amp;`)
+        .replace(/</g, `&lt;`)
+        .replace(/>/g, `&gt;`)
+        .replace(/"/g, `&quot;`);
+    }
+
+    // Speech helper (zh-TW with graceful visual fallback)
+    function speakText(text, onStart, onEnd) {
+      const statusEl = document.getElementById(`speech-status`);
+      if (!(`speechSynthesis` in window)) {
+        if (statusEl) statusEl.textContent = `目前裝置不支援語音朗讀，可以請爸爸媽媽陪著一起唸：「${text}」`;
+        if (onStart) onStart();
+        setTimeout(function () { if (onEnd) onEnd(); }, 900);
+        return;
+      }
+      try {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = `zh-TW`;
+        utter.rate = 0.85;
+        utter.pitch = 1.05;
+        const voices = window.speechSynthesis.getVoices();
+        const twVoice = voices.find(function (v) { return v.lang && v.lang.toLowerCase().indexOf(`zh-tw`) !== -1; })
+          || voices.find(function (v) { return v.lang && v.lang.toLowerCase().indexOf(`zh`) !== -1; });
+        if (twVoice) utter.voice = twVoice;
+        utter.onstart = function () {
+          if (statusEl) statusEl.textContent = `正在朗讀：「${text}」`;
+          if (onStart) onStart();
+        };
+        utter.onend = function () {
+          if (statusEl) statusEl.textContent = ``;
+          if (onEnd) onEnd();
+        };
+        utter.onerror = function () {
+          if (statusEl) statusEl.textContent = `請跟著畫面一起大聲唸：「${text}」`;
+          if (onEnd) onEnd();
+        };
+        window.speechSynthesis.speak(utter);
+      } catch (e) {
+        if (statusEl) statusEl.textContent = `請跟著畫面一起大聲唸：「${text}」`;
+        if (onEnd) onEnd();
+      }
+    }
+
+    // Persist state cleanly
+    async function saveState() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+          await window.notebookAppApi.setAppState(appState);
+        }
+      } catch (e) {
+        // Ignore transient save errors in preview
+      }
+    }
+
+    function updateProgressBar() {
+      const charCount = appState.practicedChars.length;
+      const quizCount = Object.keys(appState.quizCorrectMap).length;
+      const totalStars = charCount + quizCount;
+      const maxStars = CHAR_DATA.length + QUIZ_DATA.length;
+      const textEl = document.getElementById(`progress-text`);
+      const fillEl = document.getElementById(`progress-fill`);
+      if (textEl) textEl.textContent = `${totalStars} / ${maxStars}`;
+      if (fillEl) fillEl.style.width = `${Math.round((totalStars / maxStars) * 100)}%`;
+    }
+
+    // Hero Swing interaction
+    function pushSwing() {
+      const rope = document.getElementById(`swing-rope-group`);
+      if (!rope) return;
+      swingAngleStep = (swingAngleStep + 1) % 4;
+      const angles = [-18, 16, -12, 0];
+      rope.style.transform = `rotate(${angles[swingAngleStep]}deg)`;
+      if (swingAngleStep === 1) {
+        speakText(`一下高，一下低，盪秋千真好玩！`);
+      }
+    }
+
+    // Zhuyin visibility toggle
+    function toggleZhuyin() {
+      appState.showZhuyin = !appState.showZhuyin;
+      applyZhuyinVisibility();
+      saveState();
+    }
+
+    function applyZhuyinVisibility() {
+      const root = document.getElementById(`app-root`);
+      const label = document.getElementById(`zhuyin-btn-label`);
+      if (root) {
+        if (appState.showZhuyin) {
+          root.classList.remove(`hide-zhuyin`);
+        } else {
+          root.classList.add(`hide-zhuyin`);
+        }
+      }
+      if (label) {
+        label.textContent = appState.showZhuyin ? `隱藏注音挑戰` : `顯示注音幫忙`;
+      }
+    }
+
+    // Section 1: Lesson rendering & reading
+    function getActiveLessonLines() {
+      if (appState.customLessonLines && appState.customLessonLines.length > 0) {
+        return appState.customLessonLines.map(function (line) {
+          return { text: line, tokens: null };
+        });
+      }
+      return DEFAULT_LESSON_LINES;
+    }
+
+    function renderLesson() {
+      const container = document.getElementById(`lesson-container`);
+      if (!container) return;
+      const lines = getActiveLessonLines();
+      container.innerHTML = lines.map(function (line, idx) {
+        const bodyHtml = line.tokens ? renderRubyTokens(line.tokens) : escapeHtml(line.text);
+        return `<button type="button" class="lesson-line-btn" id="lesson-line-${idx}" onclick="readLine(${idx})">
+          <span>${bodyHtml}</span>
+          <span class="line-speaker-badge" aria-hidden="true">
+            <i data-lucide="volume-2"></i>
+          </span>
+        </button>`;
+      }).join(``);
+      refreshIcons();
+    }
+
+    function readLine(idx) {
+      const lines = getActiveLessonLines();
+      if (!lines[idx]) return;
+      document.querySelectorAll(`.lesson-line-btn`).forEach(function (el) {
+        el.classList.remove(`is-speaking`);
+      });
+      const btn = document.getElementById(`lesson-line-${idx}`);
+      speakText(lines[idx].text, function () {
+        if (btn) btn.classList.add(`is-speaking`);
+      }, function () {
+        if (btn) btn.classList.remove(`is-speaking`);
+      });
+    }
+
+    function readFullLesson() {
+      const lines = getActiveLessonLines();
+      const fullText = lines.map(function (l) { return l.text; }).join(` `);
+      pushSwing();
+      speakText(fullText);
+    }
+
+    // Section 2: Character Explorer & Canvas Writing
+    function renderCharGrid() {
+      const grid = document.getElementById(`char-selector-grid`);
+      if (!grid) return;
+      grid.innerHTML = CHAR_DATA.map(function (item, idx) {
+        const isActive = idx === appState.activeCharIdx;
+        const isDone = appState.practicedChars.indexOf(item.char) !== -1;
+        const doneDot = isDone
+          ? `<span class="char-done-dot" aria-label="已練習"><i data-lucide="check" style="width:14px;height:14px;"></i></span>`
+          : ``;
+        return `<button type="button" class="char-chip ${isActive ? `is-active` : ``}" onclick="selectChar(${idx})">
+          ${doneDot}
+          <span>${escapeHtml(item.char)}</span>
+          <span class="char-chip-sub">${escapeHtml(item.displayZy)}</span>
+        </button>`;
+      }).join(``);
+      refreshIcons();
+    }
+
+    function renderActiveChar() {
+      const item = CHAR_DATA[appState.activeCharIdx] || CHAR_DATA[0];
+      const huge = document.getElementById(`char-huge-display`);
+      const ruby = document.getElementById(`char-ruby-display`);
+      const rad = document.getElementById(`char-radical-tag`);
+      const stk = document.getElementById(`char-strokes-tag`);
+      const words = document.getElementById(`char-words-display`);
+      const tip = document.getElementById(`char-tip-display`);
+      const watermark = document.getElementById(`tian-watermark`);
+      const markBtn = document.getElementById(`btn-mark-char`);
+
+      if (huge) huge.textContent = item.char;
+      if (ruby) ruby.innerHTML = renderRubyTokens([[item.char, item.zy, item.tone]]);
+      if (rad) rad.textContent = `部首：${item.radical}`;
+      if (stk) stk.textContent = `筆畫：${item.strokes} 畫`;
+      if (words) words.textContent = item.words.join(` ／ `);
+      if (tip) tip.textContent = item.tip;
+      if (watermark) watermark.textContent = item.char;
+      if (markBtn) {
+        const done = appState.practicedChars.indexOf(item.char) !== -1;
+        markBtn.innerHTML = done
+          ? `<i data-lucide="star" aria-hidden="true"></i> 已經得星星囉！`
+          : `<i data-lucide="check-circle" aria-hidden="true"></i> 我學會了！`;
+      }
+      refreshIcons();
+    }
+
+    function selectChar(idx) {
+      appState.activeCharIdx = idx;
+      clearCanvas();
+      renderCharGrid();
+      renderActiveChar();
+      saveState();
+    }
+
+    function speakCurrentChar() {
+      const item = CHAR_DATA[appState.activeCharIdx] || CHAR_DATA[0];
+      speakText(`${item.char}，${item.words.join(`，`)}`);
+    }
+
+    function markCharDone() {
+      const item = CHAR_DATA[appState.activeCharIdx] || CHAR_DATA[0];
+      if (appState.practicedChars.indexOf(item.char) === -1) {
+        appState.practicedChars.push(item.char);
+      }
+      renderCharGrid();
+      renderActiveChar();
+      updateProgressBar();
+      saveState();
+    }
+
+    function setupCanvas() {
+      const canvas = document.getElementById(`writing-canvas`);
+      if (!canvas) return;
+      const ctx = canvas.getContext(`2d`);
+      if (!ctx) return;
+
+      function getStrokeColor() {
+        const val = getComputedStyle(document.documentElement).getPropertyValue(`--primary`).trim();
+        return val || `currentColor`;
+      }
+
+      function getPos(evt) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        return {
+          x: (evt.clientX - rect.left) * scaleX,
+          y: (evt.clientY - rect.top) * scaleY
+        };
+      }
+
+      canvas.addEventListener(`pointerdown`, function (evt) {
+        evt.preventDefault();
+        canvas.setPointerCapture(evt.pointerId);
+        isDrawing = true;
+        const pos = getPos(evt);
+        ctx.strokeStyle = getStrokeColor();
+        ctx.lineWidth = 14;
+        ctx.lineCap = `round`;
+        ctx.lineJoin = `round`;
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+      });
+
+      canvas.addEventListener(`pointermove`, function (evt) {
+        if (!isDrawing) return;
+        const pos = getPos(evt);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+      });
+
+      function stopDraw() {
+        isDrawing = false;
+      }
+      canvas.addEventListener(`pointerup`, stopDraw);
+      canvas.addEventListener(`pointercancel`, stopDraw);
+    }
+
+    function clearCanvas() {
+      const canvas = document.getElementById(`writing-canvas`);
+      if (!canvas) return;
+      const ctx = canvas.getContext(`2d`);
+      if (!ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    // Section 3: Vocabulary Grid
+    function renderVocab() {
+      const grid = document.getElementById(`vocab-grid`);
+      if (!grid) return;
+      grid.innerHTML = VOCAB_DATA.map(function (v, idx) {
+        return `<article class="vocab-card">
+          <div>
+            <div class="vocab-word">${renderRubyTokens(v.tokens)}</div>
+            <p class="vocab-desc">${escapeHtml(v.desc)}</p>
+          </div>
+          <div class="vocab-example">例句：${escapeHtml(v.example)}</div>
+          <button type="button" class="btn btn-soft" onclick="speakVocab(${idx})">
+            <i data-lucide="volume-2" aria-hidden="true"></i>
+            唸一唸
+          </button>
+        </article>`;
+      }).join(``);
+      refreshIcons();
+    }
+
+    function speakVocab(idx) {
+      const v = VOCAB_DATA[idx];
+      if (!v) return;
+      speakText(`${v.plain}。${v.example}`);
+    }
+
+    // Section 4: Sentence Puzzle & Builder
+    function renderPuzzle() {
+      const puzzle = PUZZLE_DATA[appState.puzzleIdx] || PUZZLE_DATA[0];
+      const titleEl = document.getElementById(`puzzle-title`);
+      const trayEl = document.getElementById(`puzzle-tray`);
+      const bankEl = document.getElementById(`word-bank`);
+      const fbEl = document.getElementById(`puzzle-feedback`);
+
+      if (titleEl) titleEl.textContent = puzzle.title;
+      if (fbEl) fbEl.innerHTML = ``;
+
+      if (trayEl) {
+        if (trayTileIds.length === 0) {
+          trayEl.innerHTML = `<span style="color: var(--on-surface-variant); font-weight: 700;">點下面的詞語積木，把句子拼在這裡！</span>`;
+        } else {
+          trayEl.innerHTML = trayTileIds.map(function (id) {
+            const tile = puzzle.tiles.find(function (t) { return t.id === id; });
+            if (!tile) return ``;
+            return `<button type="button" class="word-tile in-tray" onclick="togglePuzzleTile('${tile.id}')">${renderRubyTokens(tile.tokens)}</button>`;
+          }).join(``);
+        }
+      }
+
+      if (bankEl) {
+        bankEl.innerHTML = puzzle.tiles.filter(function (tile) {
+          return trayTileIds.indexOf(tile.id) === -1;
+        }).map(function (tile) {
+          return `<button type="button" class="word-tile" onclick="togglePuzzleTile('${tile.id}')">${renderRubyTokens(tile.tokens)}</button>`;
+        }).join(``);
+      }
+    }
+
+    function togglePuzzleTile(tileId) {
+      const pos = trayTileIds.indexOf(tileId);
+      if (pos === -1) {
+        trayTileIds.push(tileId);
+      } else {
+        trayTileIds.splice(pos, 1);
+      }
+      renderPuzzle();
+    }
+
+    function resetCurrentPuzzle() {
+      trayTileIds = [];
+      renderPuzzle();
+    }
+
+    function nextPuzzle() {
+      appState.puzzleIdx = (appState.puzzleIdx + 1) % PUZZLE_DATA.length;
+      trayTileIds = [];
+      renderPuzzle();
+      saveState();
+    }
+
+    function getCurrentPuzzleText() {
+      const puzzle = PUZZLE_DATA[appState.puzzleIdx] || PUZZLE_DATA[0];
+      return trayTileIds.map(function (id) {
+        const tile = puzzle.tiles.find(function (t) { return t.id === id; });
+        return tile ? tile.text : ``;
+      }).join(``);
+    }
+
+    function checkPuzzle() {
+      const puzzle = PUZZLE_DATA[appState.puzzleIdx] || PUZZLE_DATA[0];
+      const fbEl = document.getElementById(`puzzle-feedback`);
+      if (!fbEl) return;
+      if (trayTileIds.length < puzzle.answer.length) {
+        fbEl.innerHTML = `<div class="feedback-banner feedback-try">還有積木還沒放進來喔，再點一點試試看！</div>`;
+        return;
+      }
+      const userParts = trayTileIds.map(function (id) {
+        const tile = puzzle.tiles.find(function (t) { return t.id === id; });
+        return tile ? tile.text : ``;
+      });
+      const isRight = userParts.join(``) === puzzle.answer.join(``);
+      if (isRight) {
+        fbEl.innerHTML = `<div class="feedback-banner feedback-ok">太棒了！你拼出完全正確的句子：「${escapeHtml(puzzle.answer.join(``))}」</div>`;
+        speakText(puzzle.answer.join(``));
+      } else {
+        fbEl.innerHTML = `<div class="feedback-banner feedback-try">差一點點！點一下積木可以拿下來重新排排看喔。</div>`;
+      }
+    }
+
+    function speakPuzzle() {
+      const txt = getCurrentPuzzleText();
+      if (!txt) {
+        speakText(`請先點選詞語積木來拼句子喔！`);
+        return;
+      }
+      speakText(txt);
+    }
+
+    function renderBuilder() {
+      const slotsEl = document.getElementById(`builder-slots`);
+      const previewEl = document.getElementById(`builder-preview`);
+      const customInput = document.getElementById(`custom-sentence-input`);
+
+      if (slotsEl) {
+        slotsEl.innerHTML = BUILDER_SLOTS.map(function (slot) {
+          const currentVal = appState.builderSelection[slot.key] || slot.options[0];
+          const pillsHtml = slot.options.map(function (opt) {
+            const active = opt === currentVal;
+            return `<button type="button" class="slot-pill ${active ? `is-selected` : ``}" onclick="selectBuilderSlot('${slot.key}', '${opt}')">${escapeHtml(opt)}</button>`;
+          }).join(``);
+          return `<div class="slot-group">
+            <p class="slot-title">${escapeHtml(slot.label)}</p>
+            <div class="slot-pills">${pillsHtml}</div>
+          </div>`;
+        }).join(``);
+      }
+
+      if (customInput && customInput.value !== appState.customSentence) {
+        customInput.value = appState.customSentence || ``;
+      }
+
+      if (previewEl) {
+        const s = appState.builderSelection;
+        const baseSentence = `${s.who}${s.where}${s.action}，${s.feeling}`;
+        const extra = appState.customSentence ? ` ${appState.customSentence}` : ``;
+        previewEl.textContent = `我的新句子：${baseSentence}${extra}`;
+      }
+    }
+
+    function selectBuilderSlot(key, value) {
+      appState.builderSelection[key] = value;
+      renderBuilder();
+      saveState();
+    }
+
+    function onCustomSentenceInput(val) {
+      appState.customSentence = val;
+      renderBuilder();
+      saveState();
+    }
+
+    function speakBuilderSentence() {
+      const s = appState.builderSelection;
+      const extra = appState.customSentence ? ` ${appState.customSentence}` : ``;
+      speakText(`${s.who}${s.where}${s.action}，${s.feeling}${extra}`);
+    }
+
+    // Section 5: Quiz
+    function renderQuiz() {
+      const area = document.getElementById(`quiz-area`);
+      if (!area) return;
+
+      const total = QUIZ_DATA.length;
+      if (appState.quizIdx >= total) {
+        const score = Object.keys(appState.quizCorrectMap).length;
+        area.innerHTML = `<div style="text-align: center; padding: var(--space-lg) 0;">
+          <div style="font-size: var(--display-size); font-weight: 900; color: var(--primary); margin-bottom: var(--space-sm);">
+            太棒了！答對 ${score} / ${total} 題
+          </div>
+          <p class="section-lede" style="margin: 0 auto var(--space-lg) auto;">
+            你已經完成「秋千」的所有小測驗囉！可以再玩一次，或是回去上面再唸一遍課文。
+          </p>
+          <button type="button" class="btn btn-primary" onclick="restartQuiz()">
+            <i data-lucide="rotate-ccw" aria-hidden="true"></i>
+            再挑戰一次小測驗
+          </button>
+        </div>`;
+        refreshIcons();
+        return;
+      }
+
+      const q = QUIZ_DATA[appState.quizIdx];
+      const badges = [`A`, `B`, `C`];
+      const optionsHtml = q.options.map(function (opt, i) {
+        let cls = `quiz-option-btn`;
+        if (currentQuizSelected !== null) {
+          if (i === q.correctIdx && currentQuizSelected === q.correctIdx) cls += ` is-correct`;
+          else if (i === currentQuizSelected && i !== q.correctIdx) cls += ` is-wrong`;
+        }
+        const labelHtml = opt.tokens ? renderRubyTokens(opt.tokens) : escapeHtml(opt.text);
+        return `<button type="button" class="${cls}" onclick="answerQuiz(${i})">
+          <span class="option-badge">${badges[i]}</span>
+          <span>${labelHtml}</span>
+        </button>`;
+      }).join(``);
+
+      let fbHtml = ``;
+      if (currentQuizSelected !== null) {
+        if (currentQuizSelected === q.correctIdx) {
+          fbHtml = `<div class="feedback-banner feedback-ok">
+            <i data-lucide="check-circle" aria-hidden="true"></i>
+            <span>${escapeHtml(q.explain)}</span>
+          </div>
+          <div class="btn-row" style="margin-top: var(--space-md);">
+            <button type="button" class="btn btn-primary" onclick="nextQuizQuestion()">
+              ${appState.quizIdx + 1 < total ? `下一題` : `看成績`}
+              <i data-lucide="arrow-right" aria-hidden="true"></i>
+            </button>
+          </div>`;
+        } else {
+          fbHtml = `<div class="feedback-banner feedback-try">
+            <i data-lucide="help-circle" aria-hidden="true"></i>
+            <span>再想一想喔，你可以再點別的答案試試看！</span>
+          </div>`;
+        }
+      }
+
+      area.innerHTML = `<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space-md); margin-bottom: var(--space-md);">
+        <span class="tag-grape">第 ${appState.quizIdx + 1} 題 ／ 共 ${total} 題</span>
+        <button type="button" class="btn btn-soft" onclick="speakQuizQuestion()">
+          <i data-lucide="volume-2" aria-hidden="true"></i>
+          唸題目給我聽
+        </button>
+      </div>
+      <div style="font-size: var(--headline-size); font-weight: 800; line-height: 1.4;">
+        ${renderRubyTokens(q.tokens)}
+      </div>
+      <div class="quiz-options">${optionsHtml}</div>
+      <div aria-live="polite">${fbHtml}</div>`;
+      refreshIcons();
+    }
+
+    function speakQuizQuestion() {
+      const q = QUIZ_DATA[appState.quizIdx];
+      if (!q) return;
+      const opts = q.options.map(function (o, i) { return `選項${i + 1}，${o.text}`; }).join(`。`);
+      speakText(`${q.plain} ${opts}`);
+    }
+
+    function answerQuiz(idx) {
+      const q = QUIZ_DATA[appState.quizIdx];
+      if (!q) return;
+      currentQuizSelected = idx;
+      if (idx === q.correctIdx) {
+        appState.quizCorrectMap[String(appState.quizIdx)] = true;
+        updateProgressBar();
+        saveState();
+      }
+      renderQuiz();
+    }
+
+    function nextQuizQuestion() {
+      currentQuizSelected = null;
+      appState.quizIdx += 1;
+      renderQuiz();
+      saveState();
+    }
+
+    function restartQuiz() {
+      currentQuizSelected = null;
+      appState.quizIdx = 0;
+      appState.quizCorrectMap = {};
+      updateProgressBar();
+      renderQuiz();
+      saveState();
+    }
+
+    // Parent / Teacher customization & inline two-step reset
+    function applyCustomLesson() {
+      const ta = document.getElementById(`custom-lesson-textarea`);
+      const msg = document.getElementById(`parent-msg`);
+      if (!ta) return;
+      const lines = ta.value.split(`\n`).map(function (s) { return s.trim(); }).filter(function (s) { return s.length > 0; });
+      appState.customLessonLines = lines;
+      renderLesson();
+      saveState();
+      if (msg) {
+        msg.textContent = lines.length > 0
+          ? `已套用自訂課文（共 ${lines.length} 行）！`
+          : `已恢復為預設「秋千」注音課文！`;
+      }
+    }
+
+    function resetAllProgress(btn) {
+      if (btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `再按一次確認清除紀錄`;
+        return;
+      }
+      btn.dataset.armed = `false`;
+      btn.textContent = `清除全部學習紀錄`;
+      appState = {
+        showZhuyin: true,
+        activeCharIdx: 0,
+        practicedChars: [],
+        puzzleIdx: 0,
+        builderSelection: {
+          who: `我`,
+          where: `在公園裡`,
+          action: `盪秋千`,
+          feeling: `真快樂！`
+        },
+        customSentence: ``,
+        quizIdx: 0,
+        quizCorrectMap: {},
+        customLessonLines: []
+      };
+      trayTileIds = [];
+      currentQuizSelected = null;
+      const ta = document.getElementById(`custom-lesson-textarea`);
+      if (ta) ta.value = ``;
+      clearCanvas();
+      applyZhuyinVisibility();
+      renderLesson();
+      renderCharGrid();
+      renderActiveChar();
+      renderPuzzle();
+      renderBuilder();
+      renderQuiz();
+      updateProgressBar();
+      saveState();
+      const msg = document.getElementById(`parent-msg`);
+      if (msg) msg.textContent = `已全部重設完成！`;
+    }
+
+    function refreshIcons() {
+      if (window.lucide && typeof window.lucide.createIcons === `function`) {
+        window.lucide.createIcons();
+      }
+    }
+
+    // Initialization
+    async function initApp() {
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+          const saved = await window.notebookAppApi.getAppState();
+          if (saved && typeof saved === `object`) {
+            if (typeof saved.showZhuyin === `boolean`) appState.showZhuyin = saved.showZhuyin;
+            if (typeof saved.activeCharIdx === `number`) appState.activeCharIdx = saved.activeCharIdx;
+            if (Array.isArray(saved.practicedChars)) appState.practicedChars = saved.practicedChars;
+            if (typeof saved.puzzleIdx === `number`) appState.puzzleIdx = saved.puzzleIdx;
+            if (saved.builderSelection && typeof saved.builderSelection === `object`) {
+              appState.builderSelection = Object.assign({}, appState.builderSelection, saved.builderSelection);
+            }
+            if (typeof saved.customSentence === `string`) appState.customSentence = saved.customSentence;
+            if (typeof saved.quizIdx === `number`) appState.quizIdx = saved.quizIdx;
+            if (saved.quizCorrectMap && typeof saved.quizCorrectMap === `object`) {
+              appState.quizCorrectMap = saved.quizCorrectMap;
+            }
+            if (Array.isArray(saved.customLessonLines)) appState.customLessonLines = saved.customLessonLines;
+          }
+        }
+      } catch (e) {
+        // Proceed with defaults if state load is unavailable
+      }
+
+      const ta = document.getElementById(`custom-lesson-textarea`);
+      if (ta && appState.customLessonLines.length > 0) {
+        ta.value = appState.customLessonLines.join(`\n`);
+      }
+
+      applyZhuyinVisibility();
+      renderLesson();
+      renderCharGrid();
+      renderActiveChar();
+      setupCanvas();
+      renderVocab();
+      renderPuzzle();
+      renderBuilder();
+      renderQuiz();
+      updateProgressBar();
+      refreshIcons();
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    if (document.readyState === `loading`) {
+      document.addEventListener(`DOMContentLoaded`, initApp);
+    } else {
+      initApp();
+    }
+  </script>
+</body>
+</html>
