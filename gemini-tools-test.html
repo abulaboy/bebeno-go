@@ -49,16 +49,16 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 <header><div class="in">
 <a href="./">← 回 JIO Studio 首頁</a>
 <h1>測試 Gemini 各大工具成果</h1>
-<p>2026 年 11 月 18 日｜四位員工＋老闆，一次實測 Gemini 的 10 種工具，看哪些今天就能派工、哪些還不行。</p>
+<p>2026 年 11 月 18 日｜四位員工＋老闆，一次實測 Gemini 的 10 種工具。下午在公司測第一輪，晚上在家重試沒過的項目。</p>
 </div></header>
 <main>
 
 <div class="lead">
-<b>一句話總結：</b>文字類工具（生圖、Canvas、研究、引導式學習）都能直接交件，品質可以用；影音類工具（影片、音樂、語音摘要）這一輪全部沒做出成品，Flow 能上傳素材也知道價錢，但卡在核准按鈕。
+<b>一句話總結：</b>第一輪文字類工具全過、影音類全卡；晚上在家重試後，影片、音樂、語音摘要、Flow 都做出成品，10 種工具 9 種已確認可以派工。卡住的原因多半不是工具不行，而是操作方式（分頁放背景、指令寫到品牌名稱、遠端點不到核准按鈕）。
 <div class="stats">
-<div class="stat ok"><b>5</b>可直接派工</div>
-<div class="stat part"><b>1</b>部分可用</div>
-<div class="stat no"><b>4</b>這輪沒做出來</div>
+<div class="stat ok"><b>9</b>可以派工</div>
+<div class="stat part"><b>1</b>進行中</div>
+<div class="stat no"><b>0</b>確定不行</div>
 </div>
 </div>
 
@@ -70,11 +70,11 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 <tr><td>任務模式研究</td><td>Tidal</td><td><span class="tag ok">成功</span></td><td>自己搜尋、讀原文，交出 6 則附來源的新聞＋3 組四格分鏡。</td></tr>
 <tr><td>引導式學習</td><td>Tidal</td><td><span class="tag ok">成功</span></td><td>注音雙胞胎教學＋10 題題庫，注音與答案逐題核對都正確。</td></tr>
 <tr><td>Gem 說明文字</td><td>Idn</td><td><span class="tag ok">已補完</span></td><td>員工外型原本是自己編的，老闆已照定裝照改正（Tidal 是年長者、Kaz 戴傳統氈帽）。</td></tr>
-<tr><td>Flow</td><td>老闆操作</td><td><span class="tag part">部分</span></td><td>能上傳定裝照當素材，一段 8 秒影片 8 點；核准按鈕沒按成功，逾時取消、未扣點。</td></tr>
-<tr><td>建立影片（Veo）</td><td>Kaz</td><td><span class="tag no">沒做出</span></td><td>對話模式送出後整則消失；任務模式回報「沒有掛載影片工具」。</td></tr>
-<tr><td>創作音樂</td><td>Rudy、Tidal</td><td><span class="tag no">沒做出</span></td><td>Rudy 卡住沒回應；Tidal 第一次因提到頻道名稱被拒，第二次額度已滿。</td></tr>
-<tr><td>語音摘要</td><td>Tidal</td><td><span class="tag no">沒做出</span></td><td>員工回報這個帳號沒有轉語音的功能。</td></tr>
-<tr><td>Deep Research</td><td>Tidal</td><td><span class="tag no">無法使用</span></td><td>選單裡是停用狀態，改用任務模式代替，效果接近。</td></tr>
+<tr><td>Flow</td><td>老闆操作</td><td><span class="tag ok">重試成功</span></td><td>改用手動生成（不經對話代理就不用按核准），四張定裝照當素材，720p 8 秒一段 24 點，四人長相幾乎一致。</td></tr>
+<tr><td>建立影片</td><td>Kaz→Idn</td><td><span class="tag ok">重試成功</span></td><td>第一輪送出後訊息消失；晚上 Idn 用 Argon＋對話模式、分頁放前景，做出 10 秒黑白網點動態漫畫。任務模式沒有影片工具。</td></tr>
+<tr><td>創作音樂</td><td>Rudy、Tidal→Kaz</td><td><span class="tag ok">重試成功</span></td><td>指令拿掉頻道名稱後，Kaz 做出 1 分 08 秒熱血運動曲（電吉他＋西塔琴＋塔布拉鼓）；要求 15 秒但成品偏長。</td></tr>
+<tr><td>語音摘要</td><td>Tidal</td><td><span class="tag ok">重試成功</span></td><td>Gemini 對話裡沒有；改用 NotebookLM，把這份報告當來源、語言選中文（繁體），做出 14 分鐘雙主持人對談。</td></tr>
+<tr><td>Deep Research</td><td>Tidal→Kaz</td><td><span class="tag part">進行中</span></td><td>Tidal 帳號是停用狀態；Kaz 帳號可以用：已自動擬好研究計畫、開始搜尋官方規格與點數機制，報告產出中（Deep Research 一份要跑十幾分鐘以上）。</td></tr>
 </table></div>
 
 <h2>各項成果</h2>
@@ -136,11 +136,30 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 </div>
 
 <div class="card">
-<h3>⑦ 影片、音樂、語音摘要：這輪沒做出成品</h3>
+<h3>⑧ 晚上重試：建立影片（Gemini App）</h3>
+<div class="meta">Idn｜Argon＋建立影片｜10 秒</div>
+深夜球場、投手眼睛發藍光、速度線和風、揮臂投球，黑白網點畫風一路維持，沒有變寫實。
+<img src="works/gemini-test/gemini_video_frame.jpg" alt="Gemini 生成的黑白網點動態漫畫影片截圖：投手眼睛發藍光" loading="lazy">
+</div>
+<div class="card">
+<h3>⑨ 晚上重試：Flow 四人同框</h3>
+<div class="meta">Rudy 帳號｜Omni 1.2 Flash｜720p 8 秒｜24 點</div>
+四張定裝照當素材，休息區圍圈、疊手、舉手歡呼。Kaz 的氈帽、Tidal 的光頭白鬍、Rudy 的背心都對，只有 Idn 少了眼鏡。
+<img src="works/gemini-test/flow_frames.jpg" alt="Flow 生成影片的四張截圖：四位員工在夜間球場休息區打氣" loading="lazy">
+</div>
+<div class="card">
+<h3>⑩ 晚上重試：用 Gem 畫漫畫</h3>
+<div class="meta">Idn 帳號建立「JIO 漫畫編輯部」Gem</div>
+Gem 裡只寫文字外型，沒有上傳照片，畫出來四人特徵全部正確，對白框留白、台詞另列。之後畫漫畫從這個 Gem 開始就好。（Google 提示 Gem 將轉為「技能」。）
+<img src="works/gemini-test/gem_panel.jpg" alt="Gem 畫的漫畫單格：Tidal 指著筆電抓錯，Kaz 冷眼、Idn 抱頭、Rudy 抱胸" loading="lazy">
+</div>
+
+<div class="card">
+<h3>⑦ 第一輪卡住的原因（已排除）</h3>
 <ul>
-<li><b>影片：</b>對話模式加「建立影片」送出後，那則訊息直接消失；改用任務模式，員工回報任務模式沒有影片工具。今天稍早的接力有做出影片，所以工具本身能用，這次失敗的原因尚未確認。</li>
-<li><b>音樂：</b>提到品牌或頻道名稱會被拒；音樂另外有每日額度，用完要等重置。</li>
-<li><b>語音摘要：</b>員工帳號這次做不出來，要再確認是不是只有 Deep Research 報告或 NotebookLM 才有。</li>
+<li><b>影片：</b>第一輪送出後訊息消失；晚上分頁放前景就成功。分頁在背景或網路不穩時可能中斷，確切原因尚未確認。任務模式本身沒有影片工具。</li>
+<li><b>音樂：</b>提到品牌或頻道名稱會被拒，拿掉就成功；音樂另外有每日額度。</li>
+<li><b>語音摘要：</b>Gemini 對話裡沒有這個功能，要到 NotebookLM 加來源後在 Studio 產生，可選中文（繁體）。</li>
 </ul>
 </div>
 </div>
@@ -153,9 +172,10 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 <tr><td>任務模式</td><td>查資料、比較研究、多步驟整理</td><td>「任務：」開頭條列；要求每個數字附來源與日期，查不到寫「尚未確認」。</td></tr>
 <tr><td>引導式學習</td><td>教材、題庫、學新工具</td><td>指定對象與程度（例如小一、康軒首冊）；要互動就讓它一問一答，不要叫它一次示範完。</td></tr>
 <tr><td>Gem</td><td>固定角色、畫風、規則的長期工作</td><td>把定裝照當參考圖上傳，說明文字只寫照片看得到的特徵。</td></tr>
-<tr><td>建立影片</td><td>8 秒短鏡頭、動態漫畫</td><td>用 Argon、對話模式；長片拆成 8 秒一段；送出後確認訊息還在。</td></tr>
-<tr><td>Flow</td><td>多鏡頭要同一張臉的劇情片、20 秒內的質感短片</td><td>先把定裝照建成「角色」；一段 8 秒 8 點；分 3 段生成再剪接。連戲要自己顧：道具（帽子、安全帽）每段都要寫進提示詞、行進方向要一致、配樂最後統一配，不要用各段自帶的。光線寫清楚來源與色溫（例如清晨冷藍走到日出暖金），質感最好。</td></tr>
+<tr><td>建立影片</td><td>8～10 秒短鏡頭、動態漫畫</td><td>用 Argon、對話模式（任務模式沒有影片工具）；分頁放前景等它做完；長片拆段。</td></tr>
+<tr><td>Flow</td><td>多鏡頭要同一張臉的劇情片、20 秒內的質感短片</td><td>用畫面下方的手動生成（不經對話代理就不用按核准）；定裝照加成「素材」或建成「角色」；360p 一段 8 點、720p 一段 24 點，生圖 0 點；分 3 段生成再剪接。連戲要自己顧：道具（帽子、安全帽）每段都要寫進提示詞、行進方向要一致、配樂最後統一配，不要用各段自帶的。光線寫清楚來源與色溫（例如清晨冷藍走到日出暖金），質感最好。</td></tr>
 <tr><td>創作音樂</td><td>片頭曲、背景音樂</td><td>不要寫任何品牌、頻道或公司名稱，只描述風格、樂器、長度。</td></tr>
+<tr><td>語音摘要</td><td>把報告、劇本變成 Podcast</td><td>到 NotebookLM 貼上文字或網址當來源，Studio → Audio Overview，語言選中文（繁體）。</td></tr>
 <tr><td>存檔</td><td>所有成品</td><td>一律放 jio company 對應子資料夾，沒有就建一個；跳出「允許建立檔案」要按允許，不然會卡住。</td></tr>
 </table></div>
 
