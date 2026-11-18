@@ -2,6 +2,14 @@
    每次網站有更新就在最前面加一筆：d 日期（YYYY-MM-DD）、三語標題、href 點了要去的地方（可省略）。
    畫面會自動依日期由新到舊排，同一天照這裡的先後。 */
 window.JIO_NEWS = [
+  {d:'2026-11-18', href:'#works',
+   zh:'《時薪三千的唯一魔球》第 8 話完結：捕手手套裡的秘密（共 16 頁）',
+   en:'"The Three-Thousand-an-Hour Magic Pitch" episode 8 complete (16 pages)',
+   hi:'"तीन हज़ार प्रति घंटे वाली जादुई गेंद" एपिसोड 8 पूरा (16 पेज)'},
+  {d:'2026-11-18', href:'works/apps/zhuyin-twins/',
+   zh:'網頁作品新增「注音雙胞胎大挑戰」：分辨 ㄅ/ㄆ、ㄉ/ㄊ、ㄋ/ㄌ',
+   en:'New web work: "Zhuyin Twins Challenge" for telling look-alike symbols apart',
+   hi:'नया वेब काम: मिलते-जुलते झूयिन पहचानने का खेल "झूयिन जुड़वाँ चुनौती"'},
   {d:'2026-11-18', href:'gemini-tools-test.html',
    zh:'新增報告「測試 Gemini 各大工具成果」：10 種工具實測，附影片、音樂、Podcast 與完整文件',
    en:'New report: we tested 10 Gemini tools, with videos, music, a podcast and full documents',

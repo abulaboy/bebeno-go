@@ -43,7 +43,7 @@ window.JIO_COMICS = [
       [5, 16, '那球速不對勁'],
       [6, 16, '沉睡的迷宮'],
       [7, 16, '半價便當'],
-      [8, 6, '資格戰開始了', 1],
+      [8, 16, '捕手手套裡的秘密'],
       { no: 'SP', t: '番外：勁敵・白銀聖夜', pages: [1, 2, 3, 4, 5, 6, 7].map(function (i) { return 'works/comic/ch2_P0' + i + '.jpg'; }), thumb: 'works/comic/ch2_thumb.jpg' }
     ]
   },

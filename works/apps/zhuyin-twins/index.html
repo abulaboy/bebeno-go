@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>注音大冒險：注音雙胞胎大挑戰（ㄅ/ㄆ・ㄉ/ㄊ・ㄋ/ㄌ）｜JIO Studio</title>
+  <style>
+    :root {
+      --bg: #FFFDF7;
+      --card: #FFFFFF;
+      --teal: #0D9488;
+      --teal-light: #CCFBF1;
+      --orange: #F97316;
+      --orange-light: #FFEDD5;
+      --purple: #7C3AED;
+      --purple-light: #EDE9FE;
+      --green: #16A34A;
+      --green-light: #DCFCE7;
+      --red: #E11D48;
+      --red-light: #FFE4E6;
+      --ink: #1E293B;
+      --muted: #64748B;
+      --border: #E2E8F0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: radial-gradient(circle at top, #FEF3C7 0%, #FFFDF7 60%);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+    }
+    .app-shell {
+      width: 100%;
+      max-width: 760px;
+      background: var(--card);
+      border: 3px solid var(--teal);
+      border-radius: 28px;
+      box-shadow: 0 14px 36px rgba(13, 148, 136, 0.12);
+      overflow: hidden;
+    }
+    header {
+      background: linear-gradient(135deg, #0D9488, #0284C7);
+      color: #FFF;
+      padding: 20px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand-pill {
+      background: rgba(255,255,255,0.2);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    header h1 {
+      font-size: clamp(22px, 4vw, 28px);
+      font-weight: 900;
+      width: 100%;
+      margin-top: 4px;
+    }
+    header p {
+      font-size: 15px;
+      opacity: 0.95;
+    }
+    .nav-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: #F1F5F9;
+      padding: 8px;
+      gap: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+    .tab-btn {
+      border: none;
+      background: transparent;
+      padding: 12px 8px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: var(--card);
+      color: var(--teal);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    .panel {
+      display: none;
+      padding: 24px;
+    }
+    .panel.active {
+      display: block;
+    }
+    .section-title {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .lab-stage {
+      background: #F8FAFC;
+      border: 2px solid var(--border);
+      border-radius: 22px;
+      padding: 18px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    #simCanvas {
+      width: 100%;
+      max-width: 520px;
+      height: 220px;
+      background: #FFFFFF;
+      border-radius: 16px;
+      border: 2px dashed #CBD5E1;
+      display: block;
+      margin: 0 auto 16px;
+    }
+    .pair-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+    }
+    .pair-card {
+      background: #FFF;
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      padding: 16px;
+      text-align: center;
+    }
+    .pair-card h3 {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: var(--ink);
+    }
+    .phoneme-btns {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .ph-btn {
+      flex: 1;
+      padding: 12px 0;
+      font-size: 28px;
+      font-weight: 900;
+      border-radius: 16px;
+      border: 2px solid var(--teal);
+      background: var(--teal-light);
+      color: var(--teal);
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .ph-btn.wind {
+      border-color: var(--orange);
+      background: var(--orange-light);
+      color: #C2410C;
+    }
+    .ph-btn.nose {
+      border-color: var(--purple);
+      background: var(--purple-light);
+      color: var(--purple);
+    }
+    .ph-btn:active { transform: scale(0.95); }
+    .pair-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .quiz-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-weight: 800;
+      font-size: 16px;
+    }
+    .progress-track {
+      width: 100%;
+      height: 14px;
+      background: #E2E8F0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 10%;
+      background: linear-gradient(90deg, var(--teal), var(--orange));
+      transition: width 0.3s ease;
+    }
+    .q-card {
+      background: #FFFBEB;
+      border: 2px solid #FDE68A;
+      border-radius: 22px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+    .q-badge {
+      display: inline-block;
+      background: var(--orange);
+      color: #FFF;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .q-text {
+      font-size: 21px;
+      font-weight: 900;
+      line-height: 1.5;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .speak-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFF;
+      border: 2px solid var(--teal);
+      color: var(--teal);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .opt-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    @media (max-width: 520px) {
+      .opt-grid { grid-template-columns: 1fr; }
+    }
+    .opt-btn {
+      background: #FFFFFF;
+      border: 3px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .opt-btn:hover { border-color: var(--teal); transform: translateY(-2px); }
+    .opt-btn.correct {
+      background: var(--green-light);
+      border-color: var(--green);
+      color: var(--green);
+    }
+    .opt-btn.wrong {
+      background: var(--red-light);
+      border-color: var(--red);
+      color: var(--red);
+    }
+    .feedback-box {
+      display: none;
+      border-radius: 18px;
+      padding: 16px 18px;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .feedback-box.show { display: block; }
+    .feedback-box.ok { background: var(--green-light); color: #166534; border: 2px solid var(--green); }
+    .feedback-box.hint { background: var(--orange-light); color: #9A3412; border: 2px solid var(--orange); }
+    .next-btn {
+      display: none;
+      width: 100%;
+      background: var(--teal);
+      color: #FFF;
+      border: none;
+      border-radius: 18px;
+      padding: 16px;
+      font-size: 19px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+    .next-btn.show { display: block; }
+    .step-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .step-item {
+      background: #F8FAFC;
+      border-left: 6px solid var(--teal);
+      border-radius: 14px;
+      padding: 14px 18px;
+    }
+    .step-item h4 { font-size: 17px; font-weight: 900; color: var(--teal); margin-bottom: 4px; }
+    .step-item p { font-size: 15px; color: var(--ink); line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header>
+      <span class="brand-pill">JIO 兒童教育工坊・康軒首冊延伸</span>
+      <span class="brand-pill" id="starCounter">⭐ 星星：0 / 10</span>
+      <h1>🎈 注音雙胞胎大挑戰（ㄅ/ㄆ・ㄉ/ㄊ・ㄋ/ㄌ）</h1>
+      <p>用「衛生紙吹吹樂」與「鼻子震動小偵探」，輕鬆分辨長得像的注音雙胞胎！</p>
+    </header>
+
+    <div class="nav-tabs" role="tablist">
+      <button class="tab-btn active" onclick="switchTab('lab', this)">🔬 感官實驗室</button>
+      <button class="tab-btn" onclick="switchTab('quiz', this)">🎮 十題大闖關</button>
+      <button class="tab-btn" onclick="switchTab('guide', this)">👨‍👩‍👧 家長五步驟</button>
+    </div>
+
+    <!-- Tab 1: Sensory Lab -->
+    <section id="tab-lab" class="panel active">
+      <h2 class="section-title">動手試試看：聲音的風力與震動！</h2>
+      <p class="section-sub">點一下注音按鈕，聽聽看發音，觀察畫面上的「衛生紙」會不會被強風吹起來，或是「小鼻子」會不會麻麻震動！</p>
+      <div class="lab-stage">
+        <canvas id="simCanvas" width="520" height="220" aria-label="注音發音氣流與鼻音震動互動模擬畫布"></canvas>
+        <div id="simStatus" style="font-size:18px;font-weight:900;color:#0D9488;">👆 點擊下方任一注音開始實驗！</div>
+      </div>
+
+      <div class="pair-grid">
+        <div class="pair-card">
+          <h3>👄 雙唇音雙胞胎（ㄅ vs ㄆ）</h3>
+          <div class="phoneme-btns">
+            <button class="ph-btn" onclick="triggerSim('ㄅ','no-wind','ㄅㄚˋ ㄅㄚ˙（爸爸）','ㄅ：上下嘴唇閉緊打開，不送氣，衛生紙不會飛！')">ㄅ</button>
+            <button class="ph-btn wind" onclick="triggerSim('ㄆ','strong-wind','ㄆㄠˋ ㄆㄠˋ（泡泡）','ㄆ：強烈送氣！一股強風把衛生紙吹得高高飛起！')">ㄆ</button>
+          </div>
+          <p class="pair-desc">拿衛生紙放嘴巴前：念「ㄆ」衛生紙會飛起來，念「ㄅ」幾乎不動喔！</p>
+        </div>
+
+        <div class="pair-card">
+          <h3>👅 舌尖音雙胞胎（ㄉ vs ㄊ）</h3>
+          <div class="phoneme-btns">
+            <button class="ph-btn" onclick="triggerSim('ㄉ','no-wind','ㄉㄚˋ ㄒㄧㄤˋ（大象）','ㄉ：舌尖頂上牙齦，溫柔不送氣，沒有大風！')">ㄉ</button>
+            <button class="ph-btn wind" onclick="triggerSim('ㄊ','strong-wind','ㄊㄤ ㄔˊ（湯匙）','ㄊ：舌尖強力送氣！手心會感覺到一股熱風衝出來！')">ㄊ</button>
+          </div>
+          <p class="pair-desc">小手放嘴巴前 5 公分：念「ㄊ」像大野狼吹氣，念「ㄉ」像小貓咪！</p>
+        </div>
+
+        <div class="pair-card">
+          <h3>👃 鼻音與邊音雙胞胎（ㄋ vs ㄌ）</h3>
+          <div class="phoneme-btns">
+            <button class="ph-btn nose" onclick="triggerSim('ㄋ','nose-vib','ㄋㄧㄡˊ ㄋㄞˇ（牛奶）','ㄋ：氣流從鼻子出來！摸鼻翼兩側會麻麻震動喔！')">ㄋ</button>
+            <button class="ph-btn" onclick="triggerSim('ㄌ','side-flow','ㄎㄨㄞˋ ㄌㄜˋ（快樂）','ㄌ：氣流從舌頭兩邊溜出來，捏住鼻子也能清楚念出來！')">ㄌ</button>
+          </div>
+          <p class="pair-desc">手指輕摸鼻子兩邊：念「ㄋ」鼻子麻麻震動，捏住鼻子還能念的是「ㄌ」！</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab 2: 10-Question Quiz -->
+    <section id="tab-quiz" class="panel">
+      <div class="quiz-top">
+        <span id="qIndexLabel">第 1 / 10 題</span>
+        <button class="speak-btn" onclick="speakCurrentQuestion()">🔊 聽題目發音</button>
+      </div>
+      <div class="progress-track">
+        <div class="progress-bar" id="quizProgressBar"></div>
+      </div>
+
+      <div id="quizBody">
+        <div class="q-card">
+          <span class="q-badge" id="qTag">衛生紙吹吹樂</span>
+          <div class="q-text" id="qText">載入中...</div>
+        </div>
+        <div class="opt-grid" id="optGrid"></div>
+        <div class="feedback-box" id="feedbackBox"></div>
+        <button class="next-btn" id="nextBtn" onclick="nextQuestion()">下一題 ➜</button>
+      </div>
+    </section>
+
+    <!-- Tab 3: Parent 5-Step Guide -->
+    <section id="tab-guide" class="panel">
+      <h2 class="section-title">給家長與老師的 5 步驟感官教學法</h2>
+      <p class="section-sub">由 JIO 團隊（Tidal 題庫設計・Rudy 互動實作）整理，不用死背發音術語，帶孩子用身體感官輕鬆分辨：</p>
+      <div class="step-list">
+        <div class="step-item">
+          <h4>步驟 1｜建立安全感與趣味開場</h4>
+          <p>告訴孩子「ㄅ/ㄆ、ㄉ/ㄊ、ㄋ/ㄌ」是長得很像的雙胞胎，今天我們要一起當「聲音小偵探」，用手心和鼻子找出它們的秘密。</p>
+        </div>
+        <div class="step-item">
+          <h4>步驟 2｜感官體驗「氣流強弱」（分辨 ㄅ/ㄆ、ㄉ/ㄊ）</h4>
+          <p>準備一張薄衛生紙或請孩子把手心放在嘴巴前 5 公分。念 ㄆ、ㄊ 時強風會把衛生紙吹飛；念 ㄅ、ㄉ 時衛生紙幾乎不動。</p>
+        </div>
+        <div class="step-item">
+          <h4>步驟 3｜觸覺感受「鼻子震動」（分辨 ㄋ/ㄌ）</h4>
+          <p>請孩子用食指輕摸鼻翼兩側。念 ㄋ 時鼻子會麻麻震動（捏住鼻子就發不出標準的 ㄋ）；念 ㄌ 時氣流從舌頭兩側溜出，捏住鼻子也能輕鬆念出來。</p>
+        </div>
+        <div class="step-item">
+          <h4>步驟 4｜生活語詞動作大連結</h4>
+          <p>結合常見生活語詞：念 ㄅ 像「爸爸」抱抱（溫柔沒風）、念 ㄆ 像「泡泡」破掉（有風吹出）；念 ㄋ 像「牛奶」用鼻子聞香、念 ㄌ 像「快樂」嘴巴笑開。</p>
+        </div>
+        <div class="step-item">
+          <h4>步驟 5｜聽音辨位搶答小遊戲</h4>
+          <p>大人遮住嘴巴念出其中一個音，讓孩子根據手感或聽覺搶答是哪一位雙胞胎，再切換到「十題大闖關」拿滿 10 顆星星！</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const QUESTIONS = [
+      {
+        tag: "衛生紙吹吹樂（ㄅ vs ㄆ）",
+        q: "把衛生紙放在嘴巴前面，念哪一個注音時，衛生紙會被風吹得飛起來呢？",
+        speakWord: "把衛生紙放在嘴巴前面，念哪一個注音時，衛生紙會被風吹得飛起來呢？泡泡的ㄆ，還是爸爸的ㄅ？",
+        options: ["(A) ㄅ", "(B) ㄆ"],
+        ans: 1,
+        okMsg: "🎉 答對了！「ㄆ」是送氣音，念「ㄆㄠˋ ㄆㄠˋ（泡泡）」時會吹出一股強風讓衛生紙飛起來！",
+        hintMsg: "💡 沒關係，我們把小手放在嘴巴前面再試一次！念念看「ㄆㄠˋ ㄆㄠˋ（泡泡）」，是不是有一股強強的風吹到手心呢？"
+      },
+      {
+        tag: "生活語詞挑戰（ㄅ vs ㄆ）",
+        q: "「ㄅㄚˋ ㄅㄚ˙（爸爸）」的第一個注音是哪一個？念的時候嘴巴會吹出大風嗎？",
+        speakWord: "爸爸的第一個注音是哪一個？念的時候嘴巴會吹出大風嗎？",
+        options: ["(A) ㄅ（沒有大風）", "(B) ㄆ（有大風）"],
+        ans: 0,
+        okMsg: "🎉 太棒了！念「爸爸」的時候嘴巴輕輕打開，沒有強風吹出來，所以是「ㄅ」喔！",
+        hintMsg: "💡 差一點點喔！念「爸爸」的時候，嘴巴輕輕打開就好，手心幾乎感覺不到風，所以是「ㄅ」喔！"
+      },
+      {
+        tag: "手心測風小偵探（ㄉ vs ㄊ）",
+        q: "我們吃飯用的「ㄊㄤ ㄔˊ（湯匙）」，第一個注音是哪一個呢？",
+        speakWord: "我們吃飯用的湯匙，第一個注音是哪一個呢？",
+        options: ["(A) ㄉ", "(B) ㄊ"],
+        ans: 1,
+        okMsg: "🎉 完全正確！念「ㄊㄤ（湯）」的時候舌尖頂一下牙齒，有一股熱熱的風衝出來，是「ㄊ」！",
+        hintMsg: "💡 一起念一次「ㄊㄤ～」，有沒有感覺舌頭頂一下牙齒後，有一股熱熱的風衝出來？有風吹出來的是「ㄊ」喔！"
+      },
+      {
+        tag: "動物聲音偵探（ㄉ vs ㄊ）",
+        q: "「ㄉㄚˋ ㄒㄧㄤˋ（大象）」的「ㄉㄚˋ」，聲母是哪一個注音？",
+        speakWord: "大象的大，聲母是哪一個注音？",
+        options: ["(A) ㄉ", "(B) ㄊ"],
+        ans: 0,
+        okMsg: "🎉 答對囉！念「ㄉㄚˋ ㄒㄧㄤˋ（大象）」嘴巴沒有吹出強風，是不送氣的「ㄉ」！",
+        hintMsg: "💡 我們把手放在嘴巴前念「ㄉㄚˋ ㄒㄧㄤˋ」，嘴巴沒有吹出強風對不對？沒有風的是「ㄉ」喔，再試一次吧！"
+      },
+      {
+        tag: "鼻子震動小偵探（ㄋ vs ㄌ）",
+        q: "用手指輕輕摸著鼻子兩邊，念哪一個注音時，鼻子會覺得麻麻、震動呢？",
+        speakWord: "用手指輕輕摸著鼻子兩邊，念哪一個注音時，鼻子會覺得麻麻震動呢？",
+        options: ["(A) ㄋ", "(B) ㄌ"],
+        ans: 0,
+        okMsg: "🎉 偵探過關！念「ㄋ」的時候聲音從鼻子跑出來，摸摸鼻翼兩側會覺得麻麻震動喔！",
+        hintMsg: "💡 快把小手指放在鼻子上當偵探！念「ㄋㄧㄡˊ ㄋㄞˇ（牛奶）」的時候，聲音會從鼻子跑出來，鼻子會震動的是「ㄋ」喔！"
+      },
+      {
+        tag: "捏鼻子大挑戰（ㄋ vs ㄌ）",
+        q: "試著輕輕捏住鼻子，哪一個注音還是可以很清楚地念出來呢？",
+        speakWord: "試著輕輕捏住鼻子，哪一個注音還是可以很清楚地念出來呢？",
+        options: ["(A) ㄋ", "(B) ㄌ"],
+        ans: 1,
+        okMsg: "🎉 太厲害了！「ㄌ」的氣流從舌頭兩邊溜出來，就算捏住鼻子也能清楚念出「快樂」的「ㄌ」！",
+        hintMsg: "💡 捏住鼻子念念看「ㄎㄨㄞˋ ㄌㄜˋ（快樂）」的「ㄌㄜˋ」，聲音是不是從舌頭旁邊溜出來、完全不會卡住呢？那就是「ㄌ」喔！"
+      },
+      {
+        tag: "早餐美味挑戰（ㄋ vs ㄌ）",
+        q: "早上喝的香濃「ㄋㄧㄡˊ ㄋㄞˇ（牛奶）」，開頭都是哪一個鼻音注音？",
+        speakWord: "早上喝的香濃牛奶，開頭都是哪一個鼻音注音？",
+        options: ["(A) ㄋ", "(B) ㄌ"],
+        ans: 0,
+        okMsg: "🎉 答對了！聞聞牛奶的香味，「ㄋㄧㄡˊ ㄋㄞˇ」兩個字開頭都是鼻子會震動的「ㄋ」！",
+        hintMsg: "💡 聞聞看牛奶的香味！念「ㄋㄧㄡˊ ㄋㄞˇ」時鼻子會幫忙發音，摸摸鼻子有震動的就是「ㄋ」喔！"
+      },
+      {
+        tag: "森林動物挑戰（ㄋ vs ㄌ）",
+        q: "森林裡的「ㄌㄠˇ ㄏㄨˇ（老虎）」，第一個字的聲母是哪一個？",
+        speakWord: "森林裡的老虎，第一個字的聲母是哪一個？",
+        options: ["(A) ㄋ", "(B) ㄌ"],
+        ans: 1,
+        okMsg: "🎉 答對囉！念「ㄌㄠˇ ㄏㄨˇ（老虎）」時鼻子不會震動，氣流從舌頭兩側溜出來，是「ㄌ」！",
+        hintMsg: "💡 念「ㄌㄠˇ ㄏㄨˇ」的時候，鼻子沒有震動喔！讓氣流從舌頭兩邊溜出來，再選一次看看吧！"
+      },
+      {
+        tag: "公園運動挑戰（ㄅ vs ㄆ）",
+        q: "小朋友在公園開心地「ㄆㄠˇ ㄅㄨˋ（跑步）」，第一個字「ㄆㄠˇ」是有風的「ㄆ」，那第二個字「ㄅㄨˋ」是哪一個呢？",
+        speakWord: "小朋友在公園開心地跑步，第一個字跑是有風的ㄆ，那第二個字步是哪一個呢？",
+        options: ["(A) ㄅ", "(B) ㄆ"],
+        ans: 0,
+        okMsg: "🎉 超級精準！「ㄆㄠˇ」有吹風，「ㄅㄨˋ」把氣收起來沒有強風，所以是「ㄅ」！",
+        hintMsg: "💡 「ㄆㄠˇ」有吹風，「ㄅㄨˋ」要煞車把氣收起來喔！念「ㄅㄨˋ」時沒有強風，再找找看哪一個是不吹風的雙胞胎！"
+      },
+      {
+        tag: "終極雙胞胎考驗（ㄉ vs ㄊ）",
+        q: "聽聽看這個詞語：「ㄉㄧˋ ㄊㄨˊ（地圖）」，哪一個字的注音會讓手心感覺到一股強風？",
+        speakWord: "聽聽看這個詞語：地圖，哪一個字的注音會讓手心感覺到一股強風？",
+        options: ["(A) 「ㄉㄧˋ」的 ㄉ", "(B) 「ㄊㄨˊ」的 ㄊ"],
+        ans: 1,
+        okMsg: "🎉 恭喜十題全部闖關成功！念到「ㄊㄨˊ」的時候才吹出一陣強風，你已經是注音雙胞胎小大師囉！",
+        hintMsg: "💡 把小手放嘴巴前連念三次「ㄉㄧˋ ㄊㄨˊ」，是不是念到「ㄊㄨˊ」的時候才吹出一陣風呢？再選一次就過關囉！"
+      }
+    ];
+
+    let curQ = 0;
+    let stars = 0;
+    let simMode = 'idle';
+    let simChar = 'ㄅ';
+    let simTick = 0;
+
+    function speakText(text) {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'zh-TW';
+      u.rate = 0.9;
+      window.speechSynthesis.speak(u);
+    }
+
+    function switchTab(name, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + name).classList.add('active');
+      if (name === 'quiz') renderQuestion();
+    }
+
+    function triggerSim(ch, mode, word, desc) {
+      simChar = ch;
+      simMode = mode;
+      simTick = 0;
+      document.getElementById('simStatus').textContent = desc;
+      speakText(ch + "。" + word);
+    }
+
+    const cvs = document.getElementById('simCanvas');
+    const ctx = cvs.getContext('2d');
+    function drawSim() {
+      simTick++;
+      ctx.clearRect(0, 0, cvs.width, cvs.height);
+      ctx.save();
+      ctx.fillStyle = '#FDE68A';
+      ctx.strokeStyle = '#1E293B';
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(130, 115, 65, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = '#1E293B';
+      ctx.beginPath();
+      ctx.arc(150, 95, 6, 0, Math.PI * 2);
+      ctx.fill();
+
+      let nx = 195, ny = 110;
+      if (simMode === 'nose-vib') {
+        nx += Math.sin(simTick * 0.8) * 4;
+      }
+      ctx.fillStyle = simMode === 'nose-vib' ? '#C084FC' : '#FCD34D';
+      ctx.beginPath();
+      ctx.arc(nx, ny, 14, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      if (simMode === 'nose-vib') {
+        ctx.strokeStyle = '#7C3AED';
+        ctx.lineWidth = 3;
+        for (let r = 22; r <= 34; r += 6) {
+          ctx.beginPath();
+          ctx.arc(nx, ny, r + (simTick % 6), -0.8, 0.8);
+          ctx.stroke();
+        }
+      }
+
+      ctx.fillStyle = '#E11D48';
+      ctx.beginPath();
+      ctx.arc(178, 142, simMode === 'strong-wind' ? 14 : 8, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#0D9488';
+      ctx.font = '900 44px "Noto Sans TC", sans-serif';
+      ctx.fillText(simChar, 36, 130);
+
+      const angle = simMode === 'strong-wind'
+        ? -Math.PI / 2.6 + Math.sin(simTick * 0.25) * 0.15
+        : (simMode === 'no-wind' ? -0.08 + Math.sin(simTick * 0.15) * 0.03 : 0);
+
+      ctx.strokeStyle = '#64748B';
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.moveTo(290, 40);
+      ctx.lineTo(290, 190);
+      ctx.stroke();
+
+      ctx.save();
+      ctx.translate(290, 55);
+      ctx.rotate(angle);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.strokeStyle = '#38BDF8';
+      ctx.lineWidth = 3;
+      ctx.fillRect(-6, 0, 18, 110);
+      ctx.strokeRect(-6, 0, 18, 110);
+      ctx.restore();
+
+      if (simMode === 'strong-wind') {
+        ctx.strokeStyle = '#F97316';
+        ctx.lineWidth = 4;
+        for (let i = 0; i < 3; i++) {
+          const offset = (simTick * 6 + i * 35) % 95;
+          ctx.beginPath();
+          ctx.moveTo(205 + offset, 125 + i * 16);
+          ctx.lineTo(230 + offset, 125 + i * 16);
+          ctx.stroke();
+        }
+      } else if (simMode === 'side-flow') {
+        ctx.strokeStyle = '#0D9488';
+        ctx.lineWidth = 3;
+        ctx.font = '800 18px "Noto Sans TC", sans-serif';
+        ctx.fillStyle = '#0D9488';
+        ctx.fillText('🎶 氣流從舌頭兩邊溜出來～', 225, 185);
+      }
+      ctx.restore();
+      requestAnimationFrame(drawSim);
+    }
+    requestAnimationFrame(drawSim);
+
+    function renderQuestion() {
+      const item = QUESTIONS[curQ];
+      document.getElementById('qIndexLabel').textContent = `第 ${curQ + 1} / ${QUESTIONS.length} 題`;
+      document.getElementById('quizProgressBar').style.width = `${((curQ + 1) / QUESTIONS.length) * 100}%`;
+      document.getElementById('qTag').textContent = item.tag;
+      document.getElementById('qText').textContent = item.q;
+      const fb = document.getElementById('feedbackBox');
+      fb.className = 'feedback-box';
+      fb.textContent = '';
+      const nxt = document.getElementById('nextBtn');
+      nxt.className = 'next-btn';
+
+      const grid = document.getElementById('optGrid');
+      grid.innerHTML = '';
+      item.options.forEach((opt, idx) => {
+        const b = document.createElement('button');
+        b.className = 'opt-btn';
+        b.textContent = opt;
+        b.onclick = () => checkAnswer(idx, b);
+        grid.appendChild(b);
+      });
+    }
+
+    function speakCurrentQuestion() {
+      speakText(QUESTIONS[curQ].speakWord);
+    }
+
+    function checkAnswer(idx, btnEl) {
+      const item = QUESTIONS[curQ];
+      const fb = document.getElementById('feedbackBox');
+      const nxt = document.getElementById('nextBtn');
+      if (idx === item.ans) {
+        document.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
+        btnEl.classList.add('correct');
+        fb.className = 'feedback-box show ok';
+        fb.textContent = item.okMsg;
+        speakText(item.okMsg.replace('🎉 ', ''));
+        if (!btnEl.dataset.scored) {
+          stars = Math.min(10, stars + 1);
+          document.getElementById('starCounter').textContent = `⭐ 星星：${stars} / 10`;
+          btnEl.dataset.scored = '1';
+        }
+        nxt.textContent = curQ < QUESTIONS.length - 1 ? '下一題 ➜' : '🎉 重新挑戰一次';
+        nxt.className = 'next-btn show';
+      } else {
+        btnEl.classList.add('wrong');
+        fb.className = 'feedback-box show hint';
+        fb.textContent = item.hintMsg;
+        speakText(item.hintMsg.replace('💡 ', ''));
+      }
+    }
+
+    function nextQuestion() {
+      if (curQ < QUESTIONS.length - 1) {
+        curQ++;
+      } else {
+        curQ = 0;
+        stars = 0;
+        document.getElementById('starCounter').textContent = `⭐ 星星：0 / 10`;
+      }
+      renderQuestion();
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
