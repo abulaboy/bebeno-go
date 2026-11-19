@@ -2,6 +2,10 @@
    每次網站有更新就在最前面加一筆：d 日期（YYYY-MM-DD）、三語標題、href 點了要去的地方（可省略）。
    畫面會自動依日期由新到舊排，同一天照這裡的先後。 */
 window.JIO_NEWS = [
+  {d:'2026-11-19', href:'#works',
+   zh:'JIO 印度漫畫第 12 話完結：胡里節・普拉赫拉德（共 6 頁）',
+   en:'JIO India Comics chapter 12 complete: Holi and the legend of Prahlada (6 pages)',
+   hi:'JIO भारत कॉमिक्स अध्याय 12 पूरा: होली और प्रह्लाद की कथा (6 पेज)'},
   {d:'2026-11-18', href:'#works',
    zh:'作品集 YouTube 區新增 3 支影片：鎮北將軍的工地執念（試作版）、Flow 四人休息區打氣、Gemini 投手動態漫畫',
    en:'3 new videos in Works › YouTube: the Northern General pilot, a Flow dugout pep talk and a Gemini pitcher motion comic',
