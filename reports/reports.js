@@ -1,6 +1,12 @@
 /* 每日報告清單：每天新增一筆（日期、額度圖、成果圖、一句話摘要）。頁面會自動依日期由新到舊排序。 */
 window.JIO_REPORTS = [
   {
+    date: "2026-11-19",
+    quota: "reports/2026-11-19_quota.jpg",
+    daily: "reports/2026-11-19_daily.jpg",
+    note: { zh: "11/16 之後：魔球第 8 話與印度漫畫第 12 話完結，首頁新增「最新動態」公布欄，加入派工流程頁、Gemini 工具測試報告、員工小測驗、注音雙胞胎與秋千國語複習，YouTube 新增 3 支影片。本週額度：Rudy 23%、Idn 30%、Tidal 43%、Kaz 47%。", en: "Since 11/16: Magic Pitch ep. 8 and India comic ep. 12 are complete, the home page got a News board, and we added the dispatch-flow page, a Gemini tools test report, a staff quiz, two Zhuyin/Chinese learning games and 3 new YouTube videos. Weekly quota used: Rudy 23%, Idn 30%, Tidal 43%, Kaz 47%.", hi: "11/16 के बाद: मैजिक पिच का भाग 8 और भारत कॉमिक का भाग 12 पूरे हुए, होम पेज पर ताज़ा खबरें बोर्ड जुड़ा, साथ ही काम बाँटने का फ्लो पेज, Gemini टूल टेस्ट रिपोर्ट, स्टाफ़ क्विज़, दो चीनी सीखने वाले गेम और 3 नए YouTube वीडियो जोड़े गए। साप्ताहिक कोटा: Rudy 23%, Idn 30%, Tidal 43%, Kaz 47%।" }
+  },
+  {
     date: "2026-11-16",
     quota: "reports/2026-11-16_quota.jpg",
     daily: "reports/2026-11-16_daily.jpg",
