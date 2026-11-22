@@ -1,6 +1,12 @@
 /* 每日報告清單：每天新增一筆（日期、額度圖、成果圖、一句話摘要）。頁面會自動依日期由新到舊排序。 */
 window.JIO_REPORTS = [
   {
+    date: "2026-11-22",
+    quota: "reports/2026-11-22_quota.jpg",
+    daily: "reports/2026-11-22_daily.jpg",
+    note: { zh: "11/19 之後網站沒有新提交，員工忙著準備下一階段素材：公司新名稱 BEBENO 的命名與 Logo、AI 導航員 Ladu 定裝照、峇里島旅遊節目 EP.00 台詞與配樂。本週額度：Kaz 1%（剛重設）、Idn 12%、Tidal 25%、Rudy 46%。", en: "No site commits since 11/19; the team worked on the next round of material: naming and logo for the new BEBENO brand, character sheets for the AI guide Ladu, and the script and music for the Bali travel show EP.00. Weekly quota used: Kaz 1% (just reset), Idn 12%, Tidal 25%, Rudy 46%.", hi: "11/19 के बाद साइट में कोई नया बदलाव नहीं हुआ; टीम अगले दौर की सामग्री पर लगी रही: नए ब्रांड BEBENO का नाम और लोगो, AI गाइड Ladu के कैरेक्टर चित्र, और बाली ट्रैवल शो EP.00 की स्क्रिप्ट व संगीत। साप्ताहिक कोटा उपयोग: Kaz 1% (अभी रीसेट), Idn 12%, Tidal 25%, Rudy 46%।" }
+  },
+  {
     date: "2026-11-19",
     quota: "reports/2026-11-19_quota.jpg",
     daily: "reports/2026-11-19_daily.jpg",
