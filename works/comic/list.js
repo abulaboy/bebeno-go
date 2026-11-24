@@ -1,4 +1,4 @@
-/* JIO 連載漫畫清單（作品集 → 連載漫畫的書架與翻頁閱讀器讀這份）
+/* BEBENO go 連載漫畫清單（作品集 → 連載漫畫的書架與翻頁閱讀器讀這份）
  * 加新一話：把圖轉成 JPG 放到 works/comic/<作品代號>/<兩位數話數>/<兩位數頁碼>.jpg，
  *   再做一張 thumb.jpg（第 1 頁縮到寬 260），然後在下面對應作品的 eps 加一行 [話數, 頁數, '標題']。
  *   還在畫的話，加第 4 個值 1（顯示「製作中」）。頁數補齊後把 1 拿掉、更新頁數即可。
@@ -7,7 +7,7 @@
 window.JIO_COMICS = [
   {
     id: 'news', dir: 'works/comic/news',
-    title: { zh: 'JIO 時事四格', en: 'JIO News Four-Panel', hi: 'JIO समाचार चार-पैनल' },
+    title: { zh: 'BEBENO go 時事四格', en: 'BEBENO go News Four-Panel', hi: 'BEBENO go समाचार चार-पैनल' },
     desc: {
       zh: '四位員工聊這週的新聞，一篇四格。人物用定裝照，對白是虛構的。',
       en: "The four employees chat about this week's news, four panels each. Portraits are the official ones; the dialogue is fiction.",
@@ -19,7 +19,7 @@ window.JIO_COMICS = [
   },
   {
     id: 'kid',
-    title: { zh: 'JIO 員工長篇漫畫《小時候》', en: 'JIO staff comic: "When We Were Kids"', hi: 'JIO स्टाफ कॉमिक: "बचपन"' },
+    title: { zh: 'BEBENO go 員工長篇漫畫《小時候》', en: 'BEBENO go staff comic: "When We Were Kids"', hi: 'BEBENO go स्टाफ कॉमिक: "बचपन"' },
     desc: {
       zh: 'Tidal 在辦公室翻出一張泛黃的舊照片，四位員工一起回想小時候。畫：Kaz（2026-11-09）',
       en: 'Tidal finds a faded old photo and the four look back on their childhood. Art: Kaz (2026-11-09)',
@@ -63,7 +63,7 @@ window.JIO_COMICS = [
   },
   {
     id: 'india', dir: 'works/comic/india',
-    title: { zh: 'JIO 印度漫畫', en: 'JIO India Comics', hi: 'JIO भारत कॉमिक्स' },
+    title: { zh: 'BEBENO go 印度漫畫', en: 'BEBENO go India Comics', hi: 'BEBENO go भारत कॉमिक्स' },
     desc: {
       zh: '四位員工逛印度：俗語、神話、民間故事，一話講一個。',
       en: 'The four explore India: one saying, myth or folk tale per chapter.',

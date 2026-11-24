@@ -1,5 +1,5 @@
 /**
- * JIO 網站「聯絡我們」表單：收到表單資料後，用你自己的 Gmail 寄信給你。
+ * BEBENO go 網站「聯絡我們」表單：收到表單資料後，用你自己的 Gmail 寄信給你。
  * 部署方式見同資料夾的「部署步驟.md」。
  */
 const TO = 'abulaboyrudy@gmail.com';   // 收信信箱
@@ -22,8 +22,8 @@ function doPost(e) {
   MailApp.sendEmail({
     to: TO,
     replyTo: email,
-    name: 'JIO 網站',
-    subject: '[JIO 網站洽詢] ' + (type || '未分類') + '－' + name,
+    name: 'BEBENO go 網站',
+    subject: '[BEBENO go 網站洽詢] ' + (type || '未分類') + '－' + name,
     body: '稱呼：' + name + '\n信箱：' + email + '\n類型：' + type + '\n語言：' + clip(d.lang, 10) +
           '\n時間：' + new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }) + '\n\n' + msg +
           '\n\n（直接按「回覆」就會回信給對方）'
@@ -31,7 +31,7 @@ function doPost(e) {
   return out({ ok: true });
 }
 
-function doGet() { return out({ ok: true, msg: 'JIO 表單寄信服務運作中' }); }
+function doGet() { return out({ ok: true, msg: 'BEBENO go 表單寄信服務運作中' }); }
 
 function out(o) {
   return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);

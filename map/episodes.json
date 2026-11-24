@@ -1,0 +1,33 @@
+{
+  "_說明": "《這是哪裡啦？！》互動地圖資料。每集加一筆到 episodes 最前面即可，網頁不用改。座標用十進位度數（緯度, 經度）。coordStatus: confirmed＝已核對；tentative＝暫定（版型用，待「這是哪裡啦_互動地圖資料」試算表確認後更新）。",
+  "updated": "2026-11-24",
+  "episodes": [
+    {
+      "id": "ep00",
+      "ep": "EP.00",
+      "title": "印尼峇里島・烏布 Ubud",
+      "lat": -8.5069,
+      "lng": 115.2625,
+      "drop": "Ladu 報的座標：烏布皇宮前路口",
+      "summary": "四位特派記者降落峇里島的文化與藝術心臟「烏布」，北東南西四條路線：水皇宮、世界遺產梯田、烤豬飯、聖猴森林、髒鴨飯、山脊步道。",
+      "youtubeId": "",
+      "thumb": "",
+      "coordStatus": "tentative",
+      "points": [
+        {"route": "Rudy 北線", "name": "烏布水皇宮 Pura Taman Saraswati", "lat": -8.5066, "lng": 115.2621, "map": "https://maps.google.com/?cid=16152306625377193689"},
+        {"route": "Rudy 北線", "name": "德哥拉朗梯田 Tegallalang Rice Terrace", "lat": -8.4325, "lng": 115.2793, "map": "https://maps.google.com/?cid=10167590193753490669"},
+        {"route": "Rudy 北線", "name": "Tis Cafe（梯田竹編咖啡廳）", "lat": -8.4318, "lng": 115.2786, "map": "https://maps.google.com/?cid=11585292690888752632"},
+        {"route": "Kazi 東線", "name": "烏布傳統藝術市場 Ubud Art Market", "lat": -8.5071, "lng": 115.2631, "map": "https://maps.google.com/?cid=4655885801188101613"},
+        {"route": "Kazi 東線", "name": "Warung Babi Guling Ibu Oka（烤豬飯）", "lat": -8.5064, "lng": 115.2616, "map": "https://maps.google.com/?cid=3758826390945427825"},
+        {"route": "Kazi 東線", "name": "Seniman Coffee（職人咖啡）", "lat": -8.5060, "lng": 115.2655, "map": "https://maps.google.com/?cid=8044070692477180642", "web": "http://www.senimancoffee.com/"},
+        {"route": "Idhu 南線", "name": "Tukies Coconut Shop（椰子冰淇淋）", "lat": -8.5135, "lng": 115.2628, "map": "https://maps.google.com/?cid=13208443402706004987"},
+        {"route": "Idhu 南線", "name": "烏布聖猴森林 Sacred Monkey Forest Sanctuary", "lat": -8.5188, "lng": 115.2588, "map": "https://maps.google.com/?cid=13180983972448944982", "web": "https://monkeyforestubud.com/"},
+        {"route": "Idhu 南線", "name": "Bebek Bengil 髒鴨飯創始店", "lat": -8.5163, "lng": 115.2640, "map": "https://maps.google.com/?cid=12804855114863431426", "web": "https://bebekbengil.co.id/en/outlet/bebek-bengil-ubud-bali"},
+        {"route": "Teju 西線", "name": "Pura Gunung Lebah 古寺", "lat": -8.5061, "lng": 115.2556, "map": "https://maps.google.com/?cid=10924101408518049884"},
+        {"route": "Teju 西線", "name": "坎普罕山脊步道 Campuhan Ridge Walk", "lat": -8.5012, "lng": 115.2540, "map": "https://maps.google.com/?cid=8940768362772546719"},
+        {"route": "Teju 西線", "name": "布蘭科文藝復興博物館 The Blanco Renaissance Museum", "lat": -8.5047, "lng": 115.2553, "map": "https://maps.google.com/?cid=272386602898736649"},
+        {"route": "Teju 西線", "name": "Murni's Warung（1974 年老店）", "lat": -8.5064, "lng": 115.2563, "map": "https://maps.google.com/?cid=17508422726579199553"}
+      ]
+    }
+  ]
+}

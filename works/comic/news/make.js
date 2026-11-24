@@ -39,7 +39,7 @@ return `<!doctype html><meta charset="utf-8"><style>
 .nm{position:absolute;left:0;bottom:0;color:#fff;font-weight:700;font-size:18px;padding:1px 10px;border-radius:0 10px 0 0}
 .ft{margin-top:12px;background:#d9a02b;color:#3b1d0b;font-weight:700;font-size:22px;text-align:center;border-radius:12px;padding:10px}
 .sig{color:#fbf1dc;font-size:14px;text-align:right;margin-top:6px;opacity:.85}
-</style><div class="pg"><div class="hd"><small>JIO 時事四格・2026 年 11 月第 2 週・第 ${i+1} 篇</small><h1>${s.title}</h1><p>${s.news}</p></div><div class="grid">${panels}</div><div class="ft">${s.end}</div><div class="sig">JIO 軟體工坊｜人物用定裝照，對白為虛構</div></div>`}
+</style><div class="pg"><div class="hd"><small>BEBENO go 時事四格・2026 年 11 月第 2 週・第 ${i+1} 篇</small><h1>${s.title}</h1><p>${s.news}</p></div><div class="grid">${panels}</div><div class="ft">${s.end}</div><div class="sig">BEBENO go｜人物用定裝照，對白為虛構</div></div>`}
 (async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:800,height:1200},deviceScaleFactor:1});
 for(let i=0;i<STRIPS.length;i++){await p.setContent(page(STRIPS[i],i));await p.waitForTimeout(300);const el=await p.$('.pg');await el.screenshot({path:`p${i+1}.png`});
  console.log(i+1,await p.evaluate(()=>[...document.querySelectorAll('.panel')].map(e=>e.scrollHeight>e.clientHeight+1)))}

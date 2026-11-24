@@ -1,6 +1,6 @@
-# JIO 軟體工坊網站（jio-studio）
+# BEBENO go 網站（bebeno-go）
 
-網址：https://abulaboy.github.io/jio-studio/ 。GitHub Pages 直接發布 `main` 分支，推上去 1～2 分鐘後就會上線。
+網址：https://abulaboy.github.io/bebeno-go/ 。（2026-11-24 由 jio-studio 改名；舊網址已失效、不轉址）GitHub Pages 直接發布 `main` 分支，推上去 1～2 分鐘後就會上線。
 全程用繁體中文（台灣用語）回覆老闆。
 
 ## 開工前
@@ -19,7 +19,7 @@
 
 | 模組 id | 做什麼 |
 |---|---|
-| 檔頭到第 1360 行左右 | 基本版面、首頁、公司簡介、成員、服務、聯絡表單（`MAIL_URL`）、三語切換 |
+| 檔頭到第 1360 行左右 | 基本版面、首頁、公司簡介、成員、服務、聯絡表單（`MAIL_URL`）、語言切換（繁中／EN） |
 | `jio-m3-*` | 茶水間（左下杯子）、logo 連點花瓣、油燈提示 |
 | `jio-mod4-cases-*` | 示範案例 |
 | `jio-m5-duty-*` | 輪值小助手（右下聊天鈕） |
@@ -32,7 +32,7 @@
 | `jio-m13-*` | 服務與流程 |
 | `jio-m14-*` | 頁尾、跳到主要內容、Rudy 導覽（`window.__jioStartTour()` 開始） |
 | `jio-mod16-*` | 每日報告分頁（資料在 `reports/reports.js`） |
-| `jio-m17-*` | 聯絡頁地址與地圖（埃洛拉石窟） |
+| `jio-m17-*` | 聯絡頁地址與地圖（台灣） |
 | `jio-qa-patch-*`、`jio-r2-patch-*` | 早期的修補樣式（手機面板位置等，用 id 選擇器加 `!important`，優先權很高） |
 | `jio-mod18-*` | 作品集：YouTube、連載漫畫書架與閱讀器、接力作品、網頁作品（遊戲、3D、小工具）、員工海報 |
 | `jio-m19-voice-*` | 成員介紹頁的打招呼語音：音檔放 `works/voice/<成員>_<語言>.mp3`，有檔案才出現按鈕；台詞在模組的 `LINES`，檔名與規格見 `works/voice/README.md` |
@@ -47,26 +47,27 @@
 - `works/taipower/`：台電會館訂房小幫手的介紹頁、技能 zip、書籤
 - `works/apps/<作品>/index.html`：從 claude.ai 成品搬來的單檔網頁作品（注音大冒險、選秀王朝、北海道棒球場走動版）。搬來時拿掉了真實球隊名與小孩名字；棒球場公開版關掉了多人連線與語音（`netStart`、`netStartSelf`、`voToggle` 開頭直接 return）
 - `robots.txt`、`sitemap.xml`：給搜尋引擎用；新增獨立頁面時在 sitemap 加一行
-- `reports/`：每日報告圖片與 `reports.js`
+- `reports/`：每日報告圖片與 `reports.js`（2026-11-24 舊圖已全部下架，目前清單是空的，頁面顯示「新報告準備中」）
 - `apps_script/`：聯絡表單寄信的 Google Apps Script 程式與部署步驟
-- `*_sheet.jpg`：四位員工定裝照（茶水間頭像也用它）；`logo.jpg`：logo 和分享預覽圖；`icon-64.png`、`icon-180.png`：分頁小圖示
+- `*_sheet.jpg`：四位員工定裝照（茶水間頭像也用它）；`logo.jpg`：logo 和分享預覽圖；`icon-64.png`、`icon-180.png`：分頁小圖示（都要是 BEBENO go 新版，不能有 JIO 字樣）
+- `map/`：《這是哪裡啦？！》互動地圖專頁，資料在 `map/episodes.json`
 
 ## 常見工作怎麼做
 
 ### 加一則最新動態（每次更新網站都要做）
-在 `news.js` 的 `window.JIO_NEWS` 最前面加一筆 `{d:'YYYY-MM-DD', href:'點了去哪', zh, en, hi}`。首頁公布欄會依日期由新到舊排，預設顯示 6 則，3 天內的標 NEW。
+在 `news.js` 的 `window.JIO_NEWS` 最前面加一筆 `{d:'YYYY-MM-DD', href:'點了去哪', zh, en}`（印地文已停用，不用再寫 `hi`）。首頁公布欄會依日期由新到舊排，預設顯示 6 則，3 天內的標 NEW。
 
 ### 加一集 YouTube 影片
 在 `jio-mod18-script` 裡找 `var EPS=[…]`，在最前面加一筆 `{k:'ep4',id:'影片ID'}`（新的在前）。
-再到同一段的 `I.zh`、`I.en`、`I.hi` 各加 `ep4:'標題'`、`ep4d:'說明'`。
-頻道：JIO COMPANY（youtube.com/@RudyLIU-c3l）。
+再到同一段的 `I.zh`、`I.en` 各加 `ep4:'標題'`、`ep4d:'說明'`。
+頻道：Bebeno go（youtube.com/@bebenogo）。
 
 ### 加一話漫畫
 1. 圖一律先轉成 JPG（寬 800、品質約 80）。Drive 上很多是 PNG，不要直接推 PNG。
 2. 放到 `works/comic/<作品代號>/<兩位數話數>/<兩位數頁碼>.jpg`，例如 `works/comic/moqiu/09/01.jpg`。
 3. 把第 1 頁縮到寬 260 存成同資料夾的 `thumb.jpg`（書架封面）。
 4. 在 `works/comic/list.js` 對應作品的 `eps` 加一行 `[話數, 頁數, '標題']`；還沒畫完就加第 4 個值 `1`，卡片會顯示「製作中」。
-5. 新作品就在 `JIO_COMICS` 加一個物件（`id`、`dir`、三語 `title`、`desc`、`eps`）。
+5. 新作品就在 `JIO_COMICS` 加一個物件（`id`、`dir`、中英 `title`、`desc`、`eps`）。
 
 同一頁有好幾個版本時，挑的順序是：`_修正`／`_文字修正` → `_中文版` → `_v3` → `_v2` → 最新的那張；0 位元組的檔案跳過。
 魔球第 2 話 P01～06 沒有「中文版」字樣的原檔對話框是空白的，只能用中文版。
@@ -78,15 +79,17 @@
 人物直接用定裝照裁切；題材挑輕鬆的科技、生活新聞，不碰政治；對白是虛構的，時事那一句要有新聞來源。
 
 ### 加一份每日報告
-在 `reports/reports.js` 的 `window.JIO_REPORTS` 最前面加一筆（`date`、`quota` 圖、`daily` 圖、三語 `note`），圖片放 `reports/`。
+在 `reports/reports.js` 的 `window.JIO_REPORTS` 最前面加一筆（`date`、`quota` 圖、`daily` 圖、中英 `note`），圖片放 `reports/`。
+**報告圖一定要用新名稱 BEBENO go 和新 logo 才能上傳；帶「JIO」字樣的舊圖不得放上公開網站。**
 報告圖的產生方式：本機 `C:\AI\JIO公司\report\data.json` 改好後跑 `node report/render.js`，再用無頭 Edge 截圖。
 
 ### 加一個網頁作品（遊戲、3D、小工具）
-在 `jio-mod18-script` 的 `var APPS=[…]` 加一行 `[{zh,en,hi} 名稱, {zh,en,hi} 說明, 網址]`。
+在 `jio-mod18-script` 的 `var APPS=[…]` 加一行 `[{zh,en} 名稱, {zh,en} 說明, 網址]`。
 claude.ai 的 artifact 網址要登入才能開，能放 GitHub Pages 就放 GitHub Pages。
 
-### 改文字（三語）
-大部分頁面文字在檔頭的 i18n 字典（`data-i18n` 屬性對應的鍵）；各模組自己的文字在模組裡的 `I` 或 `I18N` 物件（`zh`、`en`、`hi` 三份都要改）。
+### 改文字（繁中／英文）
+大部分頁面文字在檔頭的 i18n 字典（`data-i18n` 屬性對應的鍵）；各模組自己的文字在模組裡的 `I` 或 `I18N` 物件（`zh`、`en` 兩份都要改）。
+印地文 2026-11-24 停用：切換鈕已拿掉，`setLang` 會把舊的 `hi` 設定轉回繁中。程式裡殘留的 `hi` 資料是死碼，不會顯示，新內容不用再寫。
 切換語言是改 `<html data-lang>`，模組用 MutationObserver 聽這個屬性重畫文字。
 
 ## 規則與地雷
@@ -107,7 +110,7 @@ claude.ai 的 artifact 網址要登入才能開，能放 GitHub Pages 就放 Git
 本機開一個靜態伺服器指向這個資料夾（例如 `npx http-server -p 8777`，或任何會送出 `.js` 正確類型的伺服器），然後：
 
 - 電腦寬度和手機 375×812 各看一次
-- 切繁中／EN／हिंदी 看文字有沒有跟著換
+- 切繁中／EN 看文字有沒有跟著換
 - 主控台沒有錯誤；手機畫面不會左右跑版
 
 推上去之後用 `curl` 或瀏覽器確認正式網站真的更新了（Pages 建置中會短暫回 503）。
@@ -115,7 +118,11 @@ claude.ai 的 artifact 網址要登入才能開，能放 GitHub Pages 就放 Git
 ## 已決定的方向
 
 - 網站定位：以作品集為主（首頁主按鈕通往作品集）。「示範案例」「服務與流程」留著但不放在選單。
-- 地點：維持印度，為了神秘感。公司簡介寫「據點在印度」；聯絡地址是埃洛拉石窟第 16 窟（凱拉薩神廟）旁，不標「示範地址」。
+- 名稱：對外一律用「BEBENO go」（2026-11-24 起，因「JIO」與印度公司撞名有侵權疑慮）。網頁、圖片、語音、影片都不能再出現「JIO」。
+  例外：程式內部的識別名稱（`jio-m…` CSS 類別、JS 變數、`window.JIO_*`、localStorage 鍵名）訪客看不到，維持原樣，不要改，改了容易壞。雲端「jio company」資料夾、派工技能等內部名稱也不改。
+- 地點：據點在台灣，遠端工作室；聯絡地址只寫「台灣（遠端工作室，暫不開放來訪）」，地圖顯示台灣全島。不要再寫印度據點。
+- 「印度漫畫」系列保留（是作品內容，不是公司設定）。
+- 語言：繁中、英文兩種。
 - 聯絡頁：不放電話。輪值小助手與服務時間維持「台灣時間」。
 - 公開版的遊戲不放小孩名字（注音大冒險的預設玩家是 PLAYER 1、PLAYER 2）。
 
