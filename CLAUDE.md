@@ -49,7 +49,7 @@
 - `robots.txt`、`sitemap.xml`：給搜尋引擎用；新增獨立頁面時在 sitemap 加一行
 - `reports/`：每日報告圖片與 `reports.js`（2026-11-24 舊圖已全部下架，目前清單是空的，頁面顯示「新報告準備中」）
 - `apps_script/`：聯絡表單寄信的 Google Apps Script 程式與部署步驟
-- `*_sheet.jpg`：四位員工定裝照（茶水間頭像也用它）；`logo.jpg`：logo 和分享預覽圖；`icon-64.png`、`icon-180.png`：分頁小圖示（都要是 BEBENO go 新版，不能有 JIO 字樣）
+- `*_sheet.jpg`：四位員工定裝照（茶水間頭像也用它）；`logo.jpg`：logo 和分享預覽圖（2026-11-24 起用老闆提供的 BEBENO go 立體黏土風 logo；另有「BEBENO」無 go 版與金色舞台版，三種都可用，主要用有 go 的這版）；`icon-64.png`、`icon-180.png`：分頁小圖示，由同一張 logo 裁切縮小。不能再有 JIO 字樣
 - `map/`：《這是哪裡啦？！》互動地圖專頁，資料在 `map/episodes.json`
 
 ## 常見工作怎麼做
