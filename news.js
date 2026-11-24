@@ -2,6 +2,10 @@
    每次網站有更新就在最前面加一筆：d 日期（YYYY-MM-DD）、三語標題、href 點了要去的地方（可省略）。
    畫面會自動依日期由新到舊排，同一天照這裡的先後。 */
 window.JIO_NEWS = [
+  {d:'2026-11-24', href:'works/stories/',
+   zh:'JIO 辦公室奇譚新增 2 篇：凌晨一點的雲端接力賽、咖啡豆見底警報！',
+   en:'2 new JIO Office Tales: The 1 AM Cloud Relay Race and The Empty Coffee Bean Alert!',
+   hi:'JIO ऑफ़िस किस्से में 2 नई कहानियाँ: रात 1 बजे की क्लाउड रिले रेस और कॉफ़ी बीन अलर्ट!'},
   {d:'2026-11-19', href:'#works',
    zh:'JIO 印度漫畫第 12 話完結：胡里節・普拉赫拉德（共 6 頁）',
    en:'JIO India Comics chapter 12 complete: Holi and the legend of Prahlada (6 pages)',
