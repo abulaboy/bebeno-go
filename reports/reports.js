@@ -2,6 +2,12 @@
    報告圖必須使用新名稱 BEBENO go 與新 logo；帶「JIO」字樣的舊圖不得放上公開網站。 */
 window.JIO_REPORTS = [
   {
+    date: "2026-11-28",
+    quota: "reports/2026-11-28_quota.jpg",
+    daily: "reports/2026-11-28_daily.jpg",
+    note: { zh: "這三天大家全力做《這是哪裡啦？！》EP.01（瓦爾帕萊索）：Idn 做分鏡與起始幀第二輪重畫、Tidal 畫 Teju 遊戲視角鏡頭並做開拍前查證、Kaz 查當地價格。本週額度：Rudy 0%、Kaz 0%、Idn 8%、Tidal 11%。", en: "The past three days went into \"Where Is This?!\" EP.01 (Valparaíso): Idn worked on storyboards and a second round of start frames, Tidal drew Teju's game-view shots and did pre-shoot fact checks, and Kaz looked up local prices. Weekly quota used: Rudy 0%, Kaz 0%, Idn 8%, Tidal 11%." }
+  },
+  {
     date: "2026-11-25",
     quota: "reports/2026-11-25_quota.jpg",
     daily: "reports/2026-11-25_daily.jpg",
